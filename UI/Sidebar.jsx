@@ -19,6 +19,7 @@ import { TbMovie as Reels } from "react-icons/tb";
 
 export default function Sidebar() {
   const [iconActive, setIconActive] = useState("home");
+
   return (
     <div className="main px-4 py-4 font-salsa">
       <div className="logo ">
@@ -151,7 +152,9 @@ export default function Sidebar() {
           <li>
             <NavLink
               to={"/create"}
-              onClick={() => setIconActive("create")}
+              onClick={() => {
+                setIconActive("create");
+              }}
               className={({ isActive }) =>
                 isActive
                   ? "font-semibold  flex items-center gap-2"
@@ -165,7 +168,7 @@ export default function Sidebar() {
               ) : (
                 <Create />
               )}
-              <span>Home</span>
+              <span>Create</span>
             </NavLink>
           </li>
           <li>

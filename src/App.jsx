@@ -3,6 +3,7 @@ import AppLayout from "../UI/AppLayout";
 import Home from "./pages/Home";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import CreatePop from "../UI/CreatePop";
 
 const router = createBrowserRouter([
   {
@@ -15,7 +16,7 @@ const router = createBrowserRouter([
       { path: "reels", element: <h1>reels</h1> },
       { path: "direct", element: <h1>direct</h1> },
       { path: "notifications", element: <h1>notifications</h1> },
-      { path: "create", element: <h1>create</h1> },
+      { path: "create", element: <CreatePop /> },
       { path: "profile", element: <h1>profile</h1> },
     ],
   },
