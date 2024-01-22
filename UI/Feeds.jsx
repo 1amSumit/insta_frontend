@@ -18,7 +18,7 @@ export default function Feeds() {
   }
 
   return (
-    <main className="flex flex-col justify-center gap-[2rem] px-[4rem] py-[2rem]  ">
+    <main className="flex flex-col justify-center gap-[2rem] sm:px-[4rem] sm:py-[2rem]  px-[1.4rem] py-[0.6rem]">
       {data.posts.map((post) => (
         <Feed
           key={post._id}
