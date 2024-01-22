@@ -20,7 +20,7 @@ export default function Feed({ username, contentUrl }) {
     }
   };
   // eslint-disable-next-line react/prop-types
-  const isImage = contentUrl.split(".")[3] === "jpg";
+  const isImage = contentUrl.split(".")[3] === "png";
 
   return (
     <div className="border-b-2 border-slate-200">

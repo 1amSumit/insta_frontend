@@ -24,7 +24,7 @@ export default function PopupForm() {
     dispatch(fileActions.setFileName({ formDataObject }));
   };
   return (
-    <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[50%] rounded-lg shadow-2xl px-2 py-4">
+    <>
       <div>
         <p className="font-medium text-center text-lg">create new post</p>
       </div>
@@ -51,6 +51,6 @@ export default function PopupForm() {
           onChange={(e) => fileChangeHandler(e)}
         />
       </div>
-    </div>
+    </>
   );
 }

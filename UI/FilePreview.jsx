@@ -4,11 +4,7 @@ import { useSelector } from "react-redux";
 export default function FilePreview() {
   const file = useSelector((state) => state.fileupload.file);
 
-  const url = URL.createObjectURL(file);
+  const imageUrl = URL.createObjectURL(file);
 
-  return (
-    <div>
-      <img src={url} alt="" />
-    </div>
-  );
+  return <div></div>;
 }
