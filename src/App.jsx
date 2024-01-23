@@ -4,13 +4,19 @@ import Home from "./pages/Home";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import CreatePop from "../UI/CreatePop";
-import Signup from "./pages/Signup";
-import Login from "./pages/Login";
+import LoginPage from "./pages/LoginPage";
+import SignupPage from "./pages/SignupPage";
+import { action as LoginAction } from "./pages/LoginPage";
+import { action as SignupAction } from "./pages/SignupPage";
+import { loader as tokenLoader } from "../utils/auth";
+import { action as LogoutAction } from "./pages/Logout";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <AppLayout />,
+    id: "root",
+    loader: tokenLoader,
     children: [
       { index: true, element: <Home /> },
       { path: "search", element: <h1>search</h1> },
@@ -24,11 +30,17 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <Login />,
+    element: <LoginPage />,
+    action: LoginAction,
   },
   {
     path: "/signup",
-    element: <Signup />,
+    element: <SignupPage />,
+    action: SignupAction,
+  },
+  {
+    path: "/logout",
+    action: LogoutAction,
   },
 ]);
 

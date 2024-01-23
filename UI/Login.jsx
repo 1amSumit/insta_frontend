@@ -1,10 +1,10 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Form } from "react-router-dom";
 
-export default function Signup() {
+export default function Login() {
   return (
     <div className="flex justify-center items-center h-[100vh] bg-gray-50">
-      <form
-        action="#"
+      <Form
+        method="POST"
         className="border-2 border-gray-200 px-6 py-8 flex flex-col gap-[1.5rem] shadow-md rounded-md bg-white"
       >
         <div>
@@ -15,20 +15,6 @@ export default function Signup() {
         <div className="flex lg:flex-row flex-col gap-[2rem]">
           <div className="flex flex-col gap-2">
             <label
-              htmlFor="username"
-              className="text-sm font-medium text-gray-600"
-            >
-              Username
-            </label>
-            <input
-              type="text"
-              name="username"
-              placeholder="Enter your username"
-              className="px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500 placeholder:text-sm"
-            />
-          </div>
-          <div className="flex flex-col gap-2">
-            <label
               htmlFor="email"
               className="text-sm font-medium text-gray-600"
             >
@@ -37,6 +23,7 @@ export default function Signup() {
             <input
               type="email"
               name="email"
+              required
               placeholder="Enter your email"
               className="px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500  placeholder:text-sm"
             />
@@ -49,23 +36,10 @@ export default function Signup() {
               Password
             </label>
             <input
+              required
               type="password"
               name="password"
               placeholder="Enter your password"
-              className="px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500 placeholder:text-sm"
-            />
-          </div>
-          <div className="flex flex-col gap-2">
-            <label
-              htmlFor="confirmpassword"
-              className="text-sm font-medium text-gray-600"
-            >
-              Confirm Password
-            </label>
-            <input
-              type="password"
-              name="confirmpassword"
-              placeholder="Enter your password again"
               className="px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500 placeholder:text-sm"
             />
           </div>
@@ -75,19 +49,19 @@ export default function Signup() {
             type="submit"
             className="bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 focus:outline-none px-2  focus:ring focus:border-blue-300"
           >
-            Sign up
+            Log in
           </button>
           <p className="text-gray-600 text-sm mt-2">
-            Already have an account?
+            Don&apos;t have an account?
             <NavLink
               className="text-blue-500 cursor-pointer ml-1"
-              to={"/login"}
+              to={"/signup"}
             >
               Log In
             </NavLink>
           </p>
         </div>
-      </form>
+      </Form>
     </div>
   );
 }
