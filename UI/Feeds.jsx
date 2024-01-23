@@ -7,8 +7,6 @@ export default function Feeds() {
     queryKey: ["posts"],
     queryFn: getAllPosts,
   });
-
-  console.log(data);
   if (isLoading) {
     return <div>Loading...</div>;
   }
