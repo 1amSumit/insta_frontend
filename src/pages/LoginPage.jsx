@@ -1,31 +1,17 @@
-import { redirect } from "react-router-dom";
 import Login from "../../UI/Login";
+import { useNavigate } from "react-router-dom";
+import { getAuthToken } from "../../utils/getUserToken";
+import { useEffect } from "react";
 
 export default function LoginPage() {
+  const navigate = useNavigate();
+  const userToken = getAuthToken();
+
+  useEffect(() => {
+    if (userToken) {
+      return navigate("/");
+    }
+  }, [userToken, navigate]);
+
   return <Login />;
 }
-
-export const action = async ({ request }) => {
-  const url = import.meta.env.VITE_BASE_URL;
-  const formData = await request.formData();
-
-  const loginData = {
-    email: formData.get("email"),
-    password: formData.get("password"),
-  };
-
-  const res = await fetch(`${url}api/v1/users/login`, {
-    method: "POST",
-    headers: {
-      "content-type": "application/json",
-    },
-    body: JSON.stringify(loginData),
-  });
-
-  const resData = await res.json();
-  console.log(resData);
-  const { token } = resData;
-  localStorage.setItem("token", token);
-
-  return redirect("/");
-};

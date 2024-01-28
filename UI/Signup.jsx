@@ -1,13 +1,26 @@
-import { useEffect, useState } from "react";
-import { NavLink, Form, useActionData } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
+import { signup } from "../services/signup";
+import { setUserToken } from "../utils/setUserToken";
 
 export default function Signup() {
-  const [errors, setErrors] = useState({});
-  const data = useActionData();
-  console.log(data);
+  const { register, handleSubmit } = useForm();
+  const navigate = useNavigate();
+  const { isPending, isError, error, mutate } = useMutation({
+    mutationFn: signup,
+    onSuccess: (data) => {
+      setUserToken(data.token);
+      navigate("/");
+    },
+  });
+  const signupFormSubmit = (data) => {
+    mutate(data);
+  };
   return (
     <div className="flex justify-center items-center h-[100vh] bg-gray-50">
-      <Form
+      <form
+        onSubmit={handleSubmit(signupFormSubmit)}
         method="POST"
         className="border-2 border-gray-200 px-6 py-8 flex flex-col gap-[1.5rem] shadow-md rounded-md bg-white"
       >
@@ -15,14 +28,11 @@ export default function Signup() {
           <h1 className="text-3xl font-salsa font-semibold text-center text-blue-500">
             Instagram
           </h1>
-          {/* {data && data.errors && (
-            <ul>
-              {Object.value(data.errors).map((error) => (
-                <li key={error}>{error}</li>
-              ))}
-            </ul>
+          {isError && (
+            <p className="text-center text-red-500 mt-[1rem]">
+              {error.message || "Invalid input"}
+            </p>
           )}
-          {data && data.message && <p>{data.message}</p>} */}
         </div>
         <div className="flex lg:flex-row flex-col gap-[2rem]">
           <div className="flex flex-col gap-2">
@@ -38,6 +48,7 @@ export default function Signup() {
               minLength={8}
               placeholder="Enter your username"
               className="px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500 placeholder:text-sm"
+              {...register("username")}
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -52,6 +63,7 @@ export default function Signup() {
               name="email"
               placeholder="Enter your email"
               className="px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500  placeholder:text-sm"
+              {...register("email")}
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -67,6 +79,7 @@ export default function Signup() {
               name="password"
               placeholder="Enter your password"
               className="px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500 placeholder:text-sm"
+              {...register("password")}
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -81,6 +94,7 @@ export default function Signup() {
               name="confirmpassword"
               placeholder="Enter your password again"
               className="px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500 placeholder:text-sm"
+              {...register("confirmPassword")}
             />
           </div>
         </div>
@@ -89,7 +103,7 @@ export default function Signup() {
             type="submit"
             className="bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 focus:outline-none px-2  focus:ring focus:border-blue-300"
           >
-            Sign up
+            {isPending ? "Signing..." : "Sign up"}
           </button>
           <p className="text-gray-600 text-sm mt-2">
             Already have an account?
@@ -101,7 +115,7 @@ export default function Signup() {
             </NavLink>
           </p>
         </div>
-      </Form>
+      </form>
     </div>
   );
 }

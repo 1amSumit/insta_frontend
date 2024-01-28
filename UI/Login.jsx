@@ -1,9 +1,28 @@
-import { NavLink, Form } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
+import { login } from "../services/login";
+import { setUserToken } from "../utils/setUserToken";
 
 export default function Login() {
+  const { register, handleSubmit } = useForm();
+  const navigate = useNavigate();
+  const { mutate, isPending, error, isError } = useMutation({
+    mutationFn: login,
+    onSuccess: (data) => {
+      setUserToken(data.token);
+      navigate("/");
+    },
+  });
+
+  const formSubmitHandler = (data) => {
+    mutate(data);
+  };
+
   return (
     <div className="flex justify-center items-center h-[100vh] bg-gray-50">
-      <Form
+      <form
+        onSubmit={handleSubmit(formSubmitHandler)}
         method="POST"
         className="border-2 border-gray-200 px-6 py-8 flex flex-col gap-[1.5rem] shadow-md rounded-md bg-white"
       >
@@ -11,6 +30,11 @@ export default function Login() {
           <h1 className="text-3xl font-salsa font-semibold text-center text-blue-500">
             Instagram
           </h1>
+          {isError && (
+            <p className="text-center text-red-500 mt-[1rem]">
+              {error.message || "Invalid email or password"}
+            </p>
+          )}
         </div>
         <div className="flex lg:flex-row flex-col gap-[2rem]">
           <div className="flex flex-col gap-2">
@@ -26,6 +50,7 @@ export default function Login() {
               required
               placeholder="Enter your email"
               className="px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500  placeholder:text-sm"
+              {...register("email")}
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -41,15 +66,17 @@ export default function Login() {
               name="password"
               placeholder="Enter your password"
               className="px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500 placeholder:text-sm"
+              {...register("password")}
             />
           </div>
         </div>
         <div>
           <button
             type="submit"
+            disabled={isPending}
             className="bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 focus:outline-none px-2  focus:ring focus:border-blue-300"
           >
-            Log in
+            {isPending ? "Loging..." : "Log in"}
           </button>
           <p className="text-gray-600 text-sm mt-2">
             Don&apos;t have an account?
@@ -57,11 +84,11 @@ export default function Login() {
               className="text-blue-500 cursor-pointer ml-1"
               to={"/signup"}
             >
-              Log In
+              Sign up
             </NavLink>
           </p>
         </div>
-      </Form>
+      </form>
     </div>
   );
 }
