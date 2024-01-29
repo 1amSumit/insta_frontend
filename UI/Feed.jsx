@@ -5,8 +5,6 @@ import { IoChatbubbleOutline as Comment } from "react-icons/io5";
 import { IoPaperPlaneOutline as Share } from "react-icons/io5";
 import { CiBookmark as Bookmark } from "react-icons/ci";
 import { motion } from "framer-motion";
-// import { GiSpeaker as Unmuted } from "react-icons/gi";
-// import { HiMiniSpeakerXMark as Muted } from "react-icons/hi2";
 
 // eslint-disable-next-line react/prop-types
 export default function Feed({ username, contentUrl }) {
