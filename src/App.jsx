@@ -10,6 +10,7 @@ import SignupPage from "./pages/SignupPage";
 // import { action as SignupAction } from "./pages/SignupPage";
 // import { loader as tokenLoader } from "../utils/auth";
 // import { action as LogoutAction } from "./pages/Logout";
+import { Toaster } from "react-hot-toast";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,20 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
       <RouterProvider router={router} />
+      <Toaster
+        position="top-center"
+        gutter={12}
+        containerStyle={{ margin: "8px" }}
+        toastOptions={{
+          success: { duration: 3000 },
+          error: { duration: 5000 },
+          style: {
+            fontSize: "16px",
+            maxWidth: "500px",
+            padding: "16px 24px",
+          },
+        }}
+      />
     </QueryClientProvider>
   );
 }

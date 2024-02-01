@@ -1,14 +1,36 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
+import { useForm } from "react-hook-form";
+import { uploadPost } from "../services/uploadPost";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
-/* eslint-disable react/prop-types */
-export default function FilePreview({ onClickedNext }) {
+export default function FilePreview() {
+  const queryClient = useQueryClient();
   const [showCancelModal, setShowCancelModal] = useState(false);
+  const [showDesc, setShowDesc] = useState(false);
+  const navigate = useNavigate();
+  const { register, handleSubmit, reset } = useForm();
   const modalRef = useRef();
   const file = useSelector((state) => state.fileupload.file);
 
   const imageUrl = URL.createObjectURL(file);
+
+  const { mutate } = useMutation({
+    mutationFn: uploadPost,
+    onSuccess: () => {
+      toast.success("post succefully uploaded");
+      queryClient.invalidateQueries();
+      navigate("/");
+    },
+    onError: (err) => {
+      console.log(err);
+      toast.error("error uploading");
+    },
+  });
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -33,23 +55,54 @@ export default function FilePreview({ onClickedNext }) {
   };
 
   const onNextClickHanler = () => {
-    onClickedNext();
+    setShowDesc(true);
+  };
+
+  const formSubmitHandler = (data) => {
+    mutate({ file: file, data: data });
+    reset();
   };
 
   return (
-    <div className="px-[1.4rem]" ref={modalRef}>
-      <div className="flex flex-row justify-end gap-[1.5rem] mb-4">
-        <button onClick={onCancelCliked}>cancel</button>
-        <button
-          onClick={onNextClickHanler}
-          className="bg-blue-500 text-500 hover:bg-blue-400 transition-all duration-200 px-4 py-1 text-white rounded-lg "
+    <div className="px-[1.4rem] flex flex-row gap-[1rem]" ref={modalRef}>
+      <div className="">
+        <div className="flex flex-row justify-end gap-[1.5rem] mb-4">
+          <button onClick={onCancelCliked}>cancel</button>
+          {!showDesc && (
+            <button
+              onClick={onNextClickHanler}
+              className="bg-blue-500 text-500 hover:bg-blue-400 transition-all duration-200 px-4 py-1 text-white rounded-lg "
+            >
+              next
+            </button>
+          )}
+        </div>
+        <div className="w-[15rem] h-[15rem]">
+          <img src={imageUrl} alt="upload image" />
+        </div>
+      </div>
+
+      {showDesc && (
+        <motion.div
+          transition={{ duration: 0.3 }}
+          className={`${showDesc ? "block" : "none"}`}
         >
-          next
-        </button>
-      </div>
-      <div className="w-[15rem] h-[15rem]">
-        <img src={imageUrl} alt="upload image" />
-      </div>
+          <form method="POST" onSubmit={handleSubmit(formSubmitHandler)}>
+            <label htmlFor="desc">Add description</label>
+            <input
+              className="border-b-2 outline-none border-gray-300"
+              type="text"
+              name="description"
+              id="description"
+              {...register("description")}
+            />
+            <input
+              type="submit"
+              className="mt-2  bg-blue-500 text-500 hover:bg-blue-400 transition-all duration-200 px-4 py-1 text-white rounded-lg "
+            />
+          </form>
+        </motion.div>
+      )}
 
       {showCancelModal && (
         <motion.div
