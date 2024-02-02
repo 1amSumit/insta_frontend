@@ -17,9 +17,9 @@ export default function FilePreview() {
   const modalRef = useRef();
   const file = useSelector((state) => state.fileupload.file);
 
-  const imageUrl = URL.createObjectURL(file);
+  let imageUrl = URL.createObjectURL(file);
 
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: uploadPost,
     onSuccess: () => {
       toast.success("post succefully uploaded");
@@ -62,6 +62,10 @@ export default function FilePreview() {
     mutate({ file: file, data: data });
     reset();
   };
+
+  if (isPending) {
+    return <p>🚀 Uploading please wait...</p>;
+  }
 
   return (
     <div className="px-[1.4rem] flex flex-row gap-[1rem]" ref={modalRef}>

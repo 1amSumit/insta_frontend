@@ -8,13 +8,13 @@ import { motion } from "framer-motion";
 
 // eslint-disable-next-line react/prop-types
 export default function Feed({ username, contentUrl }) {
-  const [contentIsClicked, setContentISClicked] = useState(false);
-  const [heartAni, setHeartAni] = useState(false);
+  const [contentIsClicked, setContentIsClicked] = useState(false);
+  const [aniCount, setAniCount] = useState(false);
 
   const contentClickHandler = (e) => {
     if (e.detail === 2) {
-      setHeartAni(true);
-      setContentISClicked(true);
+      setAniCount(true);
+      setContentIsClicked(true);
     }
   };
   // eslint-disable-next-line react/prop-types
@@ -53,9 +53,9 @@ export default function Feed({ username, contentUrl }) {
             className="opacity-0"
             initial={{ opacity: 0 }}
             animate={{
-              opacity: heartAni ? [0, 1, 0] : "",
-              skewY: 20,
-              scale: heartAni ? 3 : "",
+              opacity: aniCount > 0 ? [0, 1, 0] : "",
+
+              scale: aniCount > 0 ? 3 : "",
             }}
             transition={{ duration: 1 }}
           >
@@ -73,11 +73,17 @@ export default function Feed({ username, contentUrl }) {
             {contentIsClicked ? (
               <HearFill
                 className="text-red-500 cursor-pointer"
-                onClick={() => setContentISClicked(false)}
+                onClick={() => {
+                  setContentIsClicked(false);
+                  setAniCount(false);
+                }}
               />
             ) : (
               <Heart
-                onClick={() => setContentISClicked(true)}
+                onClick={() => {
+                  setContentIsClicked(true);
+                  setAniCount(true);
+                }}
                 className="cursor-pointer"
               />
             )}
