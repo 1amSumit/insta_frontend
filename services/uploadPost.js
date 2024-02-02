@@ -1,7 +1,7 @@
 import { getAuthToken } from "../utils/getUserToken";
 
 export const uploadPost = async (formData) => {
-  const URL = "http://localhost:8080/api/v1/posts/uploadPost";
+  const URL = `${import.meta.env.VITE_BASE_URL}api/v1/posts/uploadPost`;
   const token = getAuthToken();
   const formDatas = new FormData();
   formDatas.append("file", formData.file);

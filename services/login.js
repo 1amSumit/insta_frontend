@@ -1,5 +1,5 @@
 export const login = async (loginData) => {
-  const url = "http://localhost:8080/api/v1/users/login";
+  const url = `${import.meta.env.VITE_BASE_URL}api/v1/users/login`;
   const res = await fetch(url, {
     method: "POST",
     headers: {

@@ -2,7 +2,7 @@ import { getAuthToken } from "../utils/getUserToken";
 
 export const updateLike = async ({ id }) => {
   console.log(id);
-  const URL = `http://localhost:8080/api/v1/likes/updateLike/${id}`;
+  const URL = `${import.meta.env.VITE_BASE_URL}api/v1/likes/updateLike/${id}`;
   const token = getAuthToken();
 
   const res = await fetch(URL, {
