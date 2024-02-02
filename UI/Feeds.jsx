@@ -22,6 +22,11 @@ export default function Feeds() {
           key={post._id}
           username={post.user.username}
           contentUrl={post.post}
+          likes={post.likes}
+          comments={post.comments}
+          numComments={post.numComments}
+          description={post.description}
+          postId={post._id}
         />
       ))}
     </main>

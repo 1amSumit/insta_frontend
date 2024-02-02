@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import StatusItem from "./StatusItem";
 import { FaRegHeart as Heart, FaHeart as HearFill } from "react-icons/fa";
@@ -5,16 +6,38 @@ import { IoChatbubbleOutline as Comment } from "react-icons/io5";
 import { IoPaperPlaneOutline as Share } from "react-icons/io5";
 import { CiBookmark as Bookmark } from "react-icons/ci";
 import { motion } from "framer-motion";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { updateLike } from "../services/updateLike";
 
-// eslint-disable-next-line react/prop-types
-export default function Feed({ username, contentUrl }) {
+export default function Feed({
+  username,
+  contentUrl,
+  likes,
+  comments,
+  numComments,
+  description,
+  postId,
+}) {
   const [contentIsClicked, setContentIsClicked] = useState(false);
   const [aniCount, setAniCount] = useState(false);
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation({
+    mutationFn: updateLike,
+
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    },
+    onError: (error) => {
+      console.error(error);
+    },
+  });
 
   const contentClickHandler = (e) => {
     if (e.detail === 2) {
       setAniCount(true);
       setContentIsClicked(true);
+      mutate({ id: postId });
     }
   };
   // eslint-disable-next-line react/prop-types
@@ -105,36 +128,28 @@ export default function Feed({ username, contentUrl }) {
             </div>
           </div>
           <p className="text-xs flex flex-row gap-1">
-            <span>88,779</span>
+            <span>{likes}</span>
             <span className="font-semibold">likes</span>
           </p>
         </div>
         <div className="cntent-description">
           <details>
             <summary>
-              <span className="font-salsa">username </span>
-              Tomorrow, Friday 12th Jan - We will release a value-packed Podcast
-              with the father of UX Design: Sir Don Norman. Sir Don Norman is a
-              former <span className="font-semibold">more...</span>
+              <span className="font-salsa">
+                {username} {description && description.substring(0, 10)}
+              </span>
+              {description && description.length > 10 && (
+                <span className="font-semibold"> more...</span>
+              )}
             </summary>
-            <span className="font-sans font-normal text-sm">
-              University of California Design Lab, and the Principal of the
-              Nielsen Norman Group. He was the first person in the world to have
-              the word “UX” in his Job Title at Apple in 1993. He’s written “The
-              Design of Everyday Things” which has helped Designers worldwide
-              kickstart their careers. In this episode, Sir Don Norman reveals
-              all his techniques and life advice that you can use to build a
-              successful creative career. He tells you exactly what you need to
-              stand out and become a great professional designer. We are also
-              running a Giveaway where once you document your learnings from
-              this video and post on LinkedIn or Instagram, you will stand a
-              chance to win a hardbound copy of his latest book! Are you excited
-              about the video?
-            </span>
+            <span className="font-sans font-normal text-sm">{description}</span>
           </details>
         </div>
         <div className="view_comments">
-          <p className="pt-4 font-thin">View all 123 comments</p>
+          {comments.map((comment) => (
+            <p key={comment}>{comment}</p>
+          ))}
+          <p className="pt-4 font-thin">View all {numComments} comments</p>
         </div>
         <div className="comment_post">
           <form action="#" className="flex mb-2 flex-row justify-between">
