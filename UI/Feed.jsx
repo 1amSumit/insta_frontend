@@ -8,6 +8,8 @@ import { CiBookmark as Bookmark } from "react-icons/ci";
 import { motion } from "framer-motion";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateLike } from "../services/updateLike";
+import { useDispatch, useSelector } from "react-redux";
+import { LikeAction } from "../store/Like";
 
 export default function Feed({
   username,
@@ -20,6 +22,10 @@ export default function Feed({
 }) {
   const [contentIsClicked, setContentIsClicked] = useState(false);
   const [aniCount, setAniCount] = useState(false);
+  const dispatch = useDispatch();
+  const likeInfo = useSelector((state) => state.like.likeInfo);
+  const thisPosthasLike = likeInfo.find((like) => like.postId === postId);
+
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
@@ -28,16 +34,20 @@ export default function Feed({
     onSuccess: () => {
       queryClient.invalidateQueries();
     },
-    onError: (error) => {
-      console.error(error);
-    },
   });
 
   const contentClickHandler = (e) => {
     if (e.detail === 2) {
       setAniCount(true);
       setContentIsClicked(true);
-      mutate({ id: postId });
+      dispatch(
+        LikeAction.setLike({
+          postId: postId,
+        })
+      );
+      if (!thisPosthasLike) {
+        mutate({ id: postId });
+      }
     }
   };
   // eslint-disable-next-line react/prop-types
@@ -93,12 +103,14 @@ export default function Feed({
       <div className="reaction">
         <div className="flex justify-between flex-row">
           <div className="like flex flex-row gap-4 text-3xl">
-            {contentIsClicked ? (
+            {contentIsClicked || thisPosthasLike ? (
               <HearFill
                 className="text-red-500 cursor-pointer"
                 onClick={() => {
                   setContentIsClicked(false);
                   setAniCount(false);
+                  mutate({ id: postId });
+                  dispatch(LikeAction.disLike({ postId: postId }));
                 }}
               />
             ) : (
@@ -106,6 +118,8 @@ export default function Feed({
                 onClick={() => {
                   setContentIsClicked(true);
                   setAniCount(true);
+                  mutate({ id: postId });
+                  dispatch(LikeAction.setLike({ postId: postId }));
                 }}
                 className="cursor-pointer"
               />

@@ -2,7 +2,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { signup } from "../services/signup";
-import { setUserToken } from "../utils/setUserToken";
+import { setCurrentLoggedInUser, setUserToken } from "../utils/setUserToken";
 
 export default function Signup() {
   const { register, handleSubmit } = useForm();
@@ -10,6 +10,7 @@ export default function Signup() {
   const { isPending, isError, error, mutate } = useMutation({
     mutationFn: signup,
     onSuccess: (data) => {
+      setCurrentLoggedInUser(data.data.newUser);
       setUserToken(data.token);
       navigate("/");
     },

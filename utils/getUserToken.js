@@ -17,3 +17,9 @@ export const checkAuthLoader = () => {
   }
   return null;
 };
+
+export const getCurrentLoggedInUser = () => {
+  const user = localStorage.getItem("user");
+
+  return user;
+};

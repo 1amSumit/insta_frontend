@@ -11,11 +11,13 @@ import SignupPage from "./pages/SignupPage";
 // import { loader as tokenLoader } from "../utils/auth";
 // import { action as LogoutAction } from "./pages/Logout";
 import { Toaster } from "react-hot-toast";
+import Error from "./pages/Error";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <AppLayout />,
+    errorElement: <Error />,
     id: "root",
     children: [
       { index: true, element: <Home /> },
