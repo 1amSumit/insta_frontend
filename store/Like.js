@@ -1,9 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+export const saveLiketoLocalStorage = (likeInfo) => {
+  const setLikes = JSON.stringify(likeInfo);
+  localStorage.setItem("likes", setLikes);
+};
+
+export const loadLikeFormLocalStorage = () => {
+  const likes = localStorage.getItem("likes");
+
+  if (likes === null) {
+    return [];
+  }
+
+  return JSON.parse(likes);
+};
+
 export const LikeSlice = createSlice({
   name: "like",
   initialState: {
-    likeInfo: [],
+    likeInfo: loadLikeFormLocalStorage(),
   },
   reducers: {
     setLike: (state, action) => {
@@ -17,6 +32,8 @@ export const LikeSlice = createSlice({
           hasLiked: true,
           postId: newLike.postId,
         });
+
+        saveLiketoLocalStorage(state.likeInfo);
       }
     },
     disLike: (state, action) => {
@@ -28,6 +45,7 @@ export const LikeSlice = createSlice({
 
       if (indexToRemove !== -1) {
         state.likeInfo.splice(indexToRemove, 1);
+        saveLiketoLocalStorage(state.likeInfo);
       }
 
       console.log(state);

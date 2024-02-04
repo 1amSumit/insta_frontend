@@ -175,12 +175,15 @@ export default function Feed({
         </div>
         <div className="view_comments">
           {comments.map((comment) => (
-            <p className="mt-[1rem]" key={comment}>
-              <span className="text-[0.8rem] font-semibold">
-                {comment.username || ""}{" "}
-              </span>
-              {comment.comment || ""}
-            </p>
+            <div className="flex flex-row justify-between" key={comment._id}>
+              <p className="mt-[1rem]">
+                <span className="text-[0.8rem] font-semibold">
+                  {comment.username || ""}{" "}
+                </span>
+                {comment.comment || ""}
+              </p>
+              <p>💗</p>
+            </div>
           ))}
           <p className="pt-4 font-thin">View all {numComments} comments</p>
         </div>
