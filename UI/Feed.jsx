@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { LikeAction } from "../store/Like";
 import { useForm } from "react-hook-form";
 import { addComment as addCommentFunc } from "../services/addComment";
+import Modal from "./Modal";
 export default function Feed({
   username,
   contentUrl,
@@ -27,6 +28,7 @@ export default function Feed({
   const { handleSubmit, register, reset } = useForm();
   const likeInfo = useSelector((state) => state.like.likeInfo);
   const thisPosthasLike = likeInfo.find((like) => like.postId === postId);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const queryClient = useQueryClient();
 
@@ -38,7 +40,7 @@ export default function Feed({
     },
   });
 
-  const { mutate: addComment } = useMutation({
+  const { mutate: addComment, isPending } = useMutation({
     mutationFn: addCommentFunc,
     onSuccess: () => {
       queryClient.invalidateQueries();
@@ -64,6 +66,15 @@ export default function Feed({
       }
     }
   };
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   // eslint-disable-next-line react/prop-types
   const isImage = contentUrl.split(".")[3] === "png";
 
@@ -174,18 +185,22 @@ export default function Feed({
           </details>
         </div>
         <div className="view_comments">
-          {comments.map((comment) => (
-            <div className="flex flex-row justify-between" key={comment._id}>
-              <p className="mt-[1rem]">
-                <span className="text-[0.8rem] font-semibold">
-                  {comment.username || ""}{" "}
-                </span>
-                {comment.comment || ""}
-              </p>
-              <p>💗</p>
-            </div>
-          ))}
-          <p className="pt-4 font-thin">View all {numComments} comments</p>
+          <Modal
+            isOpen={isModalOpen}
+            onClose={closeModal}
+            comments={comments}
+            post={{
+              image: contentUrl,
+              username: username,
+              description: description,
+              postId: postId,
+            }}
+          />
+          {comments.length > 0 && (
+            <button onClick={openModal} className="pt-4 font-thin">
+              View all {numComments} comments
+            </button>
+          )}
         </div>
         <div className="comment_post">
           <form
@@ -193,12 +208,16 @@ export default function Feed({
             onSubmit={handleSubmit(handleComment)}
             className="flex mb-2 flex-row justify-between"
           >
-            <input
-              type="text"
-              className="bg-transparent mt-2 font-thin focus:outline-none"
-              placeholder="Add a comment"
-              {...register("comment")}
-            />
+            {isPending ? (
+              <p className="text-center text-xs mx-[auto] my-0">Adding...</p>
+            ) : (
+              <input
+                type="text"
+                className="bg-transparent mt-2 font-thin focus:outline-none"
+                placeholder="Add a comment"
+                {...register("comment")}
+              />
+            )}
             <button type="submit" className="text-blue-500">
               post
             </button>

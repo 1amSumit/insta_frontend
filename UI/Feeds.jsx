@@ -1,11 +1,8 @@
 import Feed from "./Feed";
 import { getAllPosts } from "../services/getFeeds";
 import { useQuery } from "@tanstack/react-query";
-import { getCurrentLoggedInUser } from "../utils/getUserToken";
 
 export default function Feeds() {
-  const currentLoggedInUser = getCurrentLoggedInUser();
-
   const { isLoading, error, data } = useQuery({
     queryKey: ["posts"],
     queryFn: getAllPosts,
