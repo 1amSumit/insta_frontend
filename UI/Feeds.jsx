@@ -30,7 +30,6 @@ export default function Feeds() {
           numComments={post.numComments}
           description={post.description}
           postId={post._id}
-          loggedInUser={currentLoggedInUser}
         />
       ))}
     </main>

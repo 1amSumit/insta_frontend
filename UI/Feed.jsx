@@ -10,7 +10,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateLike } from "../services/updateLike";
 import { useDispatch, useSelector } from "react-redux";
 import { LikeAction } from "../store/Like";
-
+import { useForm } from "react-hook-form";
+import { addComment as addCommentFunc } from "../services/addComment";
 export default function Feed({
   username,
   contentUrl,
@@ -23,18 +24,31 @@ export default function Feed({
   const [contentIsClicked, setContentIsClicked] = useState(false);
   const [aniCount, setAniCount] = useState(false);
   const dispatch = useDispatch();
+  const { handleSubmit, register, reset } = useForm();
   const likeInfo = useSelector((state) => state.like.likeInfo);
   const thisPosthasLike = likeInfo.find((like) => like.postId === postId);
 
   const queryClient = useQueryClient();
 
-  const { mutate } = useMutation({
+  const { mutate: update } = useMutation({
     mutationFn: updateLike,
 
     onSuccess: () => {
       queryClient.invalidateQueries();
     },
   });
+
+  const { mutate: addComment } = useMutation({
+    mutationFn: addCommentFunc,
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    },
+  });
+
+  const handleComment = (data) => {
+    addComment({ comment: data, postId: postId });
+    reset();
+  };
 
   const contentClickHandler = (e) => {
     if (e.detail === 2) {
@@ -46,7 +60,7 @@ export default function Feed({
         })
       );
       if (!thisPosthasLike) {
-        mutate({ id: postId });
+        update({ id: postId });
       }
     }
   };
@@ -109,7 +123,7 @@ export default function Feed({
                 onClick={() => {
                   setContentIsClicked(false);
                   setAniCount(false);
-                  mutate({ id: postId });
+                  update({ id: postId });
                   dispatch(LikeAction.disLike({ postId: postId }));
                 }}
               />
@@ -118,7 +132,7 @@ export default function Feed({
                 onClick={() => {
                   setContentIsClicked(true);
                   setAniCount(true);
-                  mutate({ id: postId });
+                  update({ id: postId });
                   dispatch(LikeAction.setLike({ postId: postId }));
                 }}
                 className="cursor-pointer"
@@ -161,18 +175,30 @@ export default function Feed({
         </div>
         <div className="view_comments">
           {comments.map((comment) => (
-            <p key={comment}>{comment}</p>
+            <p className="mt-[1rem]" key={comment}>
+              <span className="text-[0.8rem] font-semibold">
+                {comment.username || ""}{" "}
+              </span>
+              {comment.comment || ""}
+            </p>
           ))}
           <p className="pt-4 font-thin">View all {numComments} comments</p>
         </div>
         <div className="comment_post">
-          <form action="#" className="flex mb-2 flex-row justify-between">
+          <form
+            method="POST"
+            onSubmit={handleSubmit(handleComment)}
+            className="flex mb-2 flex-row justify-between"
+          >
             <input
               type="text"
               className="bg-transparent mt-2 font-thin focus:outline-none"
               placeholder="Add a comment"
+              {...register("comment")}
             />
-            <button className="text-blue-500">post</button>
+            <button type="submit" className="text-blue-500">
+              post
+            </button>
           </form>
         </div>
       </div>
