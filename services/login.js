@@ -14,5 +14,6 @@ export const login = async (loginData) => {
   }
 
   const data = await res.json();
+
   return data;
 };
