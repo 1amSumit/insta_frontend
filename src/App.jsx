@@ -12,6 +12,7 @@ import SignupPage from "./pages/SignupPage";
 // import { action as LogoutAction } from "./pages/Logout";
 import { Toaster } from "react-hot-toast";
 import Error from "./pages/Error";
+import Profile from "./pages/Profile";
 
 const router = createBrowserRouter([
   {
@@ -27,7 +28,7 @@ const router = createBrowserRouter([
       { path: "direct", element: <h1>direct</h1> },
       { path: "notifications", element: <h1>notifications</h1> },
       { path: "create", element: <CreatePop /> },
-      { path: "profile", element: <h1>profile</h1> },
+      { path: "profile", element: <Profile /> },
     ],
   },
   {

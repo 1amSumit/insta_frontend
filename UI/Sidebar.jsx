@@ -21,14 +21,14 @@ export default function Sidebar() {
   const [iconActive, setIconActive] = useState("home");
 
   return (
-    <div className="main px-4 py-4 font-salsa">
+    <div className="main px-4 py-2 font-salsa">
       <div className="logo ">
         <NavLink to={"/"}>
           <h1 className="text-4xl font-salsa">Instagram</h1>
         </NavLink>
       </div>
-      <nav className="pt-10">
-        <ul className="flex flex-col gap-6 text-[1.4rem]">
+      <nav className="pt-8">
+        <ul className="flex flex-col gap-4 text-[1.4rem]">
           <li>
             <NavLink
               to={"/"}
@@ -36,7 +36,7 @@ export default function Sidebar() {
               className={({ isActive }) =>
                 isActive
                   ? "font-semibold  flex items-center gap-2"
-                  : "flex items-center gap-2"
+                  : "flex items-center gap-2 hover:bg-gray-100 rounded-xl px-2 py-1"
               }
             >
               {iconActive === "home" ? (
@@ -56,7 +56,7 @@ export default function Sidebar() {
               className={({ isActive }) =>
                 isActive
                   ? "font-semibold  flex items-center gap-2"
-                  : "flex items-center gap-2"
+                  : "flex items-center gap-2  hover:bg-gray-100 rounded-xl px-2 py-1"
               }
             >
               {iconActive === "search" ? (
@@ -76,7 +76,7 @@ export default function Sidebar() {
               className={({ isActive }) =>
                 isActive
                   ? "font-semibold  flex items-center gap-2"
-                  : "flex items-center gap-2"
+                  : "flex items-center gap-2  hover:bg-gray-100 rounded-xl px-2 py-1"
               }
             >
               {iconActive === "explore" ? (
@@ -96,7 +96,7 @@ export default function Sidebar() {
               className={({ isActive }) =>
                 isActive
                   ? "font-semibold  flex items-center gap-2"
-                  : "flex items-center gap-2"
+                  : "flex items-center gap-2  hover:bg-gray-100 rounded-xl px-2 py-1"
               }
             >
               {iconActive === "reels" ? (
@@ -116,7 +116,7 @@ export default function Sidebar() {
               className={({ isActive }) =>
                 isActive
                   ? "font-semibold  flex items-center gap-2"
-                  : "flex items-center gap-2"
+                  : "flex items-center gap-2  hover:bg-gray-100 rounded-xl px-2 py-1"
               }
             >
               {iconActive === "message" ? (
@@ -136,7 +136,7 @@ export default function Sidebar() {
               className={({ isActive }) =>
                 isActive
                   ? "font-semibold  flex items-center gap-2"
-                  : "flex items-center gap-2"
+                  : "flex items-center gap-2  hover:bg-gray-100 rounded-xl px-2 py-1"
               }
             >
               {iconActive === "heart" ? (
@@ -158,7 +158,7 @@ export default function Sidebar() {
               className={({ isActive }) =>
                 isActive
                   ? "font-semibold  flex items-center gap-2"
-                  : "flex items-center gap-2"
+                  : "flex items-center gap-2  hover:bg-gray-100 rounded-xl px-2 py-1"
               }
             >
               {iconActive === "create" ? (
@@ -177,10 +177,11 @@ export default function Sidebar() {
               className={({ isActive }) =>
                 isActive
                   ? "font-semibold  flex items-center gap-2"
-                  : "flex items-center gap-2"
+                  : "flex items-center gap-2  hover:bg-gray-100 rounded-xl px-2 py-1"
               }
             >
-              Profile
+              <div className="w-[1.5rem] h-[1.5rem] rounded-full bg-gray-800"></div>
+              <p>Profile</p>
             </NavLink>
           </li>
         </ul>

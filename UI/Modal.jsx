@@ -42,32 +42,38 @@ const Modal = ({ isOpen, onClose, comments, post }) => {
         className="modal-content grid grid-cols-2"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="post w-[30vw]">
-          <div>
-            <img src={post.image} alt="post image" />
+        <div className="post w-[30vw] flex justify-center items-center">
+          <div className="">
+            <img
+              src={post.image}
+              alt="post image"
+              className="w-[100%] h-[100%]"
+            />
           </div>
         </div>
         <div className="comments w-[30vw] px-4 py-2">
           <div className="border-b-[2px] border-gray-100">
             <h2 className="font-semibold text-md">{post.username}</h2>
           </div>
-          {comments.map((comment) => (
-            <ul
-              className="flex flex-row gap- mt-4 justify-between items-center"
-              key={comment._id}
-            >
-              <li className="flex flex-row gap-4">
-                <p className="text-[0.8rem] font-semibold">
-                  {comment.username || ""}
-                </p>
-                <p className="text-xs"> {comment.comment || ""}</p>
-              </li>
+          <div className="overflow-x-hidden h-[35vh] no-scrollbar overflow-y-scroll">
+            {comments.map((comment) => (
+              <ul
+                className="flex flex-row gap-2 mt-4  justify-between items-center"
+                key={comment._id}
+              >
+                <li className="flex flex-row gap-4">
+                  <p className="text-[0.8rem] font-semibold">
+                    {comment.username || ""}
+                  </p>
+                  <p className="text-xs"> {comment.comment || ""}</p>
+                </li>
 
-              <li className="text-sm">
-                <CiHeart />
-              </li>
-            </ul>
-          ))}
+                <li className="text-sm">
+                  <CiHeart />
+                </li>
+              </ul>
+            ))}
+          </div>
           <form
             method="POST"
             onSubmit={handleSubmit(handleComment)}
