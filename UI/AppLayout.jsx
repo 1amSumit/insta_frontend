@@ -7,6 +7,7 @@ import { useEffect } from "react";
 export default function AppLayout() {
   const navigate = useNavigate();
   const userToken = getAuthToken();
+  const url = window.location.pathname;
   useEffect(() => {
     if (userToken === null) {
       navigate("/login");
@@ -17,12 +18,20 @@ export default function AppLayout() {
       <div className="hidden sm:block">
         <Sidebar />
       </div>
-      <main className="border border-1 border-gray-200 col-span-3">
+      <main
+        className={` ${
+          url !== "/"
+            ? "col-span-4 border-l-[1px] border-gray-200 "
+            : "col-span-3"
+        }`}
+      >
         <Outlet />
       </main>
-      <div className="hidden sm:block">
-        <Suggetions />
-      </div>
+      {url === "/" && (
+        <div className="hidden sm:block">
+          <Suggetions />
+        </div>
+      )}
     </div>
   );
 }
