@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { signup } from "../services/signup";
 import { setCurrentLoggedInUser, setUserToken } from "../utils/setUserToken";
+import toast from "react-hot-toast";
 
 export default function Signup() {
   const { register, handleSubmit } = useForm();
@@ -11,6 +12,7 @@ export default function Signup() {
     mutationFn: signup,
     onSuccess: (data) => {
       setCurrentLoggedInUser(data.data.newUser);
+      toast.success("Logged in successfully");
       setUserToken(data.token);
       navigate("/");
     },

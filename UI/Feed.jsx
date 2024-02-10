@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { LikeAction } from "../store/Like";
 import { useForm } from "react-hook-form";
 import { addComment as addCommentFunc } from "../services/addComment";
-import Modal from "./Modal";
+import CommentModal from "./CommentModal";
 export default function Feed({
   username,
   contentUrl,
@@ -185,7 +185,7 @@ export default function Feed({
           </details>
         </div>
         <div className="view_comments">
-          <Modal
+          <CommentModal
             isOpen={isModalOpen}
             onClose={closeModal}
             comments={comments}
