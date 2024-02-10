@@ -3,13 +3,14 @@ import Modal from "./Modal";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { profilePicUploadActions } from "../store/profilePicUpload";
+import { useNavigate } from "react-router-dom";
 
 /* eslint-disable react/prop-types */
 export default function Avatar({ image }) {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const [clickedCancel, setClickedCancel] = useState(false);
-  console.log(clickedCancel);
+  const navigate = useNavigate();
 
   let file = useSelector((state) => state.profileUpload.file);
   const fileName = file.name;
@@ -120,12 +121,19 @@ export default function Avatar({ image }) {
                       <button
                         onClick={() => {
                           setClickedCancel(false);
-                          window.location.reload();
                         }}
                       >
                         Cancel
                       </button>
-                      <button className="text-red-500 py-2">Delete</button>
+                      <button
+                        onClick={() => {
+                          setClickedCancel(false);
+                          uploadClickHandler();
+                        }}
+                        className="text-red-500 py-2"
+                      >
+                        Delete
+                      </button>
                     </div>
                   </div>
                 </div>
