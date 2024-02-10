@@ -1,8 +1,21 @@
+import { useState } from "react";
+import Modal from "./Modal";
+
 /* eslint-disable react/prop-types */
 export default function Avatar({ image }) {
+  const [showModal, setShowModal] = useState(false);
   const uploadClickHandler = () => {
     document.getElementById("profile").click();
   };
+
+  const showUploadProfilePicModal = () => {
+    setShowModal(true);
+  };
+
+  const onClose = () => {
+    setShowModal(false);
+  };
+
   const fileChangeHandler = (e) => {
     const selectedImage = e.target.files[0];
     if (selectedImage) {
@@ -16,7 +29,7 @@ export default function Avatar({ image }) {
   return (
     <>
       <button
-        onClick={uploadClickHandler}
+        onClick={showUploadProfilePicModal}
         className="w-[8rem] h-[8rem] rounded-full"
       >
         <img
@@ -34,6 +47,11 @@ export default function Avatar({ image }) {
         style={{ display: "none" }}
         onChange={(e) => fileChangeHandler(e)}
       />
+      {showModal && (
+        <Modal isOpen={showModal} onClose={onClose}>
+          <div>hllo</div>
+        </Modal>
+      )}
     </>
   );
 }
