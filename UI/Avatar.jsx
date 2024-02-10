@@ -9,6 +9,7 @@ export default function Avatar({ image }) {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const [clickedCancel, setClickedCancel] = useState(false);
+  console.log(clickedCancel);
 
   let file = useSelector((state) => state.profileUpload.file);
   const fileName = file.name;
@@ -111,13 +112,20 @@ export default function Avatar({ image }) {
               <div className="w-[15rem] h-[15rem] mt-2">
                 <img src={imageUrl} className="w-[100%] h-[100%]" />
               </div>
-              {cancelClicked && (
-                <div className="absolute top-[50%] left-[50%] translate-x-[-50%]translate-y-[-50%]">
-                  <div className="bg-white shadow-2xl rounded-lg w-[20rem] text-center">
+              {clickedCancel && (
+                <div className="absolute top-[50%] left-[-10%]  translate-y-[-50%]">
+                  <div className="bg-white shadow-2xl py-4 rounded-lg w-[20rem] text-center">
                     <p className="text-2xl">Are you sure?</p>
-                    <div>
-                      <button>Cancel</button>
-                      <button>Delete</button>
+                    <div className="flex flex-col mt-2">
+                      <button
+                        onClick={() => {
+                          setClickedCancel(false);
+                          window.location.reload();
+                        }}
+                      >
+                        Cancel
+                      </button>
+                      <button className="text-red-500 py-2">Delete</button>
                     </div>
                   </div>
                 </div>
