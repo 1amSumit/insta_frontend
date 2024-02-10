@@ -149,7 +149,7 @@ export default function Feed({
                 className="cursor-pointer"
               />
             )}
-            <Comment onClick={openModal} className="cursor-pointer  " />
+            <Comment onClick={openModal} className="cursor-pointer " />
             <Share />
           </div>
           <div className="text-3xl">

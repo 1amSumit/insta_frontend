@@ -1,9 +1,24 @@
 import { useState } from "react";
 import Modal from "./Modal";
+import { motion } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
+import { profilePicUploadActions } from "../store/profilePicUpload";
 
 /* eslint-disable react/prop-types */
 export default function Avatar({ image }) {
+  const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
+  const [clickedCancel, setClickedCancel] = useState(false);
+
+  let file = useSelector((state) => state.profileUpload.file);
+  const fileName = file.name;
+
+  let imageUrl;
+
+  if (file) {
+    imageUrl = URL.createObjectURL(file);
+  }
+
   const uploadClickHandler = () => {
     document.getElementById("profile").click();
   };
@@ -25,7 +40,17 @@ export default function Avatar({ image }) {
       uploadProfileImage(formData);
     }
   };
-  const uploadProfileImage = (data) => {};
+  const uploadProfileImage = (data) => {
+    const formDataObject = {};
+    data.forEach((value, key) => {
+      formDataObject[key] = value;
+    });
+    console.log(formDataObject);
+    dispatch(profilePicUploadActions.setFileName({ formDataObject }));
+  };
+  const cancelClicked = () => {
+    setClickedCancel(true);
+  };
   return (
     <>
       <button
@@ -49,7 +74,56 @@ export default function Avatar({ image }) {
       />
       {showModal && (
         <Modal isOpen={showModal} onClose={onClose}>
-          <div>hllo</div>
+          {!file && (
+            <div className="flex flex-col justify-center items-center px-[6rem] py-[1rem]">
+              <div className="">
+                <h2 className="font-semibold text-2xl text-gray-700">
+                  Update profile pic
+                </h2>
+              </div>
+              <div className="flex flex-col mt-[1.5rem] gap-[1rem]">
+                <motion.button
+                  onClick={uploadClickHandler}
+                  whileHover={{ scale: [1, 1.1, 1] }}
+                  className=""
+                >
+                  change profile picture
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: [1, 1.1, 1] }}
+                  className="text-red-500"
+                >
+                  remove profile picture
+                </motion.button>
+              </div>
+            </div>
+          )}
+          {file && (
+            <div className="relative">
+              <div className="flex justify-end gap-4">
+                <button onClick={cancelClicked} className="underline">
+                  cacel
+                </button>
+                <button className="bg-blue-400 px-2 py-1 rounded-lg text-white ">
+                  upload
+                </button>
+              </div>
+              <div className="w-[15rem] h-[15rem] mt-2">
+                <img src={imageUrl} className="w-[100%] h-[100%]" />
+              </div>
+              {cancelClicked && (
+                <div className="absolute top-[50%] left-[50%] translate-x-[-50%]translate-y-[-50%]">
+                  <div className="bg-white shadow-2xl rounded-lg w-[20rem] text-center">
+                    <p className="text-2xl">Are you sure?</p>
+                    <div>
+                      <button>Cancel</button>
+                      <button>Delete</button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
         </Modal>
       )}
     </>
