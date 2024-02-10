@@ -6,7 +6,6 @@ export const uploadPost = async (formData) => {
   const formDatas = new FormData();
   formDatas.append("file", formData.file);
   formDatas.append("description", formData.data.description);
-  console.log(formDatas);
   const res = await fetch(URL, {
     method: "POST",
     headers: {

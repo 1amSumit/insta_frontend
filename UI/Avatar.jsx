@@ -3,6 +3,9 @@ import Modal from "./Modal";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { profilePicUploadActions } from "../store/profilePicUpload";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { uploadProfilePic } from "../services/uploadProfilePic";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 /* eslint-disable react/prop-types */
@@ -10,14 +13,31 @@ export default function Avatar({ image }) {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const [clickedCancel, setClickedCancel] = useState(false);
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: uploadProfilePic,
+    isPending: () => {
+      toast.isPending("loading...");
+    },
+    onSuccess: () => {
+      toast.success("Profile picture uploaded successfully");
+
+      queryClient.invalidateQueries();
+      navigate("/");
+    },
+    onError: () => {
+      toast.error("Failed to upload profile picture");
+    },
+  });
 
   let file = useSelector((state) => state.profileUpload.file);
   const fileName = file.name;
 
   let imageUrl;
 
-  if (file) {
+  if (file.name) {
     imageUrl = URL.createObjectURL(file);
   }
 
@@ -31,6 +51,10 @@ export default function Avatar({ image }) {
 
   const onClose = () => {
     setShowModal(false);
+  };
+
+  const uploadProfile = () => {
+    mutate(file);
   };
 
   const fileChangeHandler = (e) => {
@@ -47,12 +71,20 @@ export default function Avatar({ image }) {
     data.forEach((value, key) => {
       formDataObject[key] = value;
     });
-    console.log(formDataObject);
     dispatch(profilePicUploadActions.setFileName({ formDataObject }));
   };
   const cancelClicked = () => {
     setClickedCancel(true);
   };
+
+  const resetProfile = () => {
+    dispatch(profilePicUploadActions.removeFileName());
+    setClickedCancel(false);
+    setShowModal(false);
+    // Reset file state and update imageUrl to show a placeholder image
+    dispatch(profilePicUploadActions.removeFileName());
+  };
+
   return (
     <>
       <button
@@ -61,7 +93,9 @@ export default function Avatar({ image }) {
       >
         <img
           src={
-            "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+            image
+              ? image
+              : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
           }
           alt="user profile image"
           className="w-[100%] h-[100%] rounded-full"
@@ -106,12 +140,20 @@ export default function Avatar({ image }) {
                 <button onClick={cancelClicked} className="underline">
                   cacel
                 </button>
-                <button className="bg-blue-400 px-2 py-1 rounded-lg text-white ">
-                  upload
+                <button
+                  onClick={uploadProfile}
+                  disabled={isPending}
+                  className="bg-blue-400 px-2 py-1 rounded-lg text-white "
+                >
+                  {isPending ? "uploading..." : "upload"}
                 </button>
               </div>
               <div className="w-[15rem] h-[15rem] mt-2">
-                <img src={imageUrl} className="w-[100%] h-[100%]" />
+                <img
+                  src={imageUrl}
+                  className="w-[100%] h-[100%]"
+                  alt={fileName}
+                />
               </div>
               {clickedCancel && (
                 <div className="absolute top-[50%] left-[-10%]  translate-y-[-50%]">
@@ -121,6 +163,7 @@ export default function Avatar({ image }) {
                       <button
                         onClick={() => {
                           setClickedCancel(false);
+                          resetProfile();
                         }}
                       >
                         Cancel
