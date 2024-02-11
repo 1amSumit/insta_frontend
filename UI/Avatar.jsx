@@ -7,6 +7,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { uploadProfilePic } from "../services/uploadProfilePic";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { removeProfilePic as removePhoto } from "../services/removeProfilePic";
 
 /* eslint-disable react/prop-types */
 export default function Avatar({ image }) {
@@ -15,6 +16,16 @@ export default function Avatar({ image }) {
   const [clickedCancel, setClickedCancel] = useState(false);
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+
+  const { mutate: removeMutate, isPending: removePending } = useMutation({
+    mutationFn: removePhoto,
+    onSuccess: () => {
+      toast.success("Profile picture uploaded successfully");
+
+      queryClient.invalidateQueries();
+      navigate("/");
+    },
+  });
 
   const { mutate, isPending } = useMutation({
     mutationFn: uploadProfilePic,
@@ -78,12 +89,13 @@ export default function Avatar({ image }) {
     setClickedCancel(true);
   };
 
-  const resetProfile = () => {
-    dispatch(profilePicUploadActions.removeFileName());
-    setClickedCancel(false);
-    setShowModal(false);
-    dispatch(profilePicUploadActions.removeFileName());
+  const removeProfilePic = () => {
+    removeMutate();
   };
+
+  if (removePending) {
+    return <p>Removing please wait...</p>;
+  }
 
   return (
     <>
@@ -127,6 +139,7 @@ export default function Avatar({ image }) {
                 </motion.button>
                 <motion.button
                   whileHover={{ scale: [1, 1.1, 1] }}
+                  onClick={removeProfilePic}
                   className="text-red-500"
                 >
                   remove profile picture
@@ -162,7 +175,6 @@ export default function Avatar({ image }) {
                     <div className="flex flex-col mt-2">
                       <button
                         onClick={() => {
-                          // resetProfile();
                           setClickedCancel(false);
                         }}
                       >
