@@ -10,7 +10,7 @@ const profilePicUpload = createSlice({
       state.file = action.payload.formDataObject.file;
     },
     removeFileName(state) {
-      state.file = {};
+      state.file = "";
     },
   },
 });

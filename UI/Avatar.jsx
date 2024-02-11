@@ -37,7 +37,7 @@ export default function Avatar({ image }) {
 
   let imageUrl;
 
-  if (file.name) {
+  if (file.name !== undefined) {
     imageUrl = URL.createObjectURL(file);
   }
 
@@ -51,6 +51,7 @@ export default function Avatar({ image }) {
 
   const onClose = () => {
     setShowModal(false);
+    dispatch(profilePicUploadActions.removeFileName());
   };
 
   const uploadProfile = () => {
@@ -81,7 +82,6 @@ export default function Avatar({ image }) {
     dispatch(profilePicUploadActions.removeFileName());
     setClickedCancel(false);
     setShowModal(false);
-    // Reset file state and update imageUrl to show a placeholder image
     dispatch(profilePicUploadActions.removeFileName());
   };
 
@@ -110,7 +110,7 @@ export default function Avatar({ image }) {
       />
       {showModal && (
         <Modal isOpen={showModal} onClose={onClose}>
-          {!file && (
+          {fileName === undefined && (
             <div className="flex flex-col justify-center items-center px-[6rem] py-[1rem]">
               <div className="">
                 <h2 className="font-semibold text-2xl text-gray-700">
@@ -134,7 +134,7 @@ export default function Avatar({ image }) {
               </div>
             </div>
           )}
-          {file && (
+          {imageUrl && (
             <div className="relative">
               <div className="flex justify-end gap-4">
                 <button onClick={cancelClicked} className="underline">
@@ -162,8 +162,8 @@ export default function Avatar({ image }) {
                     <div className="flex flex-col mt-2">
                       <button
                         onClick={() => {
+                          // resetProfile();
                           setClickedCancel(false);
-                          resetProfile();
                         }}
                       >
                         Cancel
