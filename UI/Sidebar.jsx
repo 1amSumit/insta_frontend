@@ -2,8 +2,9 @@ import { NavLink } from "react-router-dom";
 import { GoHome } from "react-icons/go";
 import { GoHomeFill } from "react-icons/go";
 import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import {
-  IoIosSearch as Search,
+  IoIosSearch as SearchIcon,
   IoIosAddCircleOutline as Create,
   IoMdAddCircle as CreateFill,
 } from "react-icons/io";
@@ -16,18 +17,19 @@ import {
 import { CiHeart as Heart } from "react-icons/ci";
 import { FaHeart as HeartFill, FaSearch as SearchFill } from "react-icons/fa";
 import { TbMovie as Reels } from "react-icons/tb";
+import Search from "../UI/Search";
 
 export default function Sidebar() {
   const [iconActive, setIconActive] = useState("home");
 
   return (
-    <div className="main px-4 py-2 font-salsa">
+    <div className="main px-4 py-2 font-salsa relative ">
       <div className="logo ">
         <NavLink to={"/"}>
           <h1 className="text-4xl font-salsa">Instagram</h1>
         </NavLink>
       </div>
-      <nav className="pt-8">
+      <nav className="pt-8 ">
         <ul className="flex flex-col gap-4 text-[1.4rem]">
           <li>
             <NavLink
@@ -51,8 +53,9 @@ export default function Sidebar() {
           </li>
           <li>
             <NavLink
-              to={"/search"}
-              onClick={() => setIconActive("search")}
+              onClick={() => {
+                setIconActive("search");
+              }}
               className={({ isActive }) =>
                 isActive
                   ? "font-semibold  flex items-center gap-2"
@@ -64,7 +67,7 @@ export default function Sidebar() {
                   <SearchFill />
                 </div>
               ) : (
-                <Search />
+                <SearchIcon />
               )}
               <span>Search</span>
             </NavLink>
@@ -186,6 +189,18 @@ export default function Sidebar() {
           </li>
         </ul>
       </nav>
+      <AnimatePresence>
+        {iconActive === "search" && (
+          <motion.div
+            initial={{ x: -20, opacity: 0 }}
+            animate={{ x: 200, opacity: 1 }}
+            exit={{ x: -20, opacity: 0 }}
+            className="absolute top-0 left-0 w-[30rem] h-[100vh] translate-x-[14rem] bg-white shadow-xl border-l-[1px] rounded-tr-[3rem] rounded-br-[3rem] border-gray-100 z-[100]"
+          >
+            <Search />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
