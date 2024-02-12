@@ -34,6 +34,7 @@ export default function Avatar({ image }) {
     },
     onSuccess: () => {
       toast.success("Profile picture uploaded successfully");
+      dispatch(profilePicUploadActions.removeFileName());
 
       queryClient.invalidateQueries();
       navigate("/");
