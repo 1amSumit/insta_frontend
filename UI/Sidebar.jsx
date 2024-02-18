@@ -18,9 +18,11 @@ import { CiHeart as Heart } from "react-icons/ci";
 import { FaHeart as HeartFill, FaSearch as SearchFill } from "react-icons/fa";
 import { TbMovie as Reels } from "react-icons/tb";
 import Search from "../UI/Search";
+import { getCurrentLoggedInUser } from "../utils/getUserToken";
 
 export default function Sidebar() {
   const [iconActive, setIconActive] = useState("home");
+  const loggedInUser = getCurrentLoggedInUser();
 
   return (
     <div className="main px-4 py-2 font-salsa relative ">
@@ -37,7 +39,7 @@ export default function Sidebar() {
               onClick={() => setIconActive("home")}
               className={
                 iconActive === "home"
-                  ? "font-semibold  flex items-center gap-2 hover:bg-gray-100 rounded-xl px-2 py-1"
+                  ? "font-semibold  flex items-center gap-2 bg-gray-100 hover:bg-gray-100 rounded-xl px-2 py-1"
                   : "flex items-center gap-2 hover:bg-gray-100 rounded-xl px-2 py-1"
               }
             >
@@ -58,7 +60,7 @@ export default function Sidebar() {
               }}
               className={
                 iconActive === "search"
-                  ? "font-semibold  flex cursor-pointer items-center gap-2 hover:bg-gray-100 rounded-xl px-2 py-1"
+                  ? "font-semibold  flex cursor-pointer bg-gray-100  items-center gap-2 hover:bg-gray-100 rounded-xl px-2 py-1"
                   : "flex items-center gap-2 cursor-pointer  hover:bg-gray-100 rounded-xl px-2 py-1"
               }
             >
@@ -78,7 +80,7 @@ export default function Sidebar() {
               onClick={() => setIconActive("explore")}
               className={
                 iconActive === "explore"
-                  ? "font-semibold  flex items-center gap-2 hover:bg-gray-100 rounded-xl px-2 py-1"
+                  ? "font-semibold  flex items-center bg-gray-100  gap-2 hover:bg-gray-100 rounded-xl px-2 py-1"
                   : "flex items-center gap-2  hover:bg-gray-100 rounded-xl px-2 py-1"
               }
             >
@@ -98,7 +100,7 @@ export default function Sidebar() {
               onClick={() => setIconActive("reels")}
               className={
                 iconActive === "reels"
-                  ? "font-semibold  flex items-center gap-2 hover:bg-gray-100 rounded-xl px-2 py-1"
+                  ? "font-semibold  flex items-center bg-gray-100  gap-2 hover:bg-gray-100 rounded-xl px-2 py-1"
                   : "flex items-center gap-2  hover:bg-gray-100 rounded-xl px-2 py-1"
               }
             >
@@ -118,7 +120,7 @@ export default function Sidebar() {
               onClick={() => setIconActive("message")}
               className={
                 iconActive === "direct"
-                  ? "font-semibold  flex items-center gap-2 hover:bg-gray-100 rounded-xl px-2 py-1"
+                  ? "font-semibold  flex items-center bg-gray-100  gap-2 hover:bg-gray-100 rounded-xl px-2 py-1"
                   : "flex items-center gap-2  hover:bg-gray-100 rounded-xl px-2 py-1"
               }
             >
@@ -138,7 +140,7 @@ export default function Sidebar() {
               onClick={() => setIconActive("heart")}
               className={
                 iconActive === "notification"
-                  ? "font-semibold  flex items-center gap-2 hover:bg-gray-100 rounded-xl px-2 py-1"
+                  ? "font-semibold  flex items-center bg-gray-100  gap-2 hover:bg-gray-100 rounded-xl px-2 py-1"
                   : "flex items-center gap-2  hover:bg-gray-100 rounded-xl px-2 py-1"
               }
             >
@@ -160,7 +162,7 @@ export default function Sidebar() {
               }}
               className={
                 iconActive === "create"
-                  ? "font-semibold  flex items-center gap-2 hover:bg-gray-100 rounded-xl px-2 py-1"
+                  ? "font-semibold  flex items-center bg-gray-100  gap-2 hover:bg-gray-100 rounded-xl px-2 py-1"
                   : "flex items-center gap-2  hover:bg-gray-100 rounded-xl px-2 py-1"
               }
             >
@@ -176,10 +178,13 @@ export default function Sidebar() {
           </li>
           <li>
             <NavLink
-              to={"/profile"}
+              to={`/${loggedInUser}`}
+              onClick={() => {
+                setIconActive("profile");
+              }}
               className={
                 iconActive === "profile"
-                  ? "font-semibold  flex items-center gap-2"
+                  ? "font-semibold  flex items-center bg-gray-100  gap-2 hover:bg-gray-100 rounded-xl px-2 py-1"
                   : "flex items-center gap-2  hover:bg-gray-100 rounded-xl px-2 py-1"
               }
             >

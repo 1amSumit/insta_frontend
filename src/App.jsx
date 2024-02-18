@@ -6,10 +6,6 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import CreatePop from "../UI/CreatePop";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
-// import { action as LoginAction } from "./pages/LoginPage";
-// import { action as SignupAction } from "./pages/SignupPage";
-// import { loader as tokenLoader } from "../utils/auth";
-// import { action as LogoutAction } from "./pages/Logout";
 import { Toaster } from "react-hot-toast";
 import Error from "./pages/Error";
 import Profile from "./pages/Profile";
@@ -27,8 +23,12 @@ const router = createBrowserRouter([
       { path: "direct", element: <h1>direct</h1> },
       { path: "notifications", element: <h1>notifications</h1> },
       { path: "create", element: <CreatePop /> },
-      { path: "profile", element: <Profile /> },
-      { path: "/:user", element: <p>user</p> },
+      { path: `/:searchedUser`, element: <Profile /> },
+      // {
+      //   path: "/:user",
+      //   element: <SearchUserProfile />,
+      //   errorElement: <p>Error in this page</p>,
+      // },
     ],
   },
   {
