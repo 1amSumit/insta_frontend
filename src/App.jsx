@@ -23,12 +23,11 @@ const router = createBrowserRouter([
       { path: "direct", element: <h1>direct</h1> },
       { path: "notifications", element: <h1>notifications</h1> },
       { path: "create", element: <CreatePop /> },
-      { path: `/:searchedUser`, element: <Profile /> },
-      // {
-      //   path: "/:user",
-      //   element: <SearchUserProfile />,
-      //   errorElement: <p>Error in this page</p>,
-      // },
+      {
+        path: `/:searchedUser`,
+        element: <Profile />,
+        errorElement: <p>Something went wrong</p>,
+      },
     ],
   },
   {

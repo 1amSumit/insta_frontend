@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 export default function Profile() {
   const params = useParams();
   const { searchedUser } = params;
-  const { data, error, isLoading } = useQuery({
+  const { data, isError, isLoading } = useQuery({
     queryKey: [searchedUser],
     queryFn: () => getPofileDetails(searchedUser),
   });
@@ -16,8 +16,8 @@ export default function Profile() {
     content = <p className="text-center">Loading...</p>;
   }
 
-  if (error) {
-    content = <p>{error}</p>;
+  if (isError) {
+    throw new Error("Failed to fetch user. Move to home page.");
   }
 
   if (data) {

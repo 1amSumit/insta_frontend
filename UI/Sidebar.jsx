@@ -1,7 +1,7 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { GoHome } from "react-icons/go";
 import { GoHomeFill } from "react-icons/go";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   IoIosSearch as SearchIcon,
@@ -23,6 +23,15 @@ import { getCurrentLoggedInUser } from "../utils/getUserToken";
 export default function Sidebar() {
   const [iconActive, setIconActive] = useState("home");
   const loggedInUser = getCurrentLoggedInUser();
+
+  const params = useParams();
+  const { searchedUser } = params;
+
+  useEffect(() => {
+    if (searchedUser === loggedInUser) {
+      setIconActive("profile");
+    }
+  }, [searchedUser, loggedInUser]);
 
   return (
     <div className="main px-4 py-2 font-salsa relative ">
