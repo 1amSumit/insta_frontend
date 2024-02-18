@@ -28,6 +28,7 @@ const router = createBrowserRouter([
       { path: "notifications", element: <h1>notifications</h1> },
       { path: "create", element: <CreatePop /> },
       { path: "profile", element: <Profile /> },
+      { path: "/:user", element: <p>user</p> },
     ],
   },
   {

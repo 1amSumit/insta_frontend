@@ -52,14 +52,14 @@ export default function Sidebar() {
             </NavLink>
           </li>
           <li>
-            <NavLink
+            <div
               onClick={() => {
                 setIconActive("search");
               }}
               className={
                 iconActive === "search"
-                  ? "font-semibold  flex items-center gap-2 hover:bg-gray-100 rounded-xl px-2 py-1"
-                  : "flex items-center gap-2  hover:bg-gray-100 rounded-xl px-2 py-1"
+                  ? "font-semibold  flex cursor-pointer items-center gap-2 hover:bg-gray-100 rounded-xl px-2 py-1"
+                  : "flex items-center gap-2 cursor-pointer  hover:bg-gray-100 rounded-xl px-2 py-1"
               }
             >
               {iconActive === "search" ? (
@@ -70,7 +70,7 @@ export default function Sidebar() {
                 <SearchIcon />
               )}
               <span>Search</span>
-            </NavLink>
+            </div>
           </li>
           <li>
             <NavLink
@@ -197,7 +197,11 @@ export default function Sidebar() {
             exit={{ x: -20, opacity: 0 }}
             className="absolute top-0 left-0 w-[30rem] h-[100vh] translate-x-[14rem] bg-white shadow-xl border-l-[1px] rounded-tr-[3rem] rounded-br-[3rem] border-gray-100 z-[100]"
           >
-            <Search />
+            <Search
+              userClick={() => {
+                setIconActive("userclicked");
+              }}
+            />
           </motion.div>
         )}
       </AnimatePresence>

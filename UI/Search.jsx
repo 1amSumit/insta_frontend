@@ -1,11 +1,13 @@
+/* eslint-disable react/prop-types */
 import { IoIosCloseCircleOutline as Close } from "react-icons/io";
 import { useQuery } from "@tanstack/react-query";
 import { searchUser } from "../services/searchUser";
 import { useRef, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { NavLink } from "react-router-dom";
 
-export default function Search() {
+export default function Search({ userClick }) {
   const inputRef = useRef(null);
   const [name, setName] = useState(null);
   const { data, isLoading } = useQuery({
@@ -13,6 +15,9 @@ export default function Search() {
     queryFn: () => searchUser(name || null),
   });
 
+  const userClicked = () => {
+    userClick();
+  };
   return (
     <div className="flex flex-col gap-[1rem] h-[100vh] ">
       <div className="flex flex-col gap-[3rem] px-[2rem] py-[1rem]">
@@ -46,8 +51,10 @@ export default function Search() {
       ) : (
         <div className="users border-t-[1px]    px-[3rem] py-[1rem]  flex flex-col gap-[1rem]  border-gray-200 rounded-lg overflow-y-auto no-scrollbar">
           {data.data.userData.map((item) => (
-            <li
-              key={item.name}
+            <NavLink
+              to={`/${item.username}`}
+              onClick={userClicked}
+              key={item.username}
               className="flex cursor-pointer hover:bg-gray-100  px-[1rem] py-[0.6rem] rounded-lg flex-row gap-2"
             >
               <div className="images w-[3rem] h-[3rem] rounded-full">
@@ -60,7 +67,7 @@ export default function Search() {
               <div className="name">
                 <p>{item.username}</p>
               </div>
-            </li>
+            </NavLink>
           ))}
         </div>
       )}
