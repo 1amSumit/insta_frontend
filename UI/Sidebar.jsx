@@ -35,9 +35,9 @@ export default function Sidebar() {
             <NavLink
               to={"/"}
               onClick={() => setIconActive("home")}
-              className={({ isActive }) =>
-                isActive
-                  ? "font-semibold  flex items-center gap-2"
+              className={
+                iconActive === "home"
+                  ? "font-semibold  flex items-center gap-2 hover:bg-gray-100 rounded-xl px-2 py-1"
                   : "flex items-center gap-2 hover:bg-gray-100 rounded-xl px-2 py-1"
               }
             >
@@ -56,9 +56,9 @@ export default function Sidebar() {
               onClick={() => {
                 setIconActive("search");
               }}
-              className={({ isActive }) =>
-                isActive
-                  ? "font-semibold  flex items-center gap-2"
+              className={
+                iconActive === "search"
+                  ? "font-semibold  flex items-center gap-2 hover:bg-gray-100 rounded-xl px-2 py-1"
                   : "flex items-center gap-2  hover:bg-gray-100 rounded-xl px-2 py-1"
               }
             >
@@ -76,9 +76,9 @@ export default function Sidebar() {
             <NavLink
               to={"/explore"}
               onClick={() => setIconActive("explore")}
-              className={({ isActive }) =>
-                isActive
-                  ? "font-semibold  flex items-center gap-2"
+              className={
+                iconActive === "explore"
+                  ? "font-semibold  flex items-center gap-2 hover:bg-gray-100 rounded-xl px-2 py-1"
                   : "flex items-center gap-2  hover:bg-gray-100 rounded-xl px-2 py-1"
               }
             >
@@ -96,9 +96,9 @@ export default function Sidebar() {
             <NavLink
               to={"/reels"}
               onClick={() => setIconActive("reels")}
-              className={({ isActive }) =>
-                isActive
-                  ? "font-semibold  flex items-center gap-2"
+              className={
+                iconActive === "reels"
+                  ? "font-semibold  flex items-center gap-2 hover:bg-gray-100 rounded-xl px-2 py-1"
                   : "flex items-center gap-2  hover:bg-gray-100 rounded-xl px-2 py-1"
               }
             >
@@ -116,9 +116,9 @@ export default function Sidebar() {
             <NavLink
               to={"/direct"}
               onClick={() => setIconActive("message")}
-              className={({ isActive }) =>
-                isActive
-                  ? "font-semibold  flex items-center gap-2"
+              className={
+                iconActive === "direct"
+                  ? "font-semibold  flex items-center gap-2 hover:bg-gray-100 rounded-xl px-2 py-1"
                   : "flex items-center gap-2  hover:bg-gray-100 rounded-xl px-2 py-1"
               }
             >
@@ -136,9 +136,9 @@ export default function Sidebar() {
             <NavLink
               to={"/notifications"}
               onClick={() => setIconActive("heart")}
-              className={({ isActive }) =>
-                isActive
-                  ? "font-semibold  flex items-center gap-2"
+              className={
+                iconActive === "notification"
+                  ? "font-semibold  flex items-center gap-2 hover:bg-gray-100 rounded-xl px-2 py-1"
                   : "flex items-center gap-2  hover:bg-gray-100 rounded-xl px-2 py-1"
               }
             >
@@ -158,9 +158,9 @@ export default function Sidebar() {
               onClick={() => {
                 setIconActive("create");
               }}
-              className={({ isActive }) =>
-                isActive
-                  ? "font-semibold  flex items-center gap-2"
+              className={
+                iconActive === "create"
+                  ? "font-semibold  flex items-center gap-2 hover:bg-gray-100 rounded-xl px-2 py-1"
                   : "flex items-center gap-2  hover:bg-gray-100 rounded-xl px-2 py-1"
               }
             >
@@ -177,8 +177,8 @@ export default function Sidebar() {
           <li>
             <NavLink
               to={"/profile"}
-              className={({ isActive }) =>
-                isActive
+              className={
+                iconActive === "profile"
                   ? "font-semibold  flex items-center gap-2"
                   : "flex items-center gap-2  hover:bg-gray-100 rounded-xl px-2 py-1"
               }
