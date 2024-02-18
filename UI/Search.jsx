@@ -14,12 +14,12 @@ export default function Search() {
   });
 
   return (
-    <div className="flex flex-col gap-[1rem] ">
+    <div className="flex flex-col gap-[1rem] h-[100vh] ">
       <div className="flex flex-col gap-[3rem] px-[2rem] py-[1rem]">
         <h2 className="text-[1.8rem]">Search</h2>
         <div className="w-full relative ">
           <input
-            className="bg-gray-100  w-full placeholder:text-gray-400 h-[3rem] font-thin text-sm outline-none px-2 py-3 rounded-lg"
+            className="bg-gray-100  w-full placeholder:text-gray-400 h-[3rem] font-thin text-sm outline-none pl-[1rem] pr-[3rem] py-3 rounded-lg"
             type="text"
             placeholder="search"
             autoComplete="off"
@@ -44,9 +44,12 @@ export default function Search() {
       ) : data.result === 0 ? (
         <p className="text-center mx-0 my-auto">No user found!</p>
       ) : (
-        <div className="users border-t-[1px] h-[100%] overflow-y-hidden px-[3rem] py-[1rem]  flex flex-col gap-[1rem] border-gray-200 rounded-lg">
+        <div className="users border-t-[1px]    px-[3rem] py-[1rem]  flex flex-col gap-[1rem]  border-gray-200 rounded-lg overflow-y-auto no-scrollbar">
           {data.data.userData.map((item) => (
-            <li key={item.name} className="flex flex-row gap-2">
+            <li
+              key={item.name}
+              className="flex cursor-pointer hover:bg-gray-100  px-[1rem] py-[0.6rem] rounded-lg flex-row gap-2"
+            >
               <div className="images w-[3rem] h-[3rem] rounded-full">
                 <img
                   className="w-[100%] h-[100%] rounded-full"
