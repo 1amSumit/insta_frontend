@@ -4,7 +4,7 @@ export const getPofileDetails = async (user) => {
   const token = getAuthToken();
   const URL = `${
     import.meta.env.VITE_BASE_URL
-  }api/v1/users/getProfileDetails/${user}`;
+  }/users/getProfileDetails/${user}`;
 
   const res = await fetch(URL, {
     method: "GET",

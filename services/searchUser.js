@@ -1,9 +1,7 @@
 import { getAuthToken } from "../utils/getUserToken";
 
 export const searchUser = async (user) => {
-  const URL = `${
-    import.meta.env.VITE_BASE_URL
-  }api/v1/users/searchUser?name=${user}`;
+  const URL = `${import.meta.env.VITE_BASE_URL}/users/searchUser?name=${user}`;
   const token = getAuthToken();
 
   const formData = new FormData();

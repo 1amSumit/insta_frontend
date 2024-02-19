@@ -6,7 +6,7 @@ export const removeProfilePic = async () => {
 
   const URL = `${
     import.meta.env.VITE_BASE_URL
-  }api/v1/users/removeProfilPic/${username}`;
+  }/users/removeProfilPic/${username}`;
 
   const res = await fetch(URL, {
     method: "PATCH",

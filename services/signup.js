@@ -1,5 +1,5 @@
 export const signup = async (loginData) => {
-  const url = `${import.meta.env.VITE_BASE_URL}api/v1/users/signup`;
+  const url = `${import.meta.env.VITE_BASE_URL}/users/signup`;
   const res = await fetch(url, {
     method: "POST",
     headers: {

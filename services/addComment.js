@@ -1,9 +1,7 @@
 import { getAuthToken } from "../utils/getUserToken";
 
 export const addComment = async ({ comment, postId }) => {
-  const URL = `${
-    import.meta.env.VITE_BASE_URL
-  }api/v1/comments/addComment/${postId}`;
+  const URL = `${import.meta.env.VITE_BASE_URL}/comments/addComment/${postId}`;
 
   const token = getAuthToken();
 

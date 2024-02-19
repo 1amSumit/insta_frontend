@@ -7,7 +7,7 @@ export const uploadProfilePic = async (formData) => {
   formDatas.append("file", formData);
   const URL = `${
     import.meta.env.VITE_BASE_URL
-  }api/v1/users/uploadProfilePic/${username}`;
+  }/users/uploadProfilePic/${username}`;
 
   const res = await fetch(URL, {
     method: "PATCH",
