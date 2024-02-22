@@ -41,6 +41,8 @@ export default function Sidebar() {
     }
   }, [searchedUser, loggedInUser]);
 
+  // const requestsLength = data?.userProfile?.requestRec.length;
+
   return (
     <div className="main px-4 py-2 font-salsa relative ">
       <div className="logo ">
@@ -167,7 +169,8 @@ export default function Sidebar() {
               ) : (
                 <Heart />
               )}
-              <span>Notifications</span>
+
+              <span className="relative">Notifications</span>
             </div>
           </li>
           <li>

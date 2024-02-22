@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { addComment as addCommentFunc } from "../services/addComment";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import Modal from "./Modal";
+import CModal from "./CModal";
 
 export default function CommentModal({ isOpen, onClose, comments, post }) {
   const { register, handleSubmit, reset } = useForm();
@@ -21,7 +21,7 @@ export default function CommentModal({ isOpen, onClose, comments, post }) {
     reset();
   };
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <CModal isOpen={isOpen} onClose={onClose}>
       <div className="post w-[30vw] flex justify-center items-center">
         <div className="">
           <img
@@ -35,7 +35,7 @@ export default function CommentModal({ isOpen, onClose, comments, post }) {
         <div className="border-b-[2px] border-gray-100">
           <h2 className="font-semibold text-md">{post.username}</h2>
         </div>
-        <div className="overflow-x-hidden h-[35vh] no-scrollbar overflow-y-scroll">
+        <div className="overflow-x-hidden h-[55vh] no-scrollbar overflow-y-scroll">
           {comments.map((comment) => (
             <ul
               className="flex flex-row gap-2 mt-4  justify-between items-center"
@@ -74,6 +74,6 @@ export default function CommentModal({ isOpen, onClose, comments, post }) {
           </button>
         </form>
       </div>
-    </Modal>
+    </CModal>
   );
 }
