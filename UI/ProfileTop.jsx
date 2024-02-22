@@ -1,13 +1,38 @@
 /* eslint-disable react/prop-types */
 import { useParams } from "react-router-dom";
-import { getCurrentLoggedInUser } from "../utils/getUserToken";
-import Avatar from "./Avatar";
 
-export default function ProfileTop({ data }) {
+import Avatar from "./Avatar";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { sendRequest } from "../services/sendRequest";
+import toast from "react-hot-toast";
+import { getCurrentLoggedInUser } from "../utils/getUserToken";
+
+export default function ProfileTop({ data, loggedInUser }) {
   const { userProfile } = data;
-  const loggedInUser = getCurrentLoggedInUser();
+  const loggedIn = getCurrentLoggedInUser();
   const params = useParams();
   const { searchedUser } = params;
+
+  const queryCliet = useQueryClient();
+  const hasRequestSent = loggedInUser.userProfile.requestSent.filter(
+    (re) => re === searchedUser
+  );
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: sendRequest,
+    onSuccess: () => {
+      toast.success("follow request sent.");
+      queryCliet.invalidateQueries();
+    },
+    onError: () => {
+      toast.error("error sending request");
+    },
+  });
+
+  const sendFollowRequest = () => {
+    mutate(searchedUser);
+  };
+
   return (
     <div className=" grid grid-cols-4  gap-[3rem] px-[9rem] pt-[3rem]">
       <div className="avatar col-span-1 flex justify-center items-center">
@@ -18,14 +43,25 @@ export default function ProfileTop({ data }) {
           <h2 className="font-semibold text-[1.2rem]">
             {userProfile.username}
           </h2>
-          {searchedUser === loggedInUser && (
+          {searchedUser === loggedIn && (
             <button className="bg-gray-100 px-2 py-1 rounded-lg">
               Edit profile
             </button>
           )}
-          {searchedUser !== loggedInUser && (
-            <button className="bg-blue-500 text-white px-2 py-1 rounded-lg">
-              follow
+          {searchedUser !== loggedIn && hasRequestSent.length === 0 && (
+            <button
+              onClick={sendFollowRequest}
+              className="bg-blue-500 text-white px-2 py-1 rounded-lg"
+            >
+              {isPending ? "sending..." : "follow"}
+            </button>
+          )}
+          {searchedUser !== loggedIn && hasRequestSent.length !== 0 && (
+            <button
+              onClick={sendFollowRequest}
+              className="bg-gray-200 text-gray-900  px-2 py-1 rounded-lg"
+            >
+              requested
             </button>
           )}
         </div>

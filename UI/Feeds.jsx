@@ -20,7 +20,7 @@ export default function Feeds() {
       {data.posts.map((post) => (
         <Feed
           key={post._id}
-          username={post.user.username}
+          username={post.user?.username || "abc"}
           contentUrl={post.post}
           likes={post.likes}
           comments={post.comments}
