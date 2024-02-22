@@ -19,6 +19,9 @@ import { FaHeart as HeartFill, FaSearch as SearchFill } from "react-icons/fa";
 import { TbMovie as Reels } from "react-icons/tb";
 import Search from "../UI/Search";
 import { getCurrentLoggedInUser } from "../utils/getUserToken";
+import Notifications from "./Notifications";
+import { useQuery } from "@tanstack/react-query";
+import { getPofileDetails } from "../services/getProfileDetails";
 
 export default function Sidebar() {
   const [iconActive, setIconActive] = useState("home");
@@ -26,6 +29,11 @@ export default function Sidebar() {
 
   const params = useParams();
   const { searchedUser } = params;
+
+  const { data } = useQuery({
+    queryKey: ["sidebar"],
+    queryFn: () => getPofileDetails(loggedInUser),
+  });
 
   useEffect(() => {
     if (searchedUser === loggedInUser) {
@@ -144,13 +152,12 @@ export default function Sidebar() {
             </NavLink>
           </li>
           <li>
-            <NavLink
-              to={"/notifications"}
+            <div
               onClick={() => setIconActive("heart")}
               className={
                 iconActive === "notification"
-                  ? "font-semibold  flex items-center bg-gray-100  gap-2 hover:bg-gray-100 rounded-xl px-2 py-1"
-                  : "flex items-center gap-2  hover:bg-gray-100 rounded-xl px-2 py-1"
+                  ? "font-semibold cursor-pointer  flex items-center bg-gray-100  gap-2 hover:bg-gray-100 rounded-xl px-2 py-1"
+                  : "flex items-center gap-2 cursor-pointer  hover:bg-gray-100 rounded-xl px-2 py-1"
               }
             >
               {iconActive === "heart" ? (
@@ -161,7 +168,7 @@ export default function Sidebar() {
                 <Heart />
               )}
               <span>Notifications</span>
-            </NavLink>
+            </div>
           </li>
           <li>
             <NavLink
@@ -216,6 +223,18 @@ export default function Sidebar() {
                 setIconActive("userclicked");
               }}
             />
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {iconActive === "heart" && (
+          <motion.div
+            initial={{ x: -20, opacity: 0 }}
+            animate={{ x: 200, opacity: 1 }}
+            exit={{ x: -20, opacity: 0 }}
+            className="absolute top-0 left-0 w-[30rem] h-[100vh] translate-x-[14rem] bg-white shadow-xl border-l-[1px] rounded-tr-[3rem] rounded-br-[3rem] border-gray-100 z-[100]"
+          >
+            <Notifications loggedInUser={data} />
           </motion.div>
         )}
       </AnimatePresence>

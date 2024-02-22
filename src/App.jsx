@@ -21,7 +21,7 @@ const router = createBrowserRouter([
       { path: "explore", element: <h1>explore</h1> },
       { path: "reels", element: <h1>reels</h1> },
       { path: "direct", element: <h1>direct</h1> },
-      { path: "notifications", element: <h1>notifications</h1> },
+      // { path: "notifications", element: <h1>notifications</h1> },
       { path: "create", element: <CreatePop /> },
       {
         path: `/:searchedUser`,
