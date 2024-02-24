@@ -41,7 +41,7 @@ export default function Sidebar() {
     }
   }, [searchedUser, loggedInUser]);
 
-  // const requestsLength = data?.userProfile?.requestRec.length;
+  const requestsLength = data?.userProfile?.requestRec.length;
 
   return (
     <div className="main px-4 py-2 font-salsa relative ">
@@ -158,7 +158,7 @@ export default function Sidebar() {
               onClick={() => setIconActive("heart")}
               className={
                 iconActive === "notification"
-                  ? "font-semibold cursor-pointer  flex items-center bg-gray-100  gap-2 hover:bg-gray-100 rounded-xl px-2 py-1"
+                  ? "font-semibold  cursor-pointer  flex items-center bg-gray-100  gap-2 hover:bg-gray-100 rounded-xl px-2 py-1"
                   : "flex items-center gap-2 cursor-pointer  hover:bg-gray-100 rounded-xl px-2 py-1"
               }
             >
@@ -170,7 +170,14 @@ export default function Sidebar() {
                 <Heart />
               )}
 
-              <span className="relative">Notifications</span>
+              <p className="relative">
+                Notifications{" "}
+                {requestsLength > 0 && (
+                  <span className="absolute bg-red-400 text-white rounded-full w-[1rem] h-[1rem] text-xs flex items-center justify-center top-[-2px] right-[-10px]">
+                    {requestsLength}
+                  </span>
+                )}
+              </p>
             </div>
           </li>
           <li>
