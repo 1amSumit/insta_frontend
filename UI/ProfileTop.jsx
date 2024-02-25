@@ -2,10 +2,11 @@
 import { useParams } from "react-router-dom";
 
 import Avatar from "./Avatar";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { sendRequest } from "../services/sendRequest";
 import toast from "react-hot-toast";
 import { getCurrentLoggedInUser } from "../utils/getUserToken";
+import { hasAccepted } from "../services/hasAccepted";
 
 export default function ProfileTop({ data, loggedInUser }) {
   const { userProfile } = data;
@@ -17,6 +18,13 @@ export default function ProfileTop({ data, loggedInUser }) {
   const hasRequestSent = loggedInUser.userProfile.requestSent.filter(
     (re) => re === searchedUser
   );
+
+  const { data: acceptData } = useQuery({
+    queryKey: ["acceptedOrNot"],
+    queryFn: () => hasAccepted(searchedUser),
+  });
+
+  console.log(acceptData);
 
   const { mutate, isPending } = useMutation({
     mutationFn: sendRequest,

@@ -3,13 +3,10 @@ import { useQuery } from "@tanstack/react-query";
 import { getPofileDetails } from "../../services/getProfileDetails";
 import { useParams } from "react-router-dom";
 import { getCurrentLoggedInUser } from "../../utils/getUserToken";
-// import { hasAccepted } from "../../services/hasAccepted";
 
 export default function Profile() {
   const { searchedUser } = useParams();
   const loggedInUser = getCurrentLoggedInUser();
-
-  console.log(searchedUser);
 
   const {
     data: seachUserData,
