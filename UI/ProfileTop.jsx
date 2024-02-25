@@ -14,23 +14,22 @@ export default function ProfileTop({ data, loggedInUser }) {
   const params = useParams();
   const { searchedUser } = params;
 
-  const queryCliet = useQueryClient();
+  const queryClient = useQueryClient();
   const hasRequestSent = loggedInUser.userProfile.requestSent.filter(
     (re) => re === searchedUser
   );
 
   const { data: acceptData } = useQuery({
-    queryKey: ["acceptedOrNot"],
+    queryKey: ["accpeted"],
     queryFn: () => hasAccepted(searchedUser),
   });
-
-  console.log(acceptData);
+  const isAccepted = acceptData ? acceptData.isAccepted : false;
 
   const { mutate, isPending } = useMutation({
     mutationFn: sendRequest,
     onSuccess: () => {
       toast.success("follow request sent.");
-      queryCliet.invalidateQueries();
+      queryClient.invalidateQueries();
     },
     onError: () => {
       toast.error("error sending request");
@@ -69,7 +68,7 @@ export default function ProfileTop({ data, loggedInUser }) {
               onClick={sendFollowRequest}
               className="bg-gray-200 text-gray-900  px-2 py-1 rounded-lg"
             >
-              requested
+              {isAccepted ? "following" : "requested"}
             </button>
           )}
         </div>
