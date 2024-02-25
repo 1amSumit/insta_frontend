@@ -31,7 +31,7 @@ export default function Sidebar() {
   const { searchedUser } = params;
 
   const { data } = useQuery({
-    queryKey: ["sidebar"],
+    queryKey: ["loggedInUser"],
     queryFn: () => getPofileDetails(loggedInUser),
   });
 

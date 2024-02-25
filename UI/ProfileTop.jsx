@@ -71,11 +71,11 @@ export default function ProfileTop({ data, loggedInUser }) {
             <span className="text-sm">posts</span>
           </p>
           <p className="">
-            <span className="font-semibold">{userProfile.followers}</span>{" "}
+            <span className="font-semibold">{userProfile.numFollowers}</span>{" "}
             <span>followers</span>
           </p>
           <p className="">
-            <span className="font-semibold">{userProfile.followings}</span>{" "}
+            <span className="font-semibold">{userProfile.numFollowings}</span>{" "}
             <span>following</span>
           </p>
         </div>
