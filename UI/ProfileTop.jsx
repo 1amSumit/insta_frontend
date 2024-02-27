@@ -22,7 +22,9 @@ export default function ProfileTop({ data, loggedInUser }) {
   const { data: acceptData } = useQuery({
     queryKey: ["accpeted"],
     queryFn: () => hasAccepted(searchedUser),
+    enabled: loggedIn !== searchedUser,
   });
+
   const isAccepted = acceptData ? acceptData.isAccepted : false;
 
   const { mutate, isPending } = useMutation({

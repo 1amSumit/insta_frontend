@@ -11,9 +11,10 @@ export const hasAccepted = async (user) => {
     },
   });
 
-  if (!res.ok) {
-    throw new Error("Something went wrong");
-  }
+  const data = await res.json();
 
-  return await res.json();
+  if (!res.ok) {
+    throw new Error("Something went wrong.");
+  }
+  return data;
 };
