@@ -13,6 +13,7 @@ import { LikeAction } from "../store/Like";
 import { useForm } from "react-hook-form";
 import { addComment as addCommentFunc } from "../services/addComment";
 import CommentModal from "./CommentModal";
+import { NavLink } from "react-router-dom";
 export default function Feed({
   username,
   contentUrl,
@@ -83,7 +84,7 @@ export default function Feed({
       <div className="uername flex flex-row justify-between mb-2">
         <div className="flex flex-row gap-1  items-center">
           <StatusItem size={"small"} />
-          <p className="text-sm">{username}</p>
+          <NavLink to={`/${username}`}>{username}</NavLink>
         </div>
         <div>
           <button>
