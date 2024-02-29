@@ -22,7 +22,6 @@ const Modal = ({ children, isOpen, onClose }) => {
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         {children}
       </div>
-
       <button
         className="absolute text-[2rem] top-[1rem] text-white right-[2rem]"
         onClick={onClose}

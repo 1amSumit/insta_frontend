@@ -7,8 +7,14 @@ import { sendRequest } from "../services/sendRequest";
 import toast from "react-hot-toast";
 import { getCurrentLoggedInUser } from "../utils/getUserToken";
 import { hasAccepted } from "../services/hasAccepted";
+import { useState } from "react";
+import Modal from "./Modal";
+import Followers from "./Followers";
+import Followings from "./Followings";
 
 export default function ProfileTop({ data, loggedInUser }) {
+  const [followersClicked, setFollowersClicked] = useState(false);
+  const [followingsClicked, setFollowingsClicked] = useState(false);
   const { userProfile } = data;
   const loggedIn = getCurrentLoggedInUser();
   const params = useParams();
@@ -42,8 +48,16 @@ export default function ProfileTop({ data, loggedInUser }) {
     mutate(searchedUser);
   };
 
+  const onFollowersClose = () => {
+    setFollowersClicked(false);
+  };
+
+  const onFollowingsClose = () => {
+    setFollowingsClicked(false);
+  };
+
   return (
-    <div className=" grid grid-cols-4  gap-[3rem] px-[9rem] pt-[3rem]">
+    <div className=" grid grid-cols-4  gap-[3rem] h-[40vh] px-[9rem] pt-[3rem]">
       <div className="avatar col-span-1 flex justify-center items-center">
         <Avatar image={userProfile.profilePic} />
       </div>
@@ -75,20 +89,43 @@ export default function ProfileTop({ data, loggedInUser }) {
           )}
         </div>
         <div className="mt-2 flex felx-row gap-[2rem]">
-          <p>
+          <p className="cursor-pointer">
             <span className="font-semibold">{userProfile.numPosts}</span>{" "}
             <span className="text-sm">posts</span>
           </p>
-          <p className="">
+          <p
+            className="cursor-pointer"
+            onClick={() => {
+              setFollowersClicked(true);
+              console.log(followersClicked);
+            }}
+          >
             <span className="font-semibold">{userProfile.numFollowers}</span>{" "}
             <span>followers</span>
           </p>
-          <p className="">
+          <p
+            className="cursor-pointer"
+            onClick={() => {
+              setFollowingsClicked(true);
+              console.log(followingsClicked);
+            }}
+          >
             <span className="font-semibold">{userProfile.numFollowings}</span>{" "}
             <span>following</span>
           </p>
         </div>
       </div>
+
+      {followersClicked && (
+        <Modal isOpen={followersClicked} onClose={onFollowersClose}>
+          <Followers followers={data?.userProfile?.followers} />
+        </Modal>
+      )}
+      {followingsClicked && (
+        <Modal isOpen={followingsClicked} onClose={onFollowingsClose}>
+          <Followings followings={data?.userProfile?.followings} />
+        </Modal>
+      )}
     </div>
   );
 }

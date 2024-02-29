@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getPofileDetails } from "../../services/getProfileDetails";
 import { useParams } from "react-router-dom";
 import { getCurrentLoggedInUser } from "../../utils/getUserToken";
+import ProfileBottom from "../../UI/ProfileBottom";
 
 export default function Profile() {
   const { searchedUser } = useParams();
@@ -33,7 +34,10 @@ export default function Profile() {
 
   if (seachUserData) {
     content = (
-      <ProfileTop data={seachUserData} loggedInUser={loggedInUserData} />
+      <div>
+        <ProfileTop data={seachUserData} loggedInUser={loggedInUserData} />
+        <ProfileBottom />
+      </div>
     );
   }
 
