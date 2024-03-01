@@ -107,12 +107,7 @@ export default function Feed({
           />
         ) : (
           <div className="video-container" style={{ position: "relative" }}>
-            <video
-              className="aspect-video rounded-md"
-              autoPlay
-              muted={isMuted}
-              loop
-            >
+            <video className="aspect-video rounded-md" autoPlay muted={isMuted}>
               <source src={contentUrl} type="video/mp4" />
             </video>
 
