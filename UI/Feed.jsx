@@ -14,6 +14,8 @@ import { useForm } from "react-hook-form";
 import { addComment as addCommentFunc } from "../services/addComment";
 import CommentModal from "./CommentModal";
 import { NavLink } from "react-router-dom";
+import { VscMute as Mute ,VscUnmute as Unmute } from "react-icons/vsc";
+
 export default function Feed({
   username,
   contentUrl,
@@ -30,6 +32,7 @@ export default function Feed({
   const likeInfo = useSelector((state) => state.like.likeInfo);
   const thisPosthasLike = likeInfo.find((like) => like.postId === postId);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isMuted , setIsMuted] = useState(true);
 
   const queryClient = useQueryClient();
 
@@ -103,9 +106,23 @@ export default function Feed({
             alt="feed image"
           />
         ) : (
-          <video className="aspect-video rounded-md" autoPlay muted controls>
+          <div className="video-container ">
+
+          <video className="aspect-video  rounded-md" autoPlay muted={isMuted} loop>
             <source src={contentUrl} type="video/mp4" />
           </video>
+
+          <div className="video-controlls">
+           {!isMuted ?  <button className="unmute" onClick={()=>setIsMuted(false)}>
+
+            <Unmute/>
+           </button> : <button className="muted" onClick={()=>setIsMuted(true)}>
+            
+            <Mute/>
+            
+            </button>}
+          </div>
+          </div>
         )}
         <div className="absolute  top-[50%] left-[45%] translate-[-50%, -50%]">
           <motion.span
