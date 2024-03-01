@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import StatusItem from "./StatusItem";
 import { FaRegHeart as Heart, FaHeart as HearFill } from "react-icons/fa";
 import { IoChatbubbleOutline as Comment } from "react-icons/io5";
@@ -33,6 +33,45 @@ export default function Feed({
   const thisPosthasLike = likeInfo.find((like) => like.postId === postId);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
+  const [isInView, setIsInView] = useState(false);
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    const options = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.5,
+    };
+
+    const handleIntersection = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          if (!isInView) {
+            setIsInView(true);
+            videoRef.current.play();
+          }
+        } else {
+          if (isInView) {
+            setIsInView(false);
+            videoRef.current.pause();
+            videoRef.current.currentTime = 0;
+          }
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(handleIntersection, options);
+
+    if (videoRef.current) {
+      observer.observe(videoRef.current);
+    }
+
+    return () => {
+      if (videoRef.current) {
+        observer.unobserve(videoRef.current);
+      }
+    };
+  }, [isInView]);
 
   const queryClient = useQueryClient();
 
@@ -107,7 +146,12 @@ export default function Feed({
           />
         ) : (
           <div className="video-container" style={{ position: "relative" }}>
-            <video className="aspect-video rounded-md" autoPlay muted={isMuted}>
+            <video
+              ref={videoRef}
+              className="aspect-video rounded-md"
+              autoPlay
+              muted={isMuted}
+            >
               <source src={contentUrl} type="video/mp4" />
             </video>
 
