@@ -106,23 +106,23 @@ export default function Feed({
             alt="feed image"
           />
         ) : (
-          <div className="video-container ">
+          <div className="video-container" style={{ position: 'relative' }}>
+  <video className="aspect-video rounded-md" autoPlay muted={isMuted} loop>
+    <source src={contentUrl} type="video/mp4" />
+  </video>
 
-          <video className="aspect-video  rounded-md" autoPlay muted={isMuted} loop>
-            <source src={contentUrl} type="video/mp4" />
-          </video>
+  <div className="video-controls" style={{ position: 'absolute', bottom: 0, right: 0, margin: '10px' }}>
+    {!isMuted ?  
+      <button className="unmute" onClick={() => setIsMuted(true)}>
+        Unmute
+      </button> : 
+      <button className="muted" onClick={() => setIsMuted(false)}>
+        Mute
+      </button>
+    }
+  </div>
+</div>
 
-          <div className="video-controlls">
-           {!isMuted ?  <button className="unmute" onClick={()=>setIsMuted(false)}>
-
-            <Unmute/>
-           </button> : <button className="muted" onClick={()=>setIsMuted(true)}>
-            
-            <Mute/>
-            
-            </button>}
-          </div>
-          </div>
         )}
         <div className="absolute  top-[50%] left-[45%] translate-[-50%, -50%]">
           <motion.span
