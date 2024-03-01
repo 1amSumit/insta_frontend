@@ -14,7 +14,7 @@ import { useForm } from "react-hook-form";
 import { addComment as addCommentFunc } from "../services/addComment";
 import CommentModal from "./CommentModal";
 import { NavLink } from "react-router-dom";
-import { VscMute as Mute ,VscUnmute as Unmute } from "react-icons/vsc";
+import { VscMute as Mute, VscUnmute as Unmute } from "react-icons/vsc";
 
 export default function Feed({
   username,
@@ -32,7 +32,7 @@ export default function Feed({
   const likeInfo = useSelector((state) => state.like.likeInfo);
   const thisPosthasLike = likeInfo.find((like) => like.postId === postId);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isMuted , setIsMuted] = useState(true);
+  const [isMuted, setIsMuted] = useState(true);
 
   const queryClient = useQueryClient();
 
@@ -106,20 +106,40 @@ export default function Feed({
             alt="feed image"
           />
         ) : (
-          <div className="video-container" style={{ position: 'relative' }}>
-            <video className="aspect-video rounded-md" autoPlay muted={isMuted} loop>
+          <div className="video-container" style={{ position: "relative" }}>
+            <video
+              className="aspect-video rounded-md"
+              autoPlay
+              muted={isMuted}
+              loop
+            >
               <source src={contentUrl} type="video/mp4" />
             </video>
 
-            <div className="video-controls" style={{ position: 'absolute', bottom: 0, right: 0, margin: '10px' }}>
-              {!isMuted ?  
-                <button className="unmute" onClick={() => setIsMuted(true)}>
-                  Unmute
-                </button> : 
-                <button className="muted" onClick={() => setIsMuted(false)}>
-                  Mute
+            <div
+              className="video-controls"
+              style={{
+                position: "absolute",
+                bottom: 0,
+                right: 0,
+                margin: "10px",
+              }}
+            >
+              {!isMuted ? (
+                <button
+                  className="unmute text-white bg-black rounded-full px-1 py-1"
+                  onClick={() => setIsMuted(true)}
+                >
+                  <Unmute />
                 </button>
-              }
+              ) : (
+                <button
+                  className="muted text-white bg-black rounded-full px-1 py-1"
+                  onClick={() => setIsMuted(false)}
+                >
+                  <Mute />
+                </button>
+              )}
             </div>
           </div>
         )}
