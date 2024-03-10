@@ -138,7 +138,7 @@ export default function Sidebar() {
               to={"/direct"}
               onClick={() => setIconActive("message")}
               className={
-                iconActive === "direct"
+                iconActive === "message"
                   ? "font-semibold  flex items-center bg-gray-100  gap-2 hover:bg-gray-100 rounded-xl px-2 py-1"
                   : "flex items-center gap-2  hover:bg-gray-100 rounded-xl px-2 py-1"
               }

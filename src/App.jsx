@@ -9,6 +9,7 @@ import SignupPage from "./pages/SignupPage";
 import { Toaster } from "react-hot-toast";
 import Error from "./pages/Error";
 import Profile from "./pages/Profile";
+import Messages from "./pages/Messages";
 
 const router = createBrowserRouter([
   {
@@ -20,8 +21,7 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: "explore", element: <h1>explore</h1> },
       { path: "reels", element: <h1>reels</h1> },
-      { path: "direct", element: <h1>direct</h1> },
-      // { path: "notifications", element: <h1>notifications</h1> },
+      { path: "direct", element: <Messages /> },
       { path: "create", element: <CreatePop /> },
       {
         path: `/:searchedUser`,
