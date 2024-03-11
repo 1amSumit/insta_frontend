@@ -10,6 +10,7 @@ import { Toaster } from "react-hot-toast";
 import Error from "./pages/Error";
 import Profile from "./pages/Profile";
 import Messages from "./pages/Messages";
+import RightMessage from "../UI/RightMessage";
 
 const router = createBrowserRouter([
   {
@@ -21,7 +22,13 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: "explore", element: <h1>explore</h1> },
       { path: "reels", element: <h1>reels</h1> },
-      { path: "direct", element: <Messages /> },
+      {
+        path: "direct",
+        element: <Messages />,
+        id: "message",
+        children: [{ path: "t/:messageId", element: <RightMessage /> }],
+      },
+
       { path: "create", element: <CreatePop /> },
       {
         path: `/:searchedUser`,
