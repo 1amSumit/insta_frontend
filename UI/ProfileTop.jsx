@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import Avatar from "./Avatar";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -24,6 +24,8 @@ export default function ProfileTop({ data, loggedInUser }) {
   const hasRequestSent = loggedInUser.userProfile.requestSent.filter(
     (re) => re === searchedUser
   );
+
+  console.log(data);
 
   const { data: acceptData } = useQuery({
     queryKey: ["accpeted"],
@@ -71,6 +73,7 @@ export default function ProfileTop({ data, loggedInUser }) {
               Edit profile
             </button>
           )}
+
           {searchedUser !== loggedIn && hasRequestSent.length === 0 && (
             <button
               onClick={sendFollowRequest}
@@ -79,6 +82,7 @@ export default function ProfileTop({ data, loggedInUser }) {
               {isPending ? "sending..." : "follow"}
             </button>
           )}
+
           {searchedUser !== loggedIn && hasRequestSent.length !== 0 && (
             <button
               onClick={sendFollowRequest}
@@ -87,8 +91,16 @@ export default function ProfileTop({ data, loggedInUser }) {
               {isAccepted ? "following" : "requested"}
             </button>
           )}
+          {searchedUser !== loggedIn && (
+            <Link
+              to={`/direct/t/${data.userProfile._id}`}
+              className="bg-blue-500 text-white px-2 py-1 rounded-lg"
+            >
+              send message
+            </Link>
+          )}
         </div>
-        <div className="mt-2 flex felx-row gap-[2rem]">
+        <div className="mt-6 flex felx-row gap-[2rem]">
           <p className="cursor-pointer">
             <span className="font-semibold">{userProfile.numPosts}</span>{" "}
             <span className="text-sm">posts</span>
