@@ -92,7 +92,7 @@ export default function RightMessage() {
             />
 
             <input
-              className="outline-none"
+              className="outline-none w-full"
               value={enteredMessage}
               placeholder="Enter message..."
               onChange={(e) => setEnteredMessage(e.target.value)}
