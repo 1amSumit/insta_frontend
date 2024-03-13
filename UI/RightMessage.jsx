@@ -1,12 +1,55 @@
 /* eslint-disable react/prop-types */
-export default function RightMessage({ recieverUserName }) {
+import { BsEmojiSunglasses } from "react-icons/bs";
+import EmojiPicker from "emoji-picker-react";
+import { useState } from "react";
+
+export default function RightMessage({ recieverUserName, recieverProfilePic }) {
+  const [emojiopen, setEmojiOpen] = useState(false);
+  const [enteredMessage, setEnteredMessage] = useState("");
+
+  const formSubmited = (e) => {
+    e.preventDefault();
+    console.log(enteredMessage);
+    setEnteredMessage("");
+  };
   return (
     <div className="flex flex-col">
-      <div className="h-[10vh] bg-red-500">
+      <div className="h-[10vh] px-2 py-1 flex items-center">
+        <div className="bg-green-500 w-[3rem] h-[3rem] rounded-full flex-row gap-4">
+          <img
+            className="h-[100%] w-[100%] rounded-full"
+            src={recieverProfilePic}
+            alt={recieverUserName}
+          />
+        </div>
         <h2>{recieverUserName}</h2>
       </div>
-      <div className="h-[80vh] bg-black">second</div>
-      <div className="h-[10vh] bg-green-500">third</div>
+      <div className="h-[80vh]">second</div>
+      <div className="h-[10vh] relative flex items-center">
+        <div className="absolute top-[-28rem] px-[2rem] left-0">
+          <EmojiPicker
+            onEmojiClick={(emoji) =>
+              setEnteredMessage((prev) => prev + emoji.emoji)
+            }
+            open={emojiopen}
+          />
+        </div>
+        <form onSubmit={formSubmited} className="w-full px-[2rem]">
+          <div className="rounded-xl flex flex-row items-center gap-2  border-[1px] px-[1rem] py-[0.5rem]  border-gray-800 w-full ">
+            <BsEmojiSunglasses
+              className="text-xl cursor-pointer"
+              onClick={() => setEmojiOpen((prev) => !prev)}
+            />
+
+            <input
+              className="outline-none"
+              value={enteredMessage}
+              placeholder="Enter message..."
+              onChange={(e) => setEnteredMessage(e.target.value)}
+            />
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
