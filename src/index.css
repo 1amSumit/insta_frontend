@@ -45,9 +45,3 @@ details > summary::-webkit-details-marker {
   align-items: center;
   justify-content: center;
 }
-
-.modal-content {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-}

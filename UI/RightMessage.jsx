@@ -1,22 +1,27 @@
 import { BsEmojiSunglasses } from "react-icons/bs";
 import EmojiPicker from "emoji-picker-react";
 import { useState, useRef, useEffect } from "react";
-``;
-
+import { IoImageOutline } from "react-icons/io5";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { sendMessages } from "../services/sendMessages";
 import { useParams } from "react-router-dom";
 
+import { sendMessages } from "../services/sendMessages";
 import { getUserById } from "../services/getUserByUSerId";
 import { getMessage } from "../services/getMessages";
 import MessagesComponent from "./MessagesComponent";
+import Modal from "./Modal";
+import ShowMessageImagePreview from "./ShowMessageImagePreview";
 
 export default function RightMessage() {
+  const [modelOpen, setModalOpen] = useState(false);
   const [emojiopen, setEmojiOpen] = useState(false);
   const [enteredMessage, setEnteredMessage] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
   const { messageId } = useParams();
 
   const messagesEndRef = useRef(null);
+  const emojiRef = useRef(null);
+  const fileInputRef = useRef(null);
 
   const { data, isLoading } = useQuery({
     queryKey: [messageId],
@@ -34,11 +39,36 @@ export default function RightMessage() {
     mutationFn: sendMessages,
   });
 
+  const fileOpenHandler = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleClickOutside = (event) => {
+    if (emojiRef.current && !emojiRef.current.contains(event.target)) {
+      setEmojiOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages]);
+
+  useEffect(() => {
+    if (selectedFile) {
+      setModalOpen(true);
+    }
+  }, [selectedFile]);
 
   const formSubmited = (e) => {
     e.preventDefault();
@@ -76,7 +106,7 @@ export default function RightMessage() {
       </div>
 
       <div className="h-[10vh] relative flex items-center">
-        <div className="absolute top-[-28rem] px-[2rem] left-0">
+        <div className="absolute top-[-28rem] px-[2rem] left-0" ref={emojiRef}>
           <EmojiPicker
             onEmojiClick={(emoji) =>
               setEnteredMessage((prev) => prev + emoji.emoji)
@@ -97,9 +127,25 @@ export default function RightMessage() {
               placeholder="Enter message..."
               onChange={(e) => setEnteredMessage(e.target.value)}
             />
+            <div
+              className="mr-[1rem] text-2xl cursor-pointer"
+              onClick={() => fileOpenHandler()}
+            >
+              <IoImageOutline />
+            </div>
+
+            <input
+              onChange={(e) => setSelectedFile(e.target.files[0])}
+              type="file"
+              className="hidden"
+              ref={fileInputRef}
+            />
           </div>
         </form>
       </div>
+      <Modal isOpen={modelOpen} onClose={() => setModalOpen(false)}>
+        <ShowMessageImagePreview userId={messageId} file={selectedFile} />
+      </Modal>
     </div>
   );
 }

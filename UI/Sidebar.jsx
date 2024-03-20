@@ -22,10 +22,13 @@ import { getCurrentLoggedInUser } from "../utils/getUserToken";
 import Notifications from "./Notifications";
 import { useQuery } from "@tanstack/react-query";
 import { getPofileDetails } from "../services/getProfileDetails";
+import { useSetRecoilState } from "recoil";
+import loggedInUserAtom from "../store/atom/loggedInUserAtom";
 
 export default function Sidebar() {
   const [iconActive, setIconActive] = useState("home");
   const loggedInUser = getCurrentLoggedInUser();
+  const setLoggedInUserData = useSetRecoilState(loggedInUserAtom);
 
   const params = useParams();
   const { searchedUser } = params;
@@ -34,6 +37,12 @@ export default function Sidebar() {
     queryKey: ["loggedInUser"],
     queryFn: () => getPofileDetails(loggedInUser),
   });
+
+  if (data) {
+    setLoggedInUserData(data);
+
+    console.log(data);
+  }
 
   useEffect(() => {
     if (searchedUser === loggedInUser) {

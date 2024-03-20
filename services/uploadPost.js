@@ -9,7 +9,6 @@ export const uploadPost = async (formData) => {
   const res = await fetch(URL, {
     method: "POST",
     headers: {
-      //   "content-type": "application/json",
       Authorization: "Bearer " + token,
     },
     body: formDatas,

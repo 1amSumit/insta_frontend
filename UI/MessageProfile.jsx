@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getUserById } from "../services/getUserByUSerId";
 
 /* eslint-disable react/prop-types */
-export default function MessageProfile({ userId }) {
+export default function MessageProfile({ userId, lastMessage }) {
   const { data, isLoading } = useQuery({
     queryKey: [userId],
     queryFn: () => getUserById(userId),
@@ -17,6 +17,7 @@ export default function MessageProfile({ userId }) {
       </div>
       <div>
         <p className="text-sm">{data.user.username}</p>
+        <p className="text-sm text-gray-700">{lastMessage.slice(0, 30)}</p>
       </div>
     </div>
   );

@@ -22,7 +22,7 @@ export default function CommentModal({ isOpen, onClose, comments, post }) {
   };
   return (
     <CModal isOpen={isOpen} onClose={onClose}>
-      <div className="post w-[30vw] flex justify-center items-center">
+      <div className="post p-4  bg-white w-[30vw] flex justify-center items-center">
         <div className="">
           <img
             src={post.image}
@@ -31,7 +31,7 @@ export default function CommentModal({ isOpen, onClose, comments, post }) {
           />
         </div>
       </div>
-      <div className="comments w-[30vw] px-4 py-2">
+      <div className="comments w-[30vw] bg-white px-4 py-2">
         <div className="border-b-[2px] border-gray-100">
           <h2 className="font-semibold text-md">{post.username}</h2>
         </div>
@@ -57,7 +57,7 @@ export default function CommentModal({ isOpen, onClose, comments, post }) {
         <form
           method="POST"
           onSubmit={handleSubmit(handleComment)}
-          className="flex mb-2 flex-row justify-between"
+          className="flex bg-white mb-2 flex-row justify-between"
         >
           {isPending ? (
             <p className="text-center text-xs mx-[auto] my-0">Adding...</p>

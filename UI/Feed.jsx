@@ -15,6 +15,8 @@ import { addComment as addCommentFunc } from "../services/addComment";
 import CommentModal from "./CommentModal";
 import { NavLink } from "react-router-dom";
 import { VscMute as Mute, VscUnmute as Unmute } from "react-icons/vsc";
+import Modal from "./Modal";
+import SharePost from "./SharePost";
 
 export default function Feed({
   username,
@@ -27,14 +29,17 @@ export default function Feed({
 }) {
   const [contentIsClicked, setContentIsClicked] = useState(false);
   const [aniCount, setAniCount] = useState(false);
-  const dispatch = useDispatch();
   const { handleSubmit, register, reset } = useForm();
-  const likeInfo = useSelector((state) => state.like.likeInfo);
-  const thisPosthasLike = likeInfo.find((like) => like.postId === postId);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const [isInView, setIsInView] = useState(false);
+  const [shareModalOpen, setShareModalOpen] = useState(false);
+
+  const likeInfo = useSelector((state) => state.like.likeInfo);
+  const dispatch = useDispatch();
   const videoRef = useRef(null);
+
+  const thisPosthasLike = likeInfo.find((like) => like.postId === postId);
 
   useEffect(() => {
     const options = {
@@ -226,7 +231,10 @@ export default function Feed({
               />
             )}
             <Comment onClick={openModal} className="cursor-pointer " />
-            <Share />
+            <Share
+              onClick={() => setShareModalOpen(true)}
+              className="cursor-pointer"
+            />
           </div>
           <div className="text-3xl">
             <Bookmark />
@@ -300,6 +308,10 @@ export default function Feed({
           </form>
         </div>
       </div>
+
+      <Modal isOpen={shareModalOpen} onClose={() => setShareModalOpen(false)}>
+        <SharePost />
+      </Modal>
     </div>
   );
 }

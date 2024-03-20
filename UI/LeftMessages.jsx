@@ -24,9 +24,12 @@ export default function LeftMessages() {
         <button className="text-sm">Requests</button>
       </div>
       <div className="lower pt-5 flex flex-col gap-2">
-        {data.inboxArr.map((userId) => (
-          <NavLink key={userId} to={`/direct/t/${userId}`}>
-            <MessageProfile userId={userId} />
+        {data.inboxArr.map((inboxItem) => (
+          <NavLink key={inboxItem.id} to={`/direct/t/${inboxItem.id}`}>
+            <MessageProfile
+              userId={inboxItem.id}
+              lastMessage={inboxItem.lastMessage}
+            />
           </NavLink>
         ))}
       </div>
