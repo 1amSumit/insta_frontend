@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
 export default function Followings({ followings }) {
   return (
-    <div className="h-[80vh] w-[20vw]">
+    <div className="h-[40vh] w-[20vw] rounded-lg overflow-y-auto no-scrollbar px-2 py-1 bg-white">
       <h2 className="font-semibold text-xl font-salsa  border-b-2 border-gray-100">
         Followings
       </h2>
 
-      <div className="mt-[1rem] flex flex-col overflow-y-auto gap-[1rem]">
+      <div className="mt-[1rem] no-scrollbar flex flex-col overflow-y-auto gap-[1rem]">
         {followings.map((fol) => (
           <li
             className="list-none flex flex-row justify-between px-2"
