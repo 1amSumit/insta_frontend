@@ -310,7 +310,7 @@ export default function Feed({
       </div>
 
       <Modal isOpen={shareModalOpen} onClose={() => setShareModalOpen(false)}>
-        <SharePost />
+        <SharePost onSent={() => setShareModalOpen(false)} />
       </Modal>
     </div>
   );

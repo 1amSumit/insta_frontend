@@ -40,8 +40,6 @@ export default function Sidebar() {
 
   if (data) {
     setLoggedInUserData(data);
-
-    console.log(data);
   }
 
   useEffect(() => {
