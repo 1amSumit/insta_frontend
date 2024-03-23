@@ -8,7 +8,7 @@ import { searchUser } from "../services/searchUser";
 import { sendMessageToAllUsers } from "../services/sendMessageToAllUsers";
 import toast from "react-hot-toast";
 
-function SharePost({ onSent }) {
+function SharePost({ onSent, postUrl }) {
   const [name, setName] = useState(null);
   const [nameArr, setNameArr] = useState([]);
 
@@ -38,7 +38,7 @@ function SharePost({ onSent }) {
   };
 
   const sendMessageToAll = () => {
-    mutate({ users: nameArr, message: "hi" });
+    mutate({ users: nameArr, message: postUrl });
   };
 
   let content;
