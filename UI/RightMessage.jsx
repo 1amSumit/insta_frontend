@@ -2,7 +2,7 @@ import { BsEmojiSunglasses } from "react-icons/bs";
 import EmojiPicker from "emoji-picker-react";
 import { useState, useRef, useEffect } from "react";
 import { IoImageOutline } from "react-icons/io5";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 
 import { sendMessages } from "../services/sendMessages";
@@ -22,6 +22,7 @@ export default function RightMessage() {
   const messagesEndRef = useRef(null);
   const emojiRef = useRef(null);
   const fileInputRef = useRef(null);
+  const queryClient = useQueryClient();
 
   const { data, isLoading } = useQuery({
     queryKey: [messageId],
@@ -31,12 +32,15 @@ export default function RightMessage() {
   const { data: messages, isLoading: messageLoading } = useQuery({
     queryKey: [messageId, "mesages"],
     queryFn: () => getMessage(messageId),
-    staleTime: 5000,
-    refetchInterval: 1000,
+    staleTime: 100,
+    refetchInterval: 100,
   });
 
   const { mutate } = useMutation({
     mutationFn: sendMessages,
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    },
   });
 
   const fileOpenHandler = () => {
