@@ -33,7 +33,7 @@ export default function RightMessage() {
     queryKey: [messageId, "mesages"],
     queryFn: () => getMessage(messageId),
     staleTime: 500,
-    refetchInterval: 500,
+    // refetchInterval: 500,
   });
 
   const { mutate } = useMutation({
