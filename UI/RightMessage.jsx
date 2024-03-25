@@ -27,13 +27,15 @@ export default function RightMessage() {
   const { data, isLoading } = useQuery({
     queryKey: [messageId],
     queryFn: () => getUserById(messageId),
+    staleTime: 1000,
+    refetchInterval: 1000,
   });
 
   const { data: messages, isLoading: messageLoading } = useQuery({
     queryKey: [messageId, "mesages"],
     queryFn: () => getMessage(messageId),
-    staleTime: 500,
-    refetchInterval: 500,
+    staleTime: 1000,
+    refetchInterval: 1000,
   });
 
   const { mutate } = useMutation({
