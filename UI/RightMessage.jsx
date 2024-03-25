@@ -32,7 +32,7 @@ export default function RightMessage() {
   const { data: messages, isLoading: messageLoading } = useQuery({
     queryKey: [messageId, "mesages"],
     queryFn: () => getMessage(messageId),
-    // staleTime: 500,
+    staleTime: 500,
     refetchInterval: 500,
   });
 
