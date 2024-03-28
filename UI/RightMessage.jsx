@@ -42,7 +42,7 @@ export default function RightMessage() {
       const newRoomId = sortedUserIds.join("-");
       setRoomId(newRoomId);
     }
-  }, [logedUser, messageId]);
+  }, [logedUser]);
 
   useEffect(() => {
     const socketUrl = import.meta.env.VITE_BASE_WS_URL;
@@ -58,10 +58,10 @@ export default function RightMessage() {
 
     socket.on("connect", () => {
       console.log("Socket connected");
+      if (roomId) {
+        socket.emit("join-room", roomId);
+      }
     });
-    console.log(roomId);
-
-    socket.emit("join-room", roomId);
 
     socket.on("error", (error) => {
       console.error("Socket error:", error);
@@ -84,7 +84,7 @@ export default function RightMessage() {
         socket.disconnect();
       }
     };
-  }, []);
+  }, [roomId]);
 
   const { data, isLoading } = useQuery({
     queryKey: [messageId],
