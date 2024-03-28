@@ -67,16 +67,16 @@ export default function RightMessage() {
       console.error("Socket error:", error);
     });
 
-    socket.on("disconnect", () => {
-      console.log("Socket disconnected");
-    });
-
     socket.on("receive-message", (message) => {
       console.log("Received message:", message);
       setUserMessages((prevMessages) => [...prevMessages, message]);
     });
 
     setSocket(socket);
+
+    socket.on("disconnect", () => {
+      console.log("Socket disconnected");
+    });
 
     return () => {
       if (socket) {
