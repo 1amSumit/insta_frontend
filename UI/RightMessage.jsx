@@ -47,6 +47,8 @@ export default function RightMessage() {
   useEffect(() => {
     const socket = io(import.meta.env.VITE_BASE_WS_URL);
 
+    console.log(import.meta.env.VITE_BASE_WS_URL);
+
     socket.on("connect", () => {
       console.log("socket connected");
     });
