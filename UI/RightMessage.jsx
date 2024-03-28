@@ -59,6 +59,7 @@ export default function RightMessage() {
     socket.on("connect", () => {
       console.log("Socket connected");
     });
+    console.log(roomId);
 
     socket.emit("join-room", roomId);
 
