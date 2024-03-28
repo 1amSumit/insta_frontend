@@ -45,22 +45,41 @@ export default function RightMessage() {
   }, [logedUser, messageId]);
 
   useEffect(() => {
-    const socket = io(import.meta.env.VITE_BASE_WS_URL);
+    const socketUrl = import.meta.env.VITE_BASE_WS_URL;
 
-    console.log(import.meta.env.VITE_BASE_WS_URL);
+    if (!socketUrl) {
+      console.error("WebSocket URL is not defined.");
+      return;
+    }
+
+    const socket = io(socketUrl);
+
+    console.log(socketUrl);
 
     socket.on("connect", () => {
-      console.log("socket connected");
+      console.log("Socket connected");
     });
 
-    socket.emit("join-room", roomId);
+    socket.on("error", (error) => {
+      console.error("Socket error:", error);
+    });
+
+    socket.on("disconnect", () => {
+      console.log("Socket disconnected");
+    });
 
     socket.on("receive-message", (message) => {
-      console.log(message);
-      setUserMessages((prev) => [...prev, message]);
+      console.log("Received message:", message);
+      setUserMessages((prevMessages) => [...prevMessages, message]);
     });
 
     setSocket(socket);
+
+    return () => {
+      if (socket) {
+        socket.disconnect();
+      }
+    };
   }, []);
 
   const { data, isLoading } = useQuery({
