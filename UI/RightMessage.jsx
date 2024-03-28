@@ -68,6 +68,7 @@ export default function RightMessage() {
     });
 
     socket.on("receive-message", (message) => {
+      console.log("hallo");
       console.log("Received message:", message);
       setUserMessages((prevMessages) => [...prevMessages, message]);
     });
