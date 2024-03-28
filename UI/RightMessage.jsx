@@ -47,7 +47,9 @@ export default function RightMessage() {
   useEffect(() => {
     const socket = io("http://localhost:3000");
 
-    socket.on("connect", () => {});
+    socket.on("connect", () => {
+      console.log("socket connected");
+    });
 
     socket.emit("join-room", roomId);
 

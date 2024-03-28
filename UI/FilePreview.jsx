@@ -27,6 +27,7 @@ export default function FilePreview() {
       navigate("/");
     },
     onError: (err) => {
+      console.log(err);
       toast.error("error uploading");
     },
   });
