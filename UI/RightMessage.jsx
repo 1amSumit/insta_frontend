@@ -60,6 +60,8 @@ export default function RightMessage() {
       console.log("Socket connected");
     });
 
+    socket.emit("join-room", roomId);
+
     socket.on("error", (error) => {
       console.error("Socket error:", error);
     });
