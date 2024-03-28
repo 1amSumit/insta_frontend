@@ -56,6 +56,7 @@ export default function RightMessage() {
     socket.emit("join-room", roomId);
 
     socket.on("receive-message", (message) => {
+      console.log(message);
       setUserMessages((prev) => [...prev, message]);
     });
 
