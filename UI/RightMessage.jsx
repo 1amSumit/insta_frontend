@@ -2,48 +2,77 @@ import { BsEmojiSunglasses } from "react-icons/bs";
 import EmojiPicker from "emoji-picker-react";
 import { useState, useRef, useEffect } from "react";
 import { IoImageOutline } from "react-icons/io5";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
+import { io } from "socket.io-client";
 
-import { sendMessages } from "../services/sendMessages";
 import { getUserById } from "../services/getUserByUSerId";
 import { getMessage } from "../services/getMessages";
 import MessagesComponent from "./MessagesComponent";
 import Modal from "./Modal";
 import ShowMessageImagePreview from "./ShowMessageImagePreview";
+import { useQuery } from "@tanstack/react-query";
+import { getCurrentLoggedInUser } from "../utils/getUserToken";
+import { getPofileDetails } from "../services/getProfileDetails";
 
 export default function RightMessage() {
   const [modelOpen, setModalOpen] = useState(false);
   const [emojiopen, setEmojiOpen] = useState(false);
   const [enteredMessage, setEnteredMessage] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
+  const [userMessages, setUserMessages] = useState([]);
+  const [roomId, setRoomId] = useState(null);
   const { messageId } = useParams();
 
   const messagesEndRef = useRef(null);
   const emojiRef = useRef(null);
   const fileInputRef = useRef(null);
-  const queryClient = useQueryClient();
+
+  const [socket, setSocket] = useState(null);
+
+  const loggedInUser = getCurrentLoggedInUser();
+
+  const { data: logedUser, isLoading: loggedUSerLoading } = useQuery({
+    queryKey: [loggedInUser],
+    queryFn: () => getPofileDetails(loggedInUser),
+  });
+
+  useEffect(() => {
+    if (logedUser) {
+      const sortedUserIds = [messageId, logedUser.userProfile._id].sort();
+      const newRoomId = sortedUserIds.join("-");
+      setRoomId(newRoomId);
+    }
+  }, [logedUser, messageId]);
+
+  useEffect(() => {
+    const socket = io("http://localhost:3000");
+
+    socket.on("connect", () => {});
+
+    socket.emit("join-room", roomId);
+
+    socket.on("receive-message", (message) => {
+      setUserMessages((prev) => [...prev, message]);
+    });
+
+    setSocket(socket);
+  }, []);
 
   const { data, isLoading } = useQuery({
     queryKey: [messageId],
     queryFn: () => getUserById(messageId),
-    staleTime: 1000,
-    refetchInterval: 1000,
   });
 
   const { data: messages, isLoading: messageLoading } = useQuery({
-    queryKey: [messageId, "mesages"],
+    queryKey: [messageId, "messages"],
     queryFn: () => getMessage(messageId),
-    staleTime: 1000,
-    refetchInterval: 1000,
   });
 
-  const { mutate } = useMutation({
-    mutationFn: sendMessages,
-    onSuccess: () => {
-      queryClient.invalidateQueries();
-    },
-  });
+  useEffect(() => {
+    if (!messageLoading && messages && messages.messages) {
+      setUserMessages(messages.messages);
+    }
+  }, [messageLoading, messages]);
 
   const fileOpenHandler = () => {
     if (fileInputRef.current) {
@@ -68,7 +97,7 @@ export default function RightMessage() {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, [messages]);
+  }, [userMessages]);
 
   useEffect(() => {
     if (selectedFile) {
@@ -78,11 +107,27 @@ export default function RightMessage() {
 
   const formSubmited = (e) => {
     e.preventDefault();
-    mutate({ userId: messageId, message: enteredMessage });
+    socket.emit(
+      "send-message",
+      {
+        to: messageId,
+        message: enteredMessage,
+        from: logedUser.userProfile._id,
+      },
+      roomId
+    );
+    setUserMessages((prev) => [
+      ...prev,
+      {
+        to: messageId,
+        message: enteredMessage,
+        from: logedUser.userProfile._id,
+      },
+    ]);
     setEnteredMessage("");
   };
 
-  if (isLoading || messageLoading) {
+  if (messageLoading || isLoading || loggedUSerLoading) {
     return <p>Loading...</p>;
   }
 
@@ -100,14 +145,14 @@ export default function RightMessage() {
       </div>
       <div className="h-[80vh] px-[2rem] no-scrollbar py-1 overflow-y-auto ">
         <div className="flex flex-col gap-[1rem] justify-end">
-          {messages.messages.map((message) => (
+          {userMessages.map((message, index) => (
             <MessagesComponent
-              key={message._id}
+              key={index}
               side={message.to === data.user._id ? "right" : "left"}
               message={message.message}
             />
           ))}
-          <div ref={messagesEndRef} />{" "}
+          <div ref={messagesEndRef} />
         </div>
       </div>
 

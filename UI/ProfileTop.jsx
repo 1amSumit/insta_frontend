@@ -25,8 +25,6 @@ export default function ProfileTop({ data, loggedInUser }) {
     (re) => re === searchedUser
   );
 
-  console.log(data);
-
   const { data: acceptData } = useQuery({
     queryKey: ["accpeted"],
     queryFn: () => hasAccepted(searchedUser),
@@ -109,7 +107,6 @@ export default function ProfileTop({ data, loggedInUser }) {
             className="cursor-pointer"
             onClick={() => {
               setFollowersClicked(true);
-              console.log(followersClicked);
             }}
           >
             <span className="font-semibold">{userProfile.numFollowers}</span>{" "}
@@ -119,7 +116,6 @@ export default function ProfileTop({ data, loggedInUser }) {
             className="cursor-pointer"
             onClick={() => {
               setFollowingsClicked(true);
-              console.log(followingsClicked);
             }}
           >
             <span className="font-semibold">{userProfile.numFollowings}</span>{" "}

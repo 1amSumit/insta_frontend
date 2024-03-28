@@ -54,7 +54,7 @@ const router = createBrowserRouter([
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 500,
+      staleTime: 0,
     },
   },
 });

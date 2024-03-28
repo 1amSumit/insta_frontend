@@ -1,8 +1,6 @@
 // eslint-disable-next-line react/prop-types
 export default function StatusItem({ size }) {
-  const onClickhandler = () => {
-    console.log("hallo");
-  };
+  const onClickhandler = () => {};
 
   const variants = {
     smallest: "w-[1.5rem] h-[]1.5rem] rounded-full",

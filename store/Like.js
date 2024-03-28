@@ -38,7 +38,7 @@ export const LikeSlice = createSlice({
     },
     disLike: (state, action) => {
       const postId = action.payload.postId;
-      console.log(postId);
+
       const indexToRemove = state.likeInfo.findIndex(
         (like) => like.postId === postId
       );
@@ -47,8 +47,6 @@ export const LikeSlice = createSlice({
         state.likeInfo.splice(indexToRemove, 1);
         saveLiketoLocalStorage(state.likeInfo);
       }
-
-      console.log(state);
     },
   },
 });
