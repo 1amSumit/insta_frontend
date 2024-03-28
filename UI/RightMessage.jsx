@@ -45,7 +45,7 @@ export default function RightMessage() {
   }, [logedUser, messageId]);
 
   useEffect(() => {
-    const socket = io("http://localhost:3000");
+    const socket = io(`${import.meta.env.VITE_BASE_WS_URL}`);
 
     socket.on("connect", () => {
       console.log("socket connected");
