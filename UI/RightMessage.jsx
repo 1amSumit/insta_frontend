@@ -54,8 +54,6 @@ export default function RightMessage() {
 
     const socket = io(socketUrl);
 
-    console.log(socketUrl);
-
     socket.on("connect", () => {
       console.log("Socket connected");
       if (roomId) {

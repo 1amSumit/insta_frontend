@@ -2,6 +2,13 @@
 import Feed from "./Feed";
 
 export default function Feeds({ data }) {
+  if (data.data.posts.length === 0) {
+    return (
+      <div>
+        <p>Follow someone to see the feed.</p>
+      </div>
+    );
+  }
   return (
     <main className="flex flex-col justify-center gap-[2rem] sm:px-[4rem] sm:py-[2rem]  px-[1.4rem] py-[0.6rem]">
       {data.data.posts.map((post) => (
