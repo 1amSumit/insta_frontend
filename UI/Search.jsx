@@ -43,8 +43,20 @@ export default function Search({ userClick }) {
       </div>
 
       {isLoading ? (
-        <div className="px-[3rem]">
-          <Skeleton height={"50px"} />
+        <div className="users border-t-[1px] px-[3rem] py-[1rem] flex flex-col gap-[1rem] border-gray-200 rounded-lg overflow-y-auto no-scrollbar">
+          {[1, 2, 3, 4, 5].map((_, index) => (
+            <div
+              key={index}
+              className="flex cursor-pointer hover:bg-gray-100  px-[1rem] py-[0.6rem] rounded-lg flex-row gap-2"
+            >
+              <div className="images w-[3rem] h-[3rem] rounded-full">
+                <Skeleton circle height={48} width={48} />
+              </div>
+              <div className="name">
+                <Skeleton width={150} />
+              </div>
+            </div>
+          ))}
         </div>
       ) : data.result === 0 ? (
         <p className="text-center mx-0 my-auto">No user found!</p>
