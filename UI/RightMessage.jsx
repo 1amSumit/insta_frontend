@@ -14,6 +14,9 @@ import { useQuery } from "@tanstack/react-query";
 import { getCurrentLoggedInUser } from "../utils/getUserToken";
 import { getPofileDetails } from "../services/getProfileDetails";
 
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+
 export default function RightMessage() {
   const [modelOpen, setModalOpen] = useState(false);
   const [emojiopen, setEmojiOpen] = useState(false);
@@ -152,7 +155,31 @@ export default function RightMessage() {
   };
 
   if (messageLoading || isLoading || loggedUSerLoading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="flex flex-col">
+        <div className="h-[10vh] border-b-[1px] border-gray-200 px-2 py-1 flex items-center gap-3">
+          <div className="w-[3rem] h-[3rem] rounded-full">
+            <Skeleton circle height={48} width={48} />
+          </div>
+          <h2>
+            <Skeleton width={100} />
+          </h2>
+        </div>
+        <div className="h-[80vh] px-[2rem] py-1 overflow-y-auto">
+          <div className="flex flex-col gap-[1rem] justify-end">
+            {[1, 2, 3, 4].map((index) => (
+              <div key={index} className="flex items-start">
+                <div>
+                  <Skeleton width={200} />
+                  <Skeleton count={2} width={300} />
+                </div>
+              </div>
+            ))}
+            <div style={{ minHeight: "5rem" }} />
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
