@@ -45,7 +45,7 @@ function SharePost({ onSent, postUrl }) {
 
   if (data) {
     content = (
-      <div className="mt-[2rem] flex flex-col gap-2">
+      <div className="mt-[2rem] h-[100%] flex flex-col gap-2 overflow-y-auto no-scrollbar">
         {data.data.userData.map((user) => (
           <div
             key={user._id}

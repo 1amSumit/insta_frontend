@@ -44,7 +44,7 @@ const FeedLoading = () => {
             <span>
               <Skeleton width={30} />
             </span>
-            <span className="font-semibold">likes</span>
+            <span className="font-semibold"></span>
           </p>
         </div>
         <div className="cntent-description">
@@ -53,7 +53,7 @@ const FeedLoading = () => {
               <span className="font-salsa">
                 <Skeleton width={100} />
               </span>
-              <span className="font-semibold"> more...</span>
+              <span className="font-semibold"></span>
             </summary>
             <span className="font-sans font-normal text-sm">
               <Skeleton count={3} />
@@ -62,7 +62,7 @@ const FeedLoading = () => {
         </div>
         <div className="view_comments">
           <button className="pt-4 font-thin">
-            View all <Skeleton width={60} /> comments
+            <Skeleton width={60} />
           </button>
         </div>
         <div className="comment_post">
@@ -72,9 +72,7 @@ const FeedLoading = () => {
               className="bg-transparent mt-2 font-thin focus:outline-none"
               disabled
             />
-            <button type="submit" className="text-blue-500" disabled>
-              post
-            </button>
+            <button type="submit" className="text-blue-500" disabled></button>
           </form>
         </div>
       </div>
