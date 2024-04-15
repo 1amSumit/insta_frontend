@@ -2,9 +2,14 @@
 import { useEffect, useRef, useState } from "react";
 import { BiVolumeMute } from "react-icons/bi";
 import { GoUnmute } from "react-icons/go";
+import { FaRegHeart as Heart, FaHeart as HearFill } from "react-icons/fa";
+import { IoChatbubbleOutline as Comment } from "react-icons/io5";
+import { IoPaperPlaneOutline as Share } from "react-icons/io5";
+import { CiBookmark as Bookmark } from "react-icons/ci";
 
 function Reel({ videoUrl, soundState, isMuted }) {
   const [isInView, setIsInView] = useState(false);
+  const [contentIsClicked, setContentIsClicked] = useState(false);
   const videoRef = useRef(null);
 
   const toggleVideoPlayandPause = (videoRef) => {
@@ -55,24 +60,59 @@ function Reel({ videoUrl, soundState, isMuted }) {
   }, [isInView]);
 
   return (
-    <div className=" flex justify-center flex-col items-center">
-      <div className=" flex items-center justify-center h-[100vh] w-auto">
-        <div className="relative cursor-pointer">
-          <video
-            className=" relative h-[90vh] rounded-lg"
-            ref={videoRef}
-            autoPlay
-            muted={isMuted}
-            onClick={() => toggleVideoPlayandPause(videoRef)}
-          >
-            <source src={videoUrl} type="video/mp4" />
-          </video>
-          <div className="bg-gray-100 p-1 cursor-pointer rounded-full absolute top-0 right-0 m-2">
-            {isMuted ? (
-              <BiVolumeMute onClick={() => soundState()} className="font-xl" />
-            ) : (
-              <GoUnmute onClick={() => soundState()} className="font-xl" />
-            )}
+    <div className="flex flex-row items-end justify-center gap-4">
+      <div className=" flex justify-center flex-col items-center">
+        <div className=" flex items-center justify-center h-[100vh] w-auto">
+          <div className="relative cursor-pointer">
+            <video
+              className=" relative h-[90vh] rounded-lg"
+              ref={videoRef}
+              autoPlay
+              muted={isMuted}
+              onClick={() => toggleVideoPlayandPause(videoRef)}
+            >
+              <source src={videoUrl} type="video/mp4" />
+            </video>
+            <div className="bg-gray-100 p-1 cursor-pointer rounded-full absolute top-0 right-0 m-2">
+              {isMuted ? (
+                <BiVolumeMute
+                  onClick={() => soundState()}
+                  className="font-xl"
+                />
+              ) : (
+                <GoUnmute onClick={() => soundState()} className="font-xl" />
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div className="flex mb-[3rem] flex-col gap-[1rem]">
+          <div className="like flex justify-end flex-col gap-[1rem] text-3xl">
+            <div className="flex justify-center items-center flex-col">
+              {contentIsClicked ? (
+                <HearFill
+                  className="text-red-500 cursor-pointer"
+                  onClick={() => {
+                    setContentIsClicked(false);
+                  }}
+                />
+              ) : (
+                <Heart className="cursor-pointer text-2xl" />
+              )}
+              <p className="text-xs font-semibold mt-1">100.89k</p>
+            </div>
+            <div className="flex justify-center items-center flex-col">
+              <Comment className="cursor-pointer text-2xl" />
+              <p className="text-xs font-semibold mt-1">100.89k</p>
+            </div>
+            <div className="flex justify-center items-center flex-col">
+              <Share className="cursor-pointer text-2xl" />
+              <p className="text-xs font-semibold mt-1">100.89k</p>
+            </div>
+          </div>
+          <div className="flex justify-center items-center flex-col">
+            <Bookmark className="text-2xl cursor-pointer" />
           </div>
         </div>
       </div>
