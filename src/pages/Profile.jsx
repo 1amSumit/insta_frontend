@@ -34,7 +34,7 @@ export default function Profile() {
 
   if (seachUserData) {
     content = (
-      <div>
+      <div className="text-gray-200">
         <ProfileTop data={seachUserData} loggedInUser={loggedInUserData} />
         <ProfileBottom />
       </div>

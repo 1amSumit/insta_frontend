@@ -3,7 +3,6 @@ import AppLayout from "../UI/AppLayout";
 import Home from "./pages/Home";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import CreatePop from "../UI/CreatePop";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import { Toaster } from "react-hot-toast";
@@ -31,7 +30,7 @@ const router = createBrowserRouter([
         children: [{ path: "t/:messageId", element: <RightMessage /> }],
       },
 
-      { path: "create", element: <CreatePop /> },
+      // { path: "create", element: <CreatePop /> },
       {
         path: `/:searchedUser`,
         element: <Profile />,

@@ -1,13 +1,13 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { uploadPost } from "../services/uploadPost";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-
+import { fileActions } from "../store/Fileupload";
 export default function FilePreview() {
   const queryClient = useQueryClient();
   const [showCancelModal, setShowCancelModal] = useState(false);
@@ -15,15 +15,18 @@ export default function FilePreview() {
   const navigate = useNavigate();
   const { register, handleSubmit, reset } = useForm();
   const modalRef = useRef();
+
   const file = useSelector((state) => state.fileupload.file);
 
   let imageUrl = URL.createObjectURL(file);
+  const dispatch = useDispatch();
 
   const { mutate, isPending } = useMutation({
     mutationFn: uploadPost,
     onSuccess: () => {
       toast.success("post succefully uploaded");
       queryClient.invalidateQueries();
+      dispatch(fileActions.clearFile());
       navigate("/");
     },
     onError: (err) => {
@@ -60,15 +63,23 @@ export default function FilePreview() {
 
   const formSubmitHandler = (data) => {
     mutate({ file: file, data: data });
+
     reset();
   };
 
   if (isPending) {
-    return <p>🚀 Uploading please wait...</p>;
+    return (
+      <p className="px-4 bg-gray-100 rounded-xl ">
+        🚀 Uploading please wait...
+      </p>
+    );
   }
 
   return (
-    <div className="px-[1.4rem] flex flex-row gap-[1rem]" ref={modalRef}>
+    <div
+      className="px-[1.4rem] bg-stone-800 text-gray-200 flex flex-row gap-[1rem]"
+      ref={modalRef}
+    >
       <div className="">
         <div className="flex flex-row justify-end gap-[1.5rem] mb-4">
           <button onClick={onCancelCliked}>cancel</button>
@@ -91,10 +102,14 @@ export default function FilePreview() {
           transition={{ duration: 0.3 }}
           className={`${showDesc ? "block" : "none"}`}
         >
-          <form method="POST" onSubmit={handleSubmit(formSubmitHandler)}>
+          <form
+            method="POST"
+            className="flex flex-col gap-4"
+            onSubmit={handleSubmit(formSubmitHandler)}
+          >
             <label htmlFor="desc">Add description</label>
-            <input
-              className="border-b-2 outline-none border-gray-300"
+            <textarea
+              className="border-b-2 bg-stone-700 outline-none border-gray-300"
               type="text"
               name="description"
               id="description"
@@ -102,7 +117,7 @@ export default function FilePreview() {
             />
             <input
               type="submit"
-              className="mt-2  bg-blue-500 text-500 hover:bg-blue-400 transition-all duration-200 px-4 py-1 text-white rounded-lg "
+              className="mt-2   bg-blue-500 text-500 hover:bg-blue-400 transition-all duration-200 px-4 py-1 text-white rounded-lg "
             />
           </form>
         </motion.div>

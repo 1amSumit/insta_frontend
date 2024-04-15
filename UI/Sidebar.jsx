@@ -24,9 +24,12 @@ import { useQuery } from "@tanstack/react-query";
 import { getPofileDetails } from "../services/getProfileDetails";
 import { useSetRecoilState } from "recoil";
 import loggedInUserAtom from "../store/atom/loggedInUserAtom";
+import CreatePop from "./CreatePop";
+import Modal from "./Modal";
 
 export default function Sidebar() {
   const [iconActive, setIconActive] = useState("home");
+  const [createModelOpen, setCreateMOdelOpen] = useState(false);
   const loggedInUser = getCurrentLoggedInUser();
   const setLoggedInUserData = useSetRecoilState(loggedInUserAtom);
 
@@ -59,122 +62,134 @@ export default function Sidebar() {
       </div>
       <nav className="pt-8 ">
         <ul className="flex flex-col gap-4 text-[1.4rem]">
-          <li>
+          <li className="group">
             <NavLink
               to={"/"}
               onClick={() => setIconActive("home")}
               className={
                 iconActive === "home"
-                  ? "font-semibold  flex items-center gap-2 bg-gray-100 hover:bg-gray-100 rounded-xl px-2 py-1"
-                  : "flex items-center gap-2 hover:bg-gray-100 rounded-xl px-2 py-1"
+                  ? "font-semibold  flex items-center gap-2 group-hover:bg-stone-800 duration-300    rounded-lg px-2 py-1"
+                  : "flex items-center gap-2 group-hover:bg-stone-800 duration-300  rounded-lg px-2 py-1"
               }
             >
               {iconActive === "home" ? (
-                <div className="">
+                <div className="group-hover:scale-110 duration-300">
                   <GoHomeFill />
                 </div>
               ) : (
-                <GoHome />
+                <div className="group-hover:scale-110 duration-300">
+                  <GoHome />
+                </div>
               )}
               <span>Home</span>
             </NavLink>
           </li>
-          <li>
+          <li className="group">
             <div
               onClick={() => {
                 setIconActive("search");
               }}
               className={
                 iconActive === "search"
-                  ? "font-semibold  flex cursor-pointer bg-gray-100  items-center gap-2 hover:bg-gray-100 rounded-xl px-2 py-1"
-                  : "flex items-center gap-2 cursor-pointer  hover:bg-gray-100 rounded-xl px-2 py-1"
+                  ? "font-semibold  flex cursor-pointer group-hover:bg-stone-800 duration-300   items-center gap-2  rounded-xl px-2 py-1"
+                  : "flex items-center gap-2 cursor-pointer group-hover:bg-stone-800 duration-300   rounded-lg px-2 py-1"
               }
             >
               {iconActive === "search" ? (
-                <div className="">
+                <div className="group-hover:scale-110 duration-300">
                   <SearchFill />
                 </div>
               ) : (
-                <SearchIcon />
+                <div className="group-hover:scale-110 duration-300">
+                  <SearchIcon />
+                </div>
               )}
               <span>Search</span>
             </div>
           </li>
-          <li>
+          <li className="group">
             <NavLink
               to={"/explore"}
               onClick={() => setIconActive("explore")}
               className={
                 iconActive === "explore"
-                  ? "font-semibold  flex items-center bg-gray-100  gap-2 hover:bg-gray-100 rounded-xl px-2 py-1"
-                  : "flex items-center gap-2  hover:bg-gray-100 rounded-xl px-2 py-1"
+                  ? "font-semibold  flex items-center group-hover:bg-stone-800 duration-300   gap-2 rounded-xl px-2 py-1"
+                  : "flex items-center gap-2   group-hover:bg-stone-800 duration-300   rounded-lg px-2 py-1"
               }
             >
               {iconActive === "explore" ? (
-                <div className="">
+                <div className="group-hover:scale-110 duration-300">
                   <ExploreFill />
                 </div>
               ) : (
-                <Explore />
+                <div className="group-hover:scale-110 duration-300">
+                  <Explore />
+                </div>
               )}
               <span>Explore</span>
             </NavLink>
           </li>
-          <li>
+          <li className="group">
             <NavLink
               to={"/reels"}
               onClick={() => setIconActive("reels")}
               className={
                 iconActive === "reels"
-                  ? "font-semibold  flex items-center bg-gray-100  gap-2 hover:bg-gray-100 rounded-xl px-2 py-1"
-                  : "flex items-center gap-2  hover:bg-gray-100 rounded-xl px-2 py-1"
+                  ? "font-semibold  flex items-center group-hover:bg-stone-800 duration-300   gap-2 rounded-xl px-2 py-1"
+                  : "flex items-center gap-2   group-hover:bg-stone-800 duration-300   rounded-lg px-2 py-1"
               }
             >
               {iconActive === "reels" ? (
-                <div className="">
+                <div className="group-hover:scale-110 duration-300">
                   <Reels />
                 </div>
               ) : (
-                <Reels />
+                <div className="group-hover:scale-110 duration-300">
+                  <Reels />
+                </div>
               )}
               <span>Reels</span>
             </NavLink>
           </li>
-          <li>
+          <li className="group">
             <NavLink
               to={"/direct"}
               onClick={() => setIconActive("message")}
               className={
                 iconActive === "message"
-                  ? "font-semibold  flex items-center bg-gray-100  gap-2 hover:bg-gray-100 rounded-xl px-2 py-1"
-                  : "flex items-center gap-2  hover:bg-gray-100 rounded-xl px-2 py-1"
+                  ? "font-semibold  flex items-center group-hover:bg-stone-800 duration-300   gap-2 rounded-xl px-2 py-1"
+                  : "flex items-center gap-2   group-hover:bg-stone-800 duration-300   rounded-lg px-2 py-1"
               }
             >
               {iconActive === "message" ? (
-                <div className="">
+                <div className="group-hover:scale-110 duration-300">
                   <MessageFill />
                 </div>
               ) : (
-                <Message />
+                <div className="group-hover:scale-110 duration-300">
+                  <Message />
+                </div>
               )}
               <span>Messages</span>
             </NavLink>
           </li>
-          <li>
+          <li className="group">
             <div
               onClick={() => setIconActive("heart")}
               className={
                 iconActive === "notification"
-                  ? "font-semibold  cursor-pointer  flex items-center bg-gray-100  gap-2 hover:bg-gray-100 rounded-xl px-2 py-1"
-                  : "flex items-center gap-2 cursor-pointer  hover:bg-gray-100 rounded-xl px-2 py-1"
+                  ? "font-semibold  cursor-pointer group-hover:bg-stone-800 duration-300  flex items-center   gap-2  rounded-xl px-2 py-1"
+                  : "flex items-center gap-2 cursor-pointer   group-hover:bg-stone-800 duration-300   rounded-lg px-2 py-1"
               }
             >
               {iconActive === "heart" ? (
-                <div className="">
+                <div className="group-hover:scale-110 duration-300">
                   <HeartFill />
                 </div>
               ) : (
-                <Heart />
+                <div className="group-hover:scale-110 duration-300">
+                  <Heart />
+                </div>
               )}
 
               <p className="relative">
@@ -187,29 +202,31 @@ export default function Sidebar() {
               </p>
             </div>
           </li>
-          <li>
-            <NavLink
-              to={"/create"}
+          <li className="group">
+            <div
               onClick={() => {
                 setIconActive("create");
+                setCreateMOdelOpen(true);
               }}
               className={
                 iconActive === "create"
-                  ? "font-semibold  flex items-center bg-gray-100  gap-2 hover:bg-gray-100 rounded-xl px-2 py-1"
-                  : "flex items-center gap-2  hover:bg-gray-100 rounded-xl px-2 py-1"
+                  ? "font-semibold cursor-pointer  flex items-center group-hover:bg-stone-800 duration-300  gap-2 rounded-xl px-2 py-1"
+                  : "flex items-center gap-2 cursor-pointer   group-hover:bg-stone-800 duration-300   rounded-lg px-2 py-1"
               }
             >
               {iconActive === "create" ? (
-                <div className="">
+                <div className="group-hover:scale-110 duration-300">
                   <CreateFill />
                 </div>
               ) : (
-                <Create />
+                <div className="group-hover:scale-110 duration-300">
+                  <Create />
+                </div>
               )}
               <span>Create</span>
-            </NavLink>
+            </div>
           </li>
-          <li>
+          <li className="group">
             <NavLink
               to={`/${loggedInUser}`}
               onClick={() => {
@@ -217,8 +234,8 @@ export default function Sidebar() {
               }}
               className={
                 iconActive === "profile"
-                  ? "font-semibold  flex items-center bg-gray-100  gap-2 hover:bg-gray-100 rounded-xl px-2 py-1"
-                  : "flex items-center gap-2  hover:bg-gray-100 rounded-xl px-2 py-1"
+                  ? "font-semibold  flex items-center   gap-2 group-hover:bg-stone-800 duration-300   rounded-lg  px-2 py-1"
+                  : "flex items-center gap-2  group-hover:bg-stone-800 duration-300   rounded-lg px-2 py-1"
               }
             >
               <div className="w-[1.5rem] h-[1.5rem] rounded-full bg-gray-800"></div>
@@ -255,6 +272,14 @@ export default function Sidebar() {
           </motion.div>
         )}
       </AnimatePresence>
+      {iconActive === "create" && (
+        <Modal
+          isOpen={createModelOpen}
+          onClose={() => setCreateMOdelOpen(false)}
+        >
+          <CreatePop />
+        </Modal>
+      )}
     </div>
   );
 }

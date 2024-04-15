@@ -19,12 +19,12 @@ export default function Search({ userClick }) {
     userClick();
   };
   return (
-    <div className="flex flex-col gap-[1rem] h-[100vh] ">
+    <div className="flex bg-stone-800 rounded-tr-3xl rounded-br-3xl shadow-r-xl flex-col gap-[1rem] h-[100vh] ">
       <div className="flex flex-col gap-[3rem] px-[2rem] py-[1rem]">
-        <h2 className="text-[1.8rem]">Search</h2>
+        <h2 className="text-[1.8rem] text-gray-200">Search</h2>
         <div className="w-full relative ">
           <input
-            className="bg-gray-100  w-full placeholder:text-gray-400 h-[3rem] font-thin text-sm outline-none pl-[1rem] pr-[3rem] py-3 rounded-lg"
+            className="text-gray-200 bg-stone-700  w-full placeholder:text-gray-200 h-[3rem] font-thin text-sm outline-none pl-[1rem] pr-[3rem] py-3 rounded-lg"
             type="text"
             placeholder="search"
             autoComplete="off"
@@ -47,7 +47,7 @@ export default function Search({ userClick }) {
           {[1, 2, 3, 4, 5].map((_, index) => (
             <div
               key={index}
-              className="flex cursor-pointer hover:bg-gray-100  px-[1rem] py-[0.6rem] rounded-lg flex-row gap-2"
+              className="flex cursor-pointer   px-[1rem] py-[0.6rem] rounded-lg flex-row gap-2"
             >
               <div className="images w-[3rem] h-[3rem] rounded-full">
                 <Skeleton circle height={48} width={48} />
@@ -67,7 +67,7 @@ export default function Search({ userClick }) {
               to={`/${item.username}`}
               onClick={userClicked}
               key={item.username}
-              className="flex cursor-pointer hover:bg-gray-100  px-[1rem] py-[0.6rem] rounded-lg flex-row gap-2"
+              className="flex cursor-pointer hover:bg-stone-800  px-[1rem] py-[0.6rem] rounded-lg flex-row gap-2"
             >
               <div className="images w-[3rem] h-[3rem] rounded-full">
                 <img

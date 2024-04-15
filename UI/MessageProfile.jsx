@@ -18,7 +18,7 @@ export default function MessageProfile({ userId, lastMessage }) {
   if (isLoading) {
     return (
       <div
-        className={`flex shadow-lg flex-row hover:bg-gray-300 duration-300 rounded-md gap-4 p-2 border-[1px] border-gray-200 ${
+        className={`flex shadow-lg flex-row hover:bg-stone-800 duration-300 rounded-md gap-4 p-2 border-[1px] border-gray-200 ${
           messageId.messageId === userId ? "bg-gray-300 text-gray-900" : ""
         }`}
       >
@@ -56,8 +56,8 @@ export default function MessageProfile({ userId, lastMessage }) {
 
   return (
     <div
-      className={`flex shadow-lg flex-row  hover:bg-gray-300 duration-300 rounded-md gap-4 p-2 border-[1px] border-gray-200 ${
-        messageId.messageId === userId ? "bg-gray-300 text-gray-900" : ""
+      className={`flex shadow-lg flex-row  hover:bg-stone-800 duration-300 rounded-md gap-4 p-2 border-[1px] border-gray-200 ${
+        messageId.messageId === userId ? "bg-stone-800 text-gray-200" : ""
       }`}
     >
       <div className="w-[3rem] h-[3rem] rounded-full items-center flex">
@@ -70,10 +70,10 @@ export default function MessageProfile({ userId, lastMessage }) {
       <div>
         <p className="text-sm font-semibold">{data.user.username}</p>
         {!isImage && (
-          <p className="text-sm text-gray-700">{lastMessage.slice(0, 30)}</p>
+          <p className="text-sm text-gray-300">{lastMessage.slice(0, 30)}</p>
         )}
         {isImage && (
-          <p className="text-sm text-gray-700">shared an attachment</p>
+          <p className="text-sm text-gray-300">shared an attachment</p>
         )}
       </div>
     </div>

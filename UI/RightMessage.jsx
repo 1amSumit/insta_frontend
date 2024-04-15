@@ -217,14 +217,14 @@ export default function RightMessage() {
           />
         </div>
         <form onSubmit={formSubmited} className="w-full px-[2rem]">
-          <div className="rounded-xl flex flex-row items-center gap-2  border-[1px] px-[1rem] py-[0.5rem]  border-gray-800 w-full ">
+          <div className="rounded-xl flex flex-row items-center gap-2  border-[1px] px-[1rem] py-[0.5rem] bg-stone-800  border-gray-200 w-full ">
             <BsEmojiSunglasses
               className="text-xl cursor-pointer"
               onClick={() => setEmojiOpen((prev) => !prev)}
             />
 
             <input
-              className="outline-none w-full"
+              className="bg-stone-800 w-full"
               value={enteredMessage}
               placeholder="Enter message..."
               onChange={(e) => setEnteredMessage(e.target.value)}

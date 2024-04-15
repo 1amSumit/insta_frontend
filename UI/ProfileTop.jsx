@@ -67,7 +67,7 @@ export default function ProfileTop({ data, loggedInUser }) {
             {userProfile.username}
           </h2>
           {searchedUser === loggedIn && (
-            <button className="bg-gray-100 px-2 py-1 rounded-lg">
+            <button className="bg-stone-800 px-2 py-1 rounded-lg">
               Edit profile
             </button>
           )}

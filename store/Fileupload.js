@@ -9,6 +9,9 @@ export const fileSlice = createSlice({
     setFileName(state, action) {
       state.file = action.payload.formDataObject.file;
     },
+    clearFile(state) {
+      state.file = "";
+    },
   },
 });
 

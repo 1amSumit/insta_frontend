@@ -5,7 +5,7 @@ export default function Messages() {
   const params = useParams();
 
   return (
-    <div className="grid grid-cols-3 h-[100vh]">
+    <div className="grid grid-cols-3 h-[100vh] bg-stone-900 text-gray-200">
       <div className="border-r-[1px] border-r-gray-200">
         <LeftMessages />
       </div>

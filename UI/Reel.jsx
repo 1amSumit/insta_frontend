@@ -87,7 +87,7 @@ function Reel({ videoUrl, soundState, isMuted }) {
         </div>
       </div>
       <div>
-        <div className="flex mb-[3rem] flex-col gap-[1rem]">
+        <div className="flex mb-[3rem] text-gray-200 flex-col gap-[1rem]">
           <div className="like flex justify-end flex-col gap-[1rem] text-3xl">
             <div className="flex justify-center items-center flex-col">
               {contentIsClicked ? (

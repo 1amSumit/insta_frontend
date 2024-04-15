@@ -15,20 +15,20 @@ export default function AppLayout() {
   }, [userToken, navigate]);
   return (
     <div className="grid grid-cols-1 sm:grid-cols-5 h-screen">
-      <div className="hidden sm:block">
+      <div className="hidden sm:block bg-stone-900 text-gray-100">
         <Sidebar />
       </div>
       <main
         className={` ${
           url !== "/"
-            ? "col-span-4 border-l-[1px] border-gray-200 "
-            : "col-span-3"
+            ? "col-span-4 border-l-[1px] bg-stone-900 border-gray-200 "
+            : "col-span-3 bg-stone-900"
         }`}
       >
         <Outlet />
       </main>
       {url === "/" && (
-        <div className="hidden sm:block">
+        <div className="hidden sm:block bg-stone-900 text-gray-200">
           <Suggetions />
         </div>
       )}

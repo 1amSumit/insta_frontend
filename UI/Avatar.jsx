@@ -124,9 +124,9 @@ export default function Avatar({ image }) {
       {showModal && (
         <Modal isOpen={showModal} onClose={onClose}>
           {fileName === undefined && (
-            <div className="flex flex-col justify-center items-center px-[6rem] py-[1rem]">
+            <div className="flex flex-col bg-stone-800 rounded-xl text-gray-200 justify-center items-center px-[6rem] py-[1rem]">
               <div className="">
-                <h2 className="font-semibold text-2xl text-gray-700">
+                <h2 className="font-semibold text-2xl text-gray-200">
                   Update profile pic
                 </h2>
               </div>

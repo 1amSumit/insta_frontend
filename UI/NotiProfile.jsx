@@ -32,7 +32,7 @@ export default function NotiProfile({ username }) {
   };
 
   return (
-    <div className="flex flex-row bg-gray-100 rounded-lg gap-[1rem] justify-between px-[2rem] items-center">
+    <div className="flex flex-row bg-stone-900 rounded-lg gap-[1rem] justify-between px-[2rem] items-center">
       <div className="flex flex-row py-[0.5rem] items-center gap-[0.6rem]">
         <figure className="w-[4rem] h-[4rem] rounded-full">
           <img
@@ -42,7 +42,7 @@ export default function NotiProfile({ username }) {
           />
         </figure>
         <div>
-          <p className="text-sm text-gray-700">{username}</p>
+          <p className="text-sm text-gray-200">{username}</p>
         </div>
       </div>
       <div className="flex flex-row gap-2">
@@ -52,7 +52,7 @@ export default function NotiProfile({ username }) {
         >
           Confirm
         </button>
-        <button className="bg-gray-200 text-gray-800 px-2 py-1 rounded-lg">
+        <button className="bg-stone-900 text-gray-200 px-2 py-1 rounded-lg">
           Delete
         </button>
       </div>
