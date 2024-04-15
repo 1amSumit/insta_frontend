@@ -3,8 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { BiVolumeMute } from "react-icons/bi";
 import { GoUnmute } from "react-icons/go";
 
-function Reel({ videoUrl }) {
-  const [isMuted, setIsMuted] = useState(true);
+function Reel({ videoUrl, soundState, isMuted }) {
   const [isInView, setIsInView] = useState(false);
   const videoRef = useRef(null);
 
@@ -54,29 +53,25 @@ function Reel({ videoUrl }) {
       }
     };
   }, [isInView]);
+
   return (
     <div className=" flex justify-center flex-col items-center">
       <div className=" flex items-center justify-center h-[100vh] w-auto">
-        <div
-          className="relative cursor-pointer"
-          onClick={() => toggleVideoPlayandPause(videoRef)}
-        >
+        <div className="relative cursor-pointer">
           <video
             className=" relative h-[90vh] rounded-lg"
             ref={videoRef}
             autoPlay
             muted={isMuted}
+            onClick={() => toggleVideoPlayandPause(videoRef)}
           >
             <source src={videoUrl} type="video/mp4" />
           </video>
           <div className="bg-gray-100 p-1 cursor-pointer rounded-full absolute top-0 right-0 m-2">
             {isMuted ? (
-              <BiVolumeMute
-                onClick={() => setIsMuted(false)}
-                className="font-xl"
-              />
+              <BiVolumeMute onClick={() => soundState()} className="font-xl" />
             ) : (
-              <GoUnmute onClick={() => setIsMuted(true)} className="font-xl" />
+              <GoUnmute onClick={() => soundState()} className="font-xl" />
             )}
           </div>
         </div>
