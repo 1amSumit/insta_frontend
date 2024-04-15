@@ -12,6 +12,7 @@ import Profile from "./pages/Profile";
 import Messages from "./pages/Messages";
 import RightMessage from "../UI/RightMessage";
 import { RecoilRoot } from "recoil";
+import Reels from "./pages/Reels";
 
 const router = createBrowserRouter([
   {
@@ -22,7 +23,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "explore", element: <h1>explore</h1> },
-      { path: "reels", element: <h1>reels</h1> },
+      { path: "reels/:realId", element: <Reels /> },
       {
         path: "direct",
         element: <Messages />,

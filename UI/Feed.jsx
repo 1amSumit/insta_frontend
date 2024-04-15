@@ -20,6 +20,7 @@ import SharePost from "./SharePost";
 
 export default function Feed({
   username,
+  profilePic,
   contentUrl,
   likes,
   comments,
@@ -130,7 +131,7 @@ export default function Feed({
     <div className="border-b-2 border-slate-200">
       <div className="uername flex flex-row justify-between mb-2">
         <div className="flex flex-row gap-1  items-center">
-          <StatusItem size={"small"} />
+          <StatusItem size={"small"} profilePic={profilePic} />
           <NavLink to={`/${username}`}>{username}</NavLink>
         </div>
         <div>
@@ -244,10 +245,10 @@ export default function Feed({
         <div className="showLikes mt-3 flex flex-row gap-1 items-center">
           <div className="flex itesm-center flex-row ">
             <div>
-              <StatusItem size={"smallest"} />
+              <StatusItem size={"smallest"} profilePic={profilePic} />
             </div>
             <div className="ml-[-8px]">
-              <StatusItem size={"smallest"} />
+              <StatusItem size={"smallest"} profilePic={profilePic} />
             </div>
           </div>
           <p className="text-xs flex flex-row gap-1">

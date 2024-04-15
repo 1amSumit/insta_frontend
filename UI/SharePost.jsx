@@ -78,7 +78,7 @@ function SharePost({ onSent, postUrl }) {
 
   return (
     <>
-      <div className="w-[30vw] h-[60vh] px-2  rounded-lg bg-white">
+      <div className="w-[30vw] h-[60vh] px-2 overflow-hidden  rounded-lg bg-white">
         <div className="border-b-[1px] items-center px-3 py-1 flex flex-row justify-between  brder-b-gray-100">
           <h2 className="">Share to</h2>
           {nameArr.length > 0 && (

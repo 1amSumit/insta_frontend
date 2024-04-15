@@ -1,5 +1,5 @@
 // eslint-disable-next-line react/prop-types
-export default function StatusItem({ size }) {
+export default function StatusItem({ size, profilePic }) {
   const onClickhandler = () => {};
 
   const variants = {
@@ -13,9 +13,9 @@ export default function StatusItem({ size }) {
     <button onClick={() => onClickhandler()}>
       <figure className={variants[size]}>
         <img
-          src="/avatar/avatar.jpg"
-          alt=""
-          className="w-[100%] h-[100%] border-2 border-orange-400 rounded-full bg-contain"
+          src={profilePic}
+          alt="profile picture"
+          className="w-[100%] h-[100%] border-2 border-red-300 rounded-full bg-contain"
         />
       </figure>
     </button>

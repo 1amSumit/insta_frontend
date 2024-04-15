@@ -8,26 +8,6 @@ export default function StatusBar() {
         <StatusItem size={"medium"} />
         <StatusItem size={"medium"} />
         <StatusItem size={"medium"} />
-        <StatusItem size={"medium"} />
-        <StatusItem size={"medium"} />
-        <StatusItem size={"medium"} />
-        <StatusItem size={"medium"} />
-        <StatusItem size={"medium"} />
-        <StatusItem size={"medium"} />
-        <StatusItem size={"medium"} />
-        <StatusItem size={"medium"} />
-        <StatusItem size={"medium"} />
-        <StatusItem size={"medium"} />
-        <StatusItem size={"medium"} />
-        <StatusItem size={"medium"} />
-        <StatusItem size={"medium"} />
-        <StatusItem size={"medium"} />
-        <StatusItem size={"medium"} />
-        <StatusItem size={"medium"} />
-        <StatusItem size={"medium"} />
-        <StatusItem size={"medium"} />
-        <StatusItem size={"medium"} />
-        <StatusItem size={"medium"} />
       </div>
     </aside>
   );

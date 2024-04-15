@@ -2,6 +2,7 @@
 import Feed from "./Feed";
 
 export default function Feeds({ data }) {
+  console.log(data);
   if (data.data.posts.length === 0) {
     return (
       <div>
@@ -21,6 +22,7 @@ export default function Feeds({ data }) {
           numComments={post.numComments}
           description={post.description}
           postId={post._id}
+          profilePic={post.user.profilePic}
         />
       ))}
     </main>
