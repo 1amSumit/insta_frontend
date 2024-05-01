@@ -23,7 +23,7 @@ function MobileBottomTabBar() {
   };
   return (
     <>
-      <div className="bg-black border-gray-200 border-t-[1px]  flex flex-row items-center  px-4 py-2 text-gray-100 h-full justify-between">
+      <div className="bg-black border-gray-200 border-t-[1px]  flex flex-row items-center  px-4 py-2 text-gray-100 h-full justify-evenly">
         <NavLink
           className="text-3xl"
           to={"/"}
@@ -57,6 +57,8 @@ function MobileBottomTabBar() {
         <NavLink className="text-3xl">
           <Message />
         </NavLink>
+
+        <div className="w-[2rem] h-[2rem] rounded-full bg-gray-700"></div>
       </div>
       <Modal isOpen={createModelOpen} onClose={createModelClose}>
         <div className="bg-black text-white px-2 py-1 rounded-lg">
