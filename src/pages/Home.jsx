@@ -14,10 +14,15 @@ export default function Home() {
 
   return (
     <div className="flex flex-col bg-stone-900 text-gray-100">
-      <StatusBar />
-
       <main className="h-[80vh] bg-stone-900 text-gray-100 overflow-y-auto no-scrollbar ">
-        {isLoading ? <FeedLoading /> : <Feeds data={data} />}
+        {isLoading ? (
+          <FeedLoading />
+        ) : (
+          <>
+            <StatusBar />
+            <Feeds data={data} />
+          </>
+        )}
       </main>
     </div>
   );

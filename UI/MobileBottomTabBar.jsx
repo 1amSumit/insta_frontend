@@ -1,7 +1,6 @@
 import { GoHome } from "react-icons/go";
 import { GoHomeFill } from "react-icons/go";
 import {
-  IoIosSearch as SearchIcon,
   IoIosAddCircleOutline as Create,
   IoMdAddCircle as CreateFill,
 } from "react-icons/io";
@@ -12,24 +11,23 @@ import {
   AiFillMessage as MessageFill,
 } from "react-icons/ai";
 import { TbMovie as Reels } from "react-icons/tb";
-import Search from "../UI/Search";
 
 function MobileBottomTabBar() {
   return (
     <div className="bg-black border-gray-200 border-t-[1px]  flex flex-row items-center  px-4 py-2 text-gray-100 h-full justify-between">
-      <div className="text-2xl">
+      <div className="text-3xl">
         <GoHome />
       </div>
-      <div className="text-2xl">
+      <div className="text-3xl">
         <Explore />
       </div>
-      <div className="text-2xl">
+      <div className="text-3xl">
         <Reels />
       </div>
-      <div className="text-2xl">
+      <div className="text-3xl">
         <Create />
       </div>
-      <div className="text-2xl">
+      <div className="text-3xl">
         <Message />
       </div>
     </div>

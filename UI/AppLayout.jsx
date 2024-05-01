@@ -21,7 +21,7 @@ export default function AppLayout() {
       <div className="hidden sm:block bg-stone-900 text-gray-100">
         <Sidebar />
       </div>
-      <div className="md:hidden  fixed bottom-[0%] left-0 right-0 h-[3rem] z-40">
+      <div className="md:hidden  fixed bottom-[0%] left-0 right-0 h-[4rem] z-40">
         <MobileBottomTabBar />
       </div>
       <main
