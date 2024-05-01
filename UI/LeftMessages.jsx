@@ -65,14 +65,6 @@ export default function LeftMessages() {
             />
           </NavLink>
         ))}
-        {data.inboxArr.map((inboxItem) => (
-          <NavLink key={inboxItem.id} to={`/direct/t/${inboxItem.id}`}>
-            <MessageProfile
-              userId={inboxItem.id}
-              lastMessage={inboxItem.lastMessage}
-            />
-          </NavLink>
-        ))}
       </div>
     </div>
   );
