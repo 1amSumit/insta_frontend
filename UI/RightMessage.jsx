@@ -227,7 +227,7 @@ export default function RightMessage() {
             />
 
             <input
-              className="bg-stone-800 w-full focus:outline-none"
+              className="bg-stone-800 text-gray-200 w-full focus:outline-none"
               value={enteredMessage}
               placeholder="Enter message..."
               onChange={(e) => setEnteredMessage(e.target.value)}
