@@ -2,10 +2,14 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { signup } from "../services/signup";
+import { FaRegEyeSlash } from "react-icons/fa";
+import { FaRegEye } from "react-icons/fa";
 import { setCurrentLoggedInUser, setUserToken } from "../utils/setUserToken";
 import toast from "react-hot-toast";
+import { useState } from "react";
 
 export default function Signup() {
+  const [showPassword, setShowPassword] = useState(false);
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
   const { isPending, isError, error, mutate } = useMutation({
@@ -92,13 +96,26 @@ export default function Signup() {
             >
               Confirm Password
             </label>
-            <input
-              type="password"
-              name="confirmpassword"
-              placeholder="Enter your password again"
-              className="px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500 placeholder:text-sm"
-              {...register("confirmPassword")}
-            />
+            <div className="flex flex-row items-center     relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="confirmpassword"
+                placeholder="Enter your password again"
+                className="px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500 placeholder:text-sm"
+                {...register("confirmPassword")}
+              />
+              <div className="absolute right-3 cursor-pointer">
+                {showPassword === true ? (
+                  <span onClick={() => setShowPassword(false)}>
+                    <FaRegEye />
+                  </span>
+                ) : (
+                  <span onClick={() => setShowPassword(true)}>
+                    <FaRegEyeSlash />
+                  </span>
+                )}
+              </div>
+            </div>
           </div>
         </div>
         <div>
