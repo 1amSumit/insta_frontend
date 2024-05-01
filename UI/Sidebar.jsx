@@ -131,7 +131,7 @@ export default function Sidebar() {
           </li>
           <li className="group">
             <NavLink
-              to={"/reels"}
+              to={"/reels/1"}
               onClick={() => setIconActive("reels")}
               className={
                 iconActive === "reels"
