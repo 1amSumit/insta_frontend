@@ -192,7 +192,7 @@ export default function RightMessage() {
             alt={data.user.username}
           />
         </div>
-        <h2>{data.user.username}</h2>
+        <h2 className="text-white">{data.user.username}</h2>
       </div>
       <div className="h-[80vh] px-[2rem] no-scrollbar py-1 overflow-y-auto ">
         <div className="flex flex-col gap-[1rem] justify-end">

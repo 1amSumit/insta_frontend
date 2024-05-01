@@ -48,13 +48,23 @@ export default function LeftMessages() {
   }
 
   return (
-    <div className="px-4 pt-6">
-      <h2 className="text-2xl font-salsa">{loggedInUser}</h2>
-      <div className="upper flex pt-8 flex-row justify-between px-[1rem]">
-        <button className="text-sm">Messages</button>
-        <button className="text-sm">Requests</button>
+    <div className="px-4 pt-6 h-[100vh]">
+      <div className="h-[15vh]">
+        <h2 className="text-2xl font-salsa">{loggedInUser}</h2>
+        <div className="upper flex pt-8 flex-row justify-between px-[1rem]">
+          <button className="text-sm">Messages</button>
+          <button className="text-sm">Requests</button>
+        </div>
       </div>
-      <div className="lower  pt-5 flex flex-col gap-2">
+      <div className="lower h-[70vh] md:h-[80vh] no-scrollbar  overflow-y-scroll pt-5 flex flex-col gap-2">
+        {data.inboxArr.map((inboxItem) => (
+          <NavLink key={inboxItem.id} to={`/direct/t/${inboxItem.id}`}>
+            <MessageProfile
+              userId={inboxItem.id}
+              lastMessage={inboxItem.lastMessage}
+            />
+          </NavLink>
+        ))}
         {data.inboxArr.map((inboxItem) => (
           <NavLink key={inboxItem.id} to={`/direct/t/${inboxItem.id}`}>
             <MessageProfile

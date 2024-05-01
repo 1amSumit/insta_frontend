@@ -18,7 +18,7 @@ export default function MessageProfile({ userId, lastMessage }) {
   if (isLoading) {
     return (
       <div
-        className={`flex shadow-lg flex-row hover:bg-stone-800 duration-300 rounded-md gap-4 p-2 border-[1px] border-gray-200 ${
+        className={`flex shadow-lg  flex-row hover:bg-stone-800 duration-300 rounded-md gap-4 p-2 border-[1px] border-gray-200 ${
           messageId.messageId === userId ? "bg-gray-300 text-gray-900" : ""
         }`}
       >
