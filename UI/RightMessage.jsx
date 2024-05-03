@@ -216,8 +216,8 @@ export default function RightMessage() {
             open={emojiopen}
           />
         </div>
-        <form onSubmit={formSubmited} className="w-full px-[2rem]  ">
-          <div className="rounded-xl flex flex-row items-center gap-2  border-[1px] px-[1rem] py-[0.5rem] bg-stone-800  border-gray-200 w-full ">
+        <form onSubmit={formSubmited} className="w-full">
+          <div className="rounded-xl flex flex-row items-center gap-2 border-[1px] px-[1rem] py-[0.5rem] bg-stone-800 border-gray-200 w-full sm:fixed sm:bottom-4  md:absolute md:bottom-3 sm:z-10">
             <BsEmojiSunglasses
               className="text-xl text-white cursor-pointer"
               onClick={() => setEmojiOpen((prev) => !prev)}
