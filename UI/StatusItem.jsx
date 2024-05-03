@@ -13,7 +13,11 @@ export default function StatusItem({ size, profilePic }) {
     <button onClick={() => onClickhandler()}>
       <figure className={variants[size]}>
         <img
-          src={profilePic}
+          src={
+            profilePic
+              ? profilePic
+              : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+          }
           alt="profile picture"
           className="w-[100%] h-[100%] border-2 border-red-300 rounded-full bg-contain"
         />
