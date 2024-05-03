@@ -28,7 +28,7 @@ export default function MessagesComponent({ message, side }) {
         </p>
       )}
       {isImage && (
-        <div className="w-[20vw] h-[40vh] rounded-lg">
+        <div className="md:w-[20vw] w-[50vw] md:h-[40vh] h-[20vh] rounded-lg">
           <img
             className="h-[100%] w-[100%] rounded-lg"
             src={message}
