@@ -62,10 +62,10 @@ function Reel({ videoUrl, soundState, isMuted }) {
   return (
     <div className="flex flex-row items-end justify-center gap-4 mb-[1rem]">
       <div className=" flex justify-center flex-col items-center ">
-        <div className=" flex items-center justify-center h-[100vh] w-auto">
+        <div className=" flex items-center justify-center h-[90vh] w-auto">
           <div className="relative cursor-pointer">
             <video
-              className=" relative h-[85vh] rounded-lg"
+              className=" relative  h-[85vh] w-full rounded-lg"
               ref={videoRef}
               autoPlay
               muted={isMuted}

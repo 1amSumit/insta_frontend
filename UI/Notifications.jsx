@@ -1,11 +1,18 @@
 /* eslint-disable react/prop-types */
 import NotiProfile from "./NotiProfile";
+import { IoIosCloseCircleOutline as Close } from "react-icons/io";
 
-export default function Notifications({ loggedInUser }) {
+export default function Notifications({ loggedInUser, onCrossClicked }) {
   const requestRecs = loggedInUser.userProfile.requestRec;
 
   return (
-    <div className="px-4 h-[100vh] rounded-r-3xl py-4 bg-stone-800">
+    <div className="px-4 h-[100vh] relative rounded-r-3xl py-4 bg-stone-800">
+      <div
+        className="absolute right-4 top-3 text-2xl cursor-pointer"
+        onClick={onCrossClicked}
+      >
+        <Close />
+      </div>
       <div>
         <div>
           <h2 className="text-3xl tex-gray-200">Notifications</h2>
