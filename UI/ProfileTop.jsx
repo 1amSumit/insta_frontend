@@ -57,7 +57,7 @@ export default function ProfileTop({ data, loggedInUser }) {
   };
 
   return (
-    <div className=" border-b-[1px] border-gray-600 flex flex-row px-2 gap-[3rem] h-[40vh] items-center justify-center  ">
+    <div className=" border-b-[1px] border-gray-600 flex flex-row md:px-2 px-[3rem] py-[3rem] gap-[3rem] md:h-[40vh] h-[30vh] md:items-center md:justify-center  ">
       <div>
         <div className="avatar col-span-1 flex justify-center  items-center">
           <Avatar image={userProfile.profilePic} />

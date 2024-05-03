@@ -13,7 +13,7 @@ export default function PostPreview({ postUrl }) {
     setShowVideoPreview(false);
   };
   return (
-    <div className="md:w-[20rem] w-[13rem] flex items-center justify-center ">
+    <div className="md:w-[20rem] w-full flex items-center justify-center ">
       {isVideo ? (
         <video
           onClick={() => setShowVideoPreview(true)}
