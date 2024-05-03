@@ -13,7 +13,7 @@ export default function PostPreview({ postUrl }) {
     setShowVideoPreview(false);
   };
   return (
-    <div className="w-[20rem]">
+    <div className="md:w-[20rem] w-[13rem] flex items-center justify-center ">
       {isVideo ? (
         <video
           onClick={() => setShowVideoPreview(true)}
@@ -33,14 +33,14 @@ export default function PostPreview({ postUrl }) {
 
       {showImagePreview && (
         <Modal isOpen={showImagePreview} onClose={onClose}>
-          <div className="w-[50vw] h-[60vh]">
+          <div className="md:w-[50vw] md:h-[60vh] w-[40vw] h-[40vh]">
             <img src={postUrl} alt="image " className="w-[100%] h-[100%]" />
           </div>
         </Modal>
       )}
       {showVideoPreview && (
         <Modal isOpen={showVideoPreview} onClose={onVideoClose}>
-          <div className="w-[50vw] h-[60vh]">
+          <div className="md:w-[50vw] md:h-[60vh] h-[30vh] w-[30vh]">
             <video
               className="aspect-video rounded-md w-[100%] h-[100%]"
               autoPlay

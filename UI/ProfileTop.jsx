@@ -57,7 +57,7 @@ export default function ProfileTop({ data, loggedInUser }) {
   };
 
   return (
-    <div className=" flex flex-row gap-[3rem] h-[40vh] items-center justify-center  ">
+    <div className=" border-b-[1px] border-gray-600 flex flex-row px-2 gap-[3rem] h-[40vh] items-center justify-center  ">
       <div>
         <div className="avatar col-span-1 flex justify-center  items-center">
           <Avatar image={userProfile.profilePic} />
@@ -65,8 +65,8 @@ export default function ProfileTop({ data, loggedInUser }) {
       </div>
       <div>
         <div className="details col-span-2 ">
-          <div className="flex flex-row gap-[3rem]">
-            <h2 className="font-semibold text-[1.2rem]">
+          <div className="flex flex-row md:gap-[3rem] gap-[2rem]">
+            <h2 className="font-semibold md:text-[1.2rem] text-[1rem]">
               {userProfile.username}
             </h2>
             {searchedUser === loggedIn && (
@@ -101,7 +101,7 @@ export default function ProfileTop({ data, loggedInUser }) {
               </Link>
             )}
           </div>
-          <div className="mt-6 flex felx-row gap-[2rem]">
+          <div className="md:mt-6 mt-3 flex flex-row gap-[2rem]">
             <p className="cursor-pointer">
               <span className="font-semibold">{userProfile.numPosts}</span>{" "}
               <span className="text-sm">posts</span>
