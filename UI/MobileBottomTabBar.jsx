@@ -3,19 +3,45 @@ import { FaCompass, FaRegCompass } from "react-icons/fa";
 import { IoMdAddCircle, IoIosAddCircleOutline } from "react-icons/io";
 import { AiOutlineMessage, AiFillMessage } from "react-icons/ai";
 import { TbMovie as Reels } from "react-icons/tb";
-import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { NavLink, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Modal from "./Modal";
 import CreatePop from "./CreatePop";
+import { getPofileDetails } from "../services/getProfileDetails";
+import { useQuery } from "@tanstack/react-query";
+import { getCurrentLoggedInUser } from "../utils/getUserToken";
+import { useSetRecoilState } from "recoil";
+import loggedInUserAtom from "../store/atom/loggedInUserAtom";
 
 function MobileBottomTabBar() {
   const [iconActive, setIconActive] = useState("home");
   const [selectedOption, setSelectedOption] = useState("");
   const [createModelOpen, setCreateModelOpen] = useState(false);
 
+  const loggedInUser = getCurrentLoggedInUser();
+  const setLoggedInUserData = useSetRecoilState(loggedInUserAtom);
+
+  const params = useParams();
+  const { searchedUser } = params;
+
+  const { data } = useQuery({
+    queryKey: ["loggedInUser"],
+    queryFn: () => getPofileDetails(loggedInUser),
+  });
+
+  if (data) {
+    setLoggedInUserData(data);
+  }
+
+  useEffect(() => {
+    if (searchedUser === loggedInUser) {
+      setIconActive("profile");
+    }
+  }, [searchedUser, loggedInUser]);
+
   const createModelClose = () => {
     setCreateModelOpen(false);
-    setSelectedOption(""); // Reset selectedOption when modal closes
+    setSelectedOption("");
   };
 
   return (
@@ -63,7 +89,14 @@ function MobileBottomTabBar() {
           {iconActive === "direct" ? <AiFillMessage /> : <AiOutlineMessage />}
         </NavLink>
 
-        <div className="w-[2rem] h-[2rem] rounded-full bg-gray-700"></div>
+        <NavLink
+          to={`/${loggedInUser}`}
+          onClick={() => {
+            setIconActive("profile");
+          }}
+        >
+          <div className="w-[2rem] h-[2rem] rounded-full bg-gray-700"></div>
+        </NavLink>
       </div>
       <Modal isOpen={createModelOpen} onClose={createModelClose}>
         <div className="bg-black text-white px-2 py-1 rounded-lg">

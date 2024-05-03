@@ -172,7 +172,7 @@ export default function Feed({
             >
               {!isMuted ? (
                 <button
-                  className="unmute text-white bg-black rounded-full px-1 py-1"
+                  className="unmute text-white  bg-black rounded-full px-1 py-1"
                   onClick={() => setIsMuted(true)}
                 >
                   <Unmute />

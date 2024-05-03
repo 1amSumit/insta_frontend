@@ -102,7 +102,7 @@ export default function Avatar({ image }) {
     <>
       <button
         onClick={showUploadProfilePicModal}
-        className="w-[8rem] h-[8rem] rounded-full"
+        className="md:w-[8rem] md:h-[8rem] w-[4rem] h-[4rem] rounded-full"
       >
         <img
           src={
