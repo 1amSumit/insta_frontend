@@ -33,8 +33,10 @@ export default function PostPreview({ postUrl }) {
 
       {showImagePreview && (
         <Modal isOpen={showImagePreview} onClose={onClose}>
-          <div className="md:w-[50vw] md:h-[60vh] w-[40vw] h-[40vh]">
-            <img src={postUrl} alt="image " className="w-[100%] h-[100%]" />
+          <div className="w-full h-full flex items-center justify-center ">
+            <div className="md:w-[50vw] md:h-[60vh] w-[80%] h-[80%]">
+              <img src={postUrl} alt="image " className="w-[100%] h-[100%]" />
+            </div>
           </div>
         </Modal>
       )}
