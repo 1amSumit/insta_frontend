@@ -128,7 +128,7 @@ export default function Feed({
   const isImage = contentUrl.split(".")[3] === "png";
 
   return (
-    <div className="border-b-2 border-slate-200">
+    <div className="border-b-[1px] border-gray-600">
       <div className="uername flex flex-row justify-between mb-2">
         <div className="flex flex-row gap-1  items-center">
           <StatusItem size={"small"} profilePic={profilePic} />
@@ -147,14 +147,17 @@ export default function Feed({
         {isImage ? (
           <img
             src={contentUrl}
-            className="aspect-auto rounded-md"
+            className="h-full w-full rounded-md"
             alt="feed image"
           />
         ) : (
-          <div className="video-container" style={{ position: "relative" }}>
+          <div
+            className="video-container flex justify-center"
+            style={{ position: "relative" }}
+          >
             <video
               ref={videoRef}
-              className="aspect-video rounded-md"
+              className="h-full w-[50%] rounded-md"
               autoPlay
               muted={isMuted}
             >
