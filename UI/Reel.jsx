@@ -60,12 +60,12 @@ function Reel({ videoUrl, soundState, isMuted }) {
   }, [isInView]);
 
   return (
-    <div className="flex flex-row items-end justify-center gap-4">
-      <div className=" flex justify-center flex-col items-center">
+    <div className="flex flex-row items-end justify-center gap-4 mb-[1rem]">
+      <div className=" flex justify-center flex-col items-center ">
         <div className=" flex items-center justify-center h-[100vh] w-auto">
           <div className="relative cursor-pointer">
             <video
-              className=" relative h-[90vh] rounded-lg"
+              className=" relative h-[85vh] rounded-lg"
               ref={videoRef}
               autoPlay
               muted={isMuted}
@@ -73,7 +73,7 @@ function Reel({ videoUrl, soundState, isMuted }) {
             >
               <source src={videoUrl} type="video/mp4" />
             </video>
-            <div className="bg-gray-100 p-1 cursor-pointer rounded-full absolute top-0 right-0 m-2">
+            <div className="bg-gray-100 p-1 cursor-pointer rounded-full absolute top-3 right-0 m-2">
               {isMuted ? (
                 <BiVolumeMute
                   onClick={() => soundState()}
@@ -83,36 +83,36 @@ function Reel({ videoUrl, soundState, isMuted }) {
                 <GoUnmute onClick={() => soundState()} className="font-xl" />
               )}
             </div>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div className="flex mb-[3rem] text-gray-200 flex-col gap-[1rem]">
-          <div className="like flex justify-end flex-col gap-[1rem] text-3xl">
-            <div className="flex justify-center items-center flex-col">
-              {contentIsClicked ? (
-                <HearFill
-                  className="text-red-500 cursor-pointer"
-                  onClick={() => {
-                    setContentIsClicked(false);
-                  }}
-                />
-              ) : (
-                <Heart className="cursor-pointer text-2xl" />
-              )}
-              <p className="text-xs font-semibold mt-1">100.89k</p>
+            <div className="absolute bottom-0 right-0 px-1 ">
+              <div className="flex mb-[2rem] text-white flex-col gap-[1rem]">
+                <div className="like flex justify-end flex-col gap-[1rem] text-3xl">
+                  <div className="flex justify-center items-center flex-col">
+                    {contentIsClicked ? (
+                      <HearFill
+                        className="text-red-500 cursor-pointer"
+                        onClick={() => {
+                          setContentIsClicked(false);
+                        }}
+                      />
+                    ) : (
+                      <Heart className="cursor-pointer text-2xl" />
+                    )}
+                    <p className="text-xs font-semibold mt-1">100.89k</p>
+                  </div>
+                  <div className="flex justify-center items-center flex-col">
+                    <Comment className="cursor-pointer text-2xl" />
+                    <p className="text-xs font-semibold mt-1">100.89k</p>
+                  </div>
+                  <div className="flex justify-center items-center flex-col">
+                    <Share className="cursor-pointer text-2xl" />
+                    <p className="text-xs font-semibold mt-1">100.89k</p>
+                  </div>
+                </div>
+                <div className="flex justify-center items-center flex-col">
+                  <Bookmark className="text-2xl cursor-pointer" />
+                </div>
+              </div>
             </div>
-            <div className="flex justify-center items-center flex-col">
-              <Comment className="cursor-pointer text-2xl" />
-              <p className="text-xs font-semibold mt-1">100.89k</p>
-            </div>
-            <div className="flex justify-center items-center flex-col">
-              <Share className="cursor-pointer text-2xl" />
-              <p className="text-xs font-semibold mt-1">100.89k</p>
-            </div>
-          </div>
-          <div className="flex justify-center items-center flex-col">
-            <Bookmark className="text-2xl cursor-pointer" />
           </div>
         </div>
       </div>
