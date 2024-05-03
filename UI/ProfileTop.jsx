@@ -65,7 +65,7 @@ export default function ProfileTop({ data, loggedInUser }) {
       </div>
       <div>
         <div className="details col-span-2 ">
-          <div className="flex flex-row md:gap-[3rem] gap-[2rem]">
+          <div className="flex flex-row md:gap-[3rem] gap-[1rem]">
             <h2 className="font-semibold md:text-[1.2rem] text-[1rem]">
               {userProfile.username}
             </h2>
@@ -78,7 +78,7 @@ export default function ProfileTop({ data, loggedInUser }) {
             {searchedUser !== loggedIn && hasRequestSent.length === 0 && (
               <button
                 onClick={sendFollowRequest}
-                className="bg-blue-500 text-white px-2 py-1 rounded-lg"
+                className="bg-blue-500 text-white  text-xs md:text-lg px-2 py-1 rounded-lg"
               >
                 {isPending ? "sending..." : "follow"}
               </button>
@@ -87,7 +87,7 @@ export default function ProfileTop({ data, loggedInUser }) {
             {searchedUser !== loggedIn && hasRequestSent.length !== 0 && (
               <button
                 onClick={sendFollowRequest}
-                className="bg-gray-200 text-gray-900  px-2 py-1 rounded-lg"
+                className="bg-gray-200 text-gray-900 text-xs md:text-lg  px-2 py-1 rounded-lg"
               >
                 {isAccepted ? "following" : "requested"}
               </button>
@@ -95,7 +95,7 @@ export default function ProfileTop({ data, loggedInUser }) {
             {searchedUser !== loggedIn && (
               <Link
                 to={`/direct/t/${data.userProfile._id}`}
-                className="bg-blue-500 text-white px-2 py-1 rounded-lg"
+                className="bg-blue-500 text-xs md:text-lg text-white px-2 py-1 rounded-lg"
               >
                 send message
               </Link>

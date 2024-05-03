@@ -6,8 +6,9 @@ import { profilePicUploadActions } from "../store/profilePicUpload";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { uploadProfilePic } from "../services/uploadProfilePic";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { removeProfilePic as removePhoto } from "../services/removeProfilePic";
+import { getCurrentLoggedInUser } from "../utils/getUserToken";
 
 /* eslint-disable react/prop-types */
 export default function Avatar({ image }) {
@@ -16,6 +17,12 @@ export default function Avatar({ image }) {
   const [clickedCancel, setClickedCancel] = useState(false);
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+
+  const { searchedUser } = useParams();
+  console.log(searchedUser);
+
+  const loggedInUser = getCurrentLoggedInUser();
+  console.log(loggedInUser);
 
   const { mutate: removeMutate, isPending: removePending } = useMutation({
     mutationFn: removePhoto,
@@ -101,7 +108,7 @@ export default function Avatar({ image }) {
   return (
     <>
       <button
-        onClick={showUploadProfilePicModal}
+        onClick={searchedUser === loggedInUser && showUploadProfilePicModal}
         className="md:w-[8rem] md:h-[8rem] w-[4rem] h-[4rem] rounded-full"
       >
         <img
