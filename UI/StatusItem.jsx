@@ -58,7 +58,7 @@ export default function StatusItem({ size, profilePic, content }) {
       </button>
       <Modal isOpen={modelOpen} onClose={onClose}>
         <div className="w-[100vw] h-[100vh] flex justify-center items-center">
-          <div className="w-[20%] relative h-[80%] rounded-lg text-white">
+          <div className="md:w-[20%] w-[70%] relative md:h-[80%] h-[60%] rounded-lg text-white">
             <img
               src={content}
               alt="status"
