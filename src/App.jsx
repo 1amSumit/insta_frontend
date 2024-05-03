@@ -30,7 +30,6 @@ const router = createBrowserRouter([
         children: [{ path: "t/:messageId", element: <RightMessage /> }],
       },
 
-      // { path: "create", element: <CreatePop /> },
       {
         path: `/:searchedUser`,
         element: <Profile />,

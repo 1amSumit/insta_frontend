@@ -39,7 +39,7 @@ function MobileTopSearchBar() {
         <div className="notification"></div>
       </div>
       {isLoading ? (
-        <div className="users border-t-[1px] absolute top-10 right-3 bg-gray-800 z-40 px-[3rem] py-[1rem] flex flex-col gap-[1rem] border-gray-200 rounded-lg overflow-y-auto no-scrollbar">
+        <div className="users border-t-[1px] absolute top-10 right-3 bg-gray-800 z-40 px-[3rem] py-[1rem] flex flex-col h-auto gap-[1rem] border-gray-200 rounded-lg overflow-y-auto no-scrollbar">
           {[1, 2, 3, 4, 5].map((_, index) => (
             <div
               key={index}

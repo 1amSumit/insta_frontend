@@ -104,7 +104,7 @@ export default function ProfileTop({ data, loggedInUser }) {
           <div className="md:mt-6 mt-3 flex flex-row gap-[2rem]">
             <p className="cursor-pointer">
               <span className="font-semibold">{userProfile.numPosts}</span>{" "}
-              <span className="text-sm">posts</span>
+              <span className="md:text-sm text-xs">posts</span>
             </p>
             <p
               className="cursor-pointer"
@@ -113,7 +113,7 @@ export default function ProfileTop({ data, loggedInUser }) {
               }}
             >
               <span className="font-semibold">{userProfile.numFollowers}</span>{" "}
-              <span>followers</span>
+              <span className="md:text-sm text-xs">followers</span>
             </p>
             <p
               className="cursor-pointer"
@@ -122,7 +122,7 @@ export default function ProfileTop({ data, loggedInUser }) {
               }}
             >
               <span className="font-semibold">{userProfile.numFollowings}</span>{" "}
-              <span>following</span>
+              <span className="md:text-sm text-xs">following</span>
             </p>
           </div>
         </div>
