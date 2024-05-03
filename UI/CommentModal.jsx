@@ -22,57 +22,58 @@ export default function CommentModal({ isOpen, onClose, comments, post }) {
   };
   return (
     <CModal isOpen={isOpen} onClose={onClose}>
-      <div className="post p-4  bg-white w-[30vw] flex justify-center items-center">
-        <div className="">
+      <div className="flex flex-col md:flex-row w-[80vw] mb-[4rem] md:mb-0 h-[80vh]  bg-white">
+        <div className="md:w-[60%] h-[40vh] md:h-full p-2">
           <img
             src={post.image}
             alt="post image"
             className="w-[100%] h-[100%]"
           />
         </div>
-      </div>
-      <div className="comments w-[30vw] bg-white px-4 py-2">
-        <div className="border-b-[2px] border-gray-100">
-          <h2 className="font-semibold text-md">{post.username}</h2>
-        </div>
-        <div className="overflow-x-hidden h-[55vh] no-scrollbar overflow-y-scroll">
-          {comments.map((comment) => (
-            <ul
-              className="flex flex-row gap-2 mt-4  justify-between items-center"
-              key={comment._id}
-            >
-              <li className="flex flex-row gap-4">
-                <p className="text-[0.8rem] font-semibold">
-                  {comment.username || ""}
-                </p>
-                <p className="text-xs"> {comment.comment || ""}</p>
-              </li>
 
-              <li className="text-sm">
-                <CiHeart />
-              </li>
-            </ul>
-          ))}
+        <div className="comments md:w-[40%] flex flex-col   px-4 py-2">
+          <div className="border-b-[2px] border-gray-100">
+            <h2 className="font-semibold text-md">{post.username}</h2>
+          </div>
+          <div className="overflow-x-hidden md:h-[60vh] h-[25vh]  no-scrollbar overflow-y-scroll">
+            {comments.map((comment) => (
+              <ul
+                className="flex flex-row gap-2 mt-4  justify-between items-center"
+                key={comment._id}
+              >
+                <li className="flex flex-row gap-4">
+                  <p className="text-[0.8rem] font-semibold">
+                    {comment.username || ""}
+                  </p>
+                  <p className="text-xs"> {comment.comment || ""}</p>
+                </li>
+
+                <li className="text-sm">
+                  <CiHeart />
+                </li>
+              </ul>
+            ))}
+          </div>
+          <form
+            method="POST"
+            onSubmit={handleSubmit(handleComment)}
+            className="flex bg-white border-b-[1px] border-gray-800 mb-2 flex-row justify-between"
+          >
+            {isPending ? (
+              <p className="text-center text-xs mx-[auto] my-0">Adding...</p>
+            ) : (
+              <input
+                type="text"
+                className="bg-transparent mt-2 font-thin focus:outline-none"
+                placeholder="Add a comment"
+                {...register("comment")}
+              />
+            )}
+            <button type="submit" className="text-blue-500">
+              post
+            </button>
+          </form>
         </div>
-        <form
-          method="POST"
-          onSubmit={handleSubmit(handleComment)}
-          className="flex bg-white mb-2 flex-row justify-between"
-        >
-          {isPending ? (
-            <p className="text-center text-xs mx-[auto] my-0">Adding...</p>
-          ) : (
-            <input
-              type="text"
-              className="bg-transparent mt-2 font-thin focus:outline-none"
-              placeholder="Add a comment"
-              {...register("comment")}
-            />
-          )}
-          <button type="submit" className="text-blue-500">
-            post
-          </button>
-        </form>
       </div>
     </CModal>
   );
