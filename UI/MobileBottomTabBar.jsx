@@ -46,7 +46,7 @@ function MobileBottomTabBar() {
 
   return (
     <>
-      <div className="bg-black border-gray-200 border-t-[1px] flex flex-row items-center px-4 py-2 text-gray-100 h-full justify-evenly">
+      <div className="bg-black border-gray-200 border-t-[1px] flex flex-row items-center px-4 py-2 text-gray-100 h-full justify-around">
         <NavLink
           className="text-3xl"
           to={"/"}

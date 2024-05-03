@@ -16,14 +16,20 @@ export default function AppLayout() {
     }
   }, [userToken, navigate]);
 
+  const directBox = url.split("/").includes("t");
+
   return (
     <div className="grid relative grid-cols-1 sm:grid-cols-5 h-screen">
       <div className="hidden sm:block bg-stone-900 text-gray-100">
         <Sidebar />
       </div>
-      <div className="md:hidden  fixed bottom-[0%] left-0 right-0 h-[4rem] z-40">
-        <MobileBottomTabBar />
-      </div>
+      {!directBox && (
+        <div
+          className={`md:hidden fixed bottom-[0%] left-0 right-0 h-[4rem] z-40`}
+        >
+          <MobileBottomTabBar />
+        </div>
+      )}
       <main
         className={` ${
           url !== "/"

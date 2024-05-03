@@ -20,7 +20,7 @@ export default function MessagesComponent({ message, side }) {
             side === "right"
               ? "bg-blue-500 text-white"
               : "bg-gray-400 text-white"
-          } text-lg ${
+          } md:text-lg text-sm ${
             isLongMessage ? "max-w-[40vw] max-h-[8rem] block" : ""
           } px-[2rem] py-[5px]  rounded-3xl`}
         >
