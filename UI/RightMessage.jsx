@@ -222,18 +222,18 @@ export default function RightMessage() {
         >
           <div className="rounded-xl flex flex-row items-center gap-2  border-[1px] px-[1rem] py-[0.5rem] bg-stone-800  border-gray-200 w-full ">
             <BsEmojiSunglasses
-              className="text-xl cursor-pointer"
+              className="text-xl text-white cursor-pointer"
               onClick={() => setEmojiOpen((prev) => !prev)}
             />
 
             <input
-              className="bg-stone-800 w-full"
+              className="bg-stone-800 text-gray-200 w-full focus:outline-none"
               value={enteredMessage}
               placeholder="Enter message..."
               onChange={(e) => setEnteredMessage(e.target.value)}
             />
             <div
-              className="mr-[1rem] text-2xl cursor-pointer"
+              className="mr-[1rem] text-2xl text-white cursor-pointer"
               onClick={() => fileOpenHandler()}
             >
               <IoImageOutline />
