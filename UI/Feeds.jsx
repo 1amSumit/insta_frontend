@@ -5,7 +5,7 @@ export default function Feeds({ data }) {
   if (data.data.posts.length === 0) {
     return (
       <div>
-        <p>Follow someone to see the feed.</p>
+        <p>Follow someone to see the feed.Search Sumit1234 and follow.</p>
       </div>
     );
   }
