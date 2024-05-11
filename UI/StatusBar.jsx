@@ -20,13 +20,14 @@ const statusBarData = [
 ];
 
 export default function StatusBar() {
+  const mobileView = window.innerWidth < 600;
   return (
-    <aside className="flex flex-row border-b-[1px] border-gray-200 overflow-x-auto px-2 py-5 no-scrollbar">
+    <aside className="flex flex-row border-b-[1px] border-gray-600 overflow-x-auto px-2 py-5 no-scrollbar">
       <div className="flex gap-2 items-center">
         {statusBarData.map((data) => (
           <StatusItem
             key={data.id}
-            size={"medium"}
+            size={mobileView ? "small" : "medium"}
             content={data.img}
             profilePic={""}
           />

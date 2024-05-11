@@ -1,12 +1,18 @@
 /* eslint-disable react/prop-types */
 import NotiProfile from "./NotiProfile";
 import { IoIosCloseCircleOutline as Close } from "react-icons/io";
+import { motion } from "framer-motion";
 
 export default function Notifications({ loggedInUser, onCrossClicked }) {
   const requestRecs = loggedInUser.userProfile.requestRec;
 
   return (
-    <div className="px-4 h-[100vh] relative rounded-r-3xl py-4 bg-stone-800">
+    <motion.div
+      initial={{ y: 40 }}
+      animate={{ y: 0 }}
+      exit={{ y: -40 }}
+      className="px-4 h-[100vh] relative rounded-r-3xl py-4 bg-stone-800"
+    >
       <div
         className="absolute right-4 top-3 text-2xl cursor-pointer"
         onClick={onCrossClicked}
@@ -30,6 +36,6 @@ export default function Notifications({ loggedInUser, onCrossClicked }) {
           <NotiProfile key={user} username={user} />
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 }

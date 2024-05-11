@@ -28,6 +28,7 @@ export default function Feed({
   description,
   postId,
 }) {
+  console.log(contentUrl);
   const [contentIsClicked, setContentIsClicked] = useState(false);
   const [aniCount, setAniCount] = useState(false);
   const { handleSubmit, register, reset } = useForm();
@@ -125,191 +126,203 @@ export default function Feed({
   };
 
   // eslint-disable-next-line react/prop-types
-  const isImage = contentUrl.split(".")[3] === "png";
+  const isImage =
+    contentUrl.split(".")[3] === "png" || contentUrl.split(".")[3] === "jpg";
+  const mobileView = window.innerWidth < 600;
 
   return (
     <div className="border-b-[1px] border-gray-600">
-      <div className="uername flex flex-row justify-between mb-2">
-        <div className="flex flex-row gap-1  items-center">
-          <StatusItem size={"small"} profilePic={profilePic} />
-          <NavLink to={`/${username}`}>{username}</NavLink>
-        </div>
-        <div>
-          <button>
-            <p className="text-bold">...</p>
-          </button>
-        </div>
-      </div>
-      <div
-        className="content relative py-4 flex justify-center"
-        onClick={(e) => contentClickHandler(e)}
-      >
-        {isImage ? (
-          <img
-            src={contentUrl}
-            className="h-full w-full rounded-md"
-            alt="feed image"
-          />
-        ) : (
-          <div
-            className="video-container flex justify-center"
-            style={{ position: "relative" }}
-          >
-            <video
-              ref={videoRef}
-              className="h-full w-[50%] rounded-md"
-              autoPlay
-              muted={isMuted}
-            >
-              <source src={contentUrl} type="video/mp4" />
-            </video>
-
-            <div
-              className="video-controls"
-              style={{
-                position: "absolute",
-                bottom: 0,
-                right: 0,
-                margin: "10px",
-              }}
-            >
-              {!isMuted ? (
-                <button
-                  className="unmute text-white  bg-black rounded-full px-1 py-1"
-                  onClick={() => setIsMuted(true)}
-                >
-                  <Unmute />
-                </button>
-              ) : (
-                <button
-                  className="muted text-white bg-black rounded-full px-1 py-1"
-                  onClick={() => setIsMuted(false)}
-                >
-                  <Mute />
-                </button>
-              )}
-            </div>
+      <div className="flex flex-col">
+        <div className="uername flex flex-row justify-between mb-2">
+          <div className="flex flex-row gap-1  items-center">
+            <StatusItem
+              size={mobileView ? "smallest" : "small"}
+              profilePic={profilePic}
+            />
+            <NavLink to={`/${username}`}>{username}</NavLink>
           </div>
-        )}
-        <div className="absolute  top-[50%] left-[45%] translate-[-50%, -50%]">
-          <motion.span
-            className="opacity-0"
-            initial={{ opacity: 0 }}
-            animate={{
-              opacity: aniCount > 0 ? [0, 1, 0] : "",
-
-              scale: aniCount > 0 ? 3 : "",
-            }}
-            transition={{ duration: 1 }}
-          >
+          <div>
+            <button>
+              <p className="text-bold">...</p>
+            </button>
+          </div>
+        </div>
+        <div
+          className="content relative  py-4 items-center flex justify-center"
+          onClick={(e) => contentClickHandler(e)}
+        >
+          {isImage ? (
             <img
-              className="w-[6rem] h-[6rem]"
-              src="/heart.png"
-              alt="heart image"
+              src={contentUrl}
+              className=" w-[50%] aspect-[4/5] rounded-md"
+              alt="feed image"
             />
-          </motion.span>
-        </div>
-      </div>
-      <div className="reaction">
-        <div className="flex justify-between flex-row">
-          <div className="like flex flex-row gap-4 text-3xl">
-            {contentIsClicked || thisPosthasLike ? (
-              <HearFill
-                className="text-red-500 cursor-pointer"
-                onClick={() => {
-                  setContentIsClicked(false);
-                  setAniCount(false);
-                  update({ id: postId });
-                  dispatch(LikeAction.disLike({ postId: postId }));
-                }}
-              />
-            ) : (
-              <Heart
-                onClick={() => {
-                  setContentIsClicked(true);
-                  setAniCount(true);
-                  update({ id: postId });
-                  dispatch(LikeAction.setLike({ postId: postId }));
-                }}
-                className="cursor-pointer"
-              />
-            )}
-            <Comment onClick={openModal} className="cursor-pointer " />
-            <Share
-              onClick={() => setShareModalOpen(true)}
-              className="cursor-pointer"
-            />
-          </div>
-          <div className="text-3xl">
-            <Bookmark />
-          </div>
-        </div>
+          ) : (
+            <div
+              className="video-container flex justify-center"
+              style={{ position: "relative" }}
+            >
+              <video
+                ref={videoRef}
+                className="h-full md:w-[50%] w-[80%] rounded-md"
+                autoPlay
+                muted={isMuted}
+              >
+                <source src={contentUrl} type="video/mp4" />
+              </video>
 
-        <div className="showLikes mt-3 flex flex-row gap-1 items-center">
-          <div className="flex itesm-center flex-row ">
-            <div>
-              <StatusItem size={"smallest"} profilePic={profilePic} />
+              <div
+                className="video-controls"
+                style={{
+                  position: "absolute",
+                  bottom: 0,
+                  right: 0,
+                  margin: "10px",
+                }}
+              >
+                {!isMuted ? (
+                  <button
+                    className="unmute text-white  bg-black rounded-full px-1 py-1"
+                    onClick={() => setIsMuted(true)}
+                  >
+                    <Unmute />
+                  </button>
+                ) : (
+                  <button
+                    className="muted text-white bg-black rounded-full px-1 py-1"
+                    onClick={() => setIsMuted(false)}
+                  >
+                    <Mute />
+                  </button>
+                )}
+              </div>
             </div>
-            <div className="ml-[-8px]">
-              <StatusItem size={"smallest"} profilePic={profilePic} />
+          )}
+          <div className="absolute  top-[50%] left-[45%] translate-[-50%, -50%]">
+            <motion.span
+              className="opacity-0"
+              initial={{ opacity: 0 }}
+              animate={{
+                opacity: aniCount > 0 ? [0, 1, 0] : "",
+
+                scale: aniCount > 0 ? 3 : "",
+              }}
+              transition={{ duration: 1 }}
+            >
+              <img
+                className="md:w-[6rem] md:h-[6rem]"
+                src="/heart.png"
+                alt="heart image"
+              />
+            </motion.span>
+          </div>
+        </div>
+        <div className="reaction">
+          <div className="flex justify-between flex-row">
+            <div className="like flex flex-row gap-4 text-3xl justify-center items-center">
+              {contentIsClicked || thisPosthasLike ? (
+                <HearFill
+                  className="text-red-500 cursor-pointer text-2xl"
+                  onClick={() => {
+                    setContentIsClicked(false);
+                    setAniCount(false);
+                    update({ id: postId });
+                    dispatch(LikeAction.disLike({ postId: postId }));
+                  }}
+                />
+              ) : (
+                <Heart
+                  onClick={() => {
+                    setContentIsClicked(true);
+                    setAniCount(true);
+                    update({ id: postId });
+                    dispatch(LikeAction.setLike({ postId: postId }));
+                  }}
+                  className="cursor-pointer text-2xl"
+                />
+              )}
+              <Comment
+                onClick={openModal}
+                className="cursor-pointer text-2xl"
+              />
+              <Share
+                onClick={() => setShareModalOpen(true)}
+                className="cursor-pointer text-2xl"
+              />
+            </div>
+            <div className="text-2xl">
+              <Bookmark />
             </div>
           </div>
-          <p className="text-xs flex flex-row gap-1">
-            <span>{likes}</span>
-            <span className="font-semibold">likes</span>
-          </p>
-        </div>
-        <div className="cntent-description">
-          <details>
-            <summary>
-              <span className="font-salsa">
-                {username} {description && description.substring(0, 10)}
+
+          <div className="showLikes mt-3 flex flex-row gap-1 items-center">
+            <div className="flex itesm-center flex-row ">
+              <div>
+                <StatusItem size={"smallest"} profilePic={profilePic} />
+              </div>
+              <div className="ml-[-8px]">
+                <StatusItem size={"smallest"} profilePic={profilePic} />
+              </div>
+            </div>
+            <p className="text-xs flex flex-row gap-1">
+              <span>{likes}</span>
+              <span className="font-semibold">likes</span>
+            </p>
+          </div>
+          <div className="cntent-description">
+            <details>
+              <summary>
+                <span className="font-salsa">
+                  {username} {description && description.substring(0, 10)}
+                </span>
+                {description && description.length > 10 && (
+                  <span className="font-semibold"> more...</span>
+                )}
+              </summary>
+              <span className="font-sans font-normal text-sm">
+                {description}
               </span>
-              {description && description.length > 10 && (
-                <span className="font-semibold"> more...</span>
-              )}
-            </summary>
-            <span className="font-sans font-normal text-sm">{description}</span>
-          </details>
-        </div>
-        <div className="view_comments">
-          <CommentModal
-            isOpen={isModalOpen}
-            onClose={closeModal}
-            comments={comments}
-            post={{
-              image: contentUrl,
-              username: username,
-              description: description,
-              postId: postId,
-            }}
-          />
-          {comments.length > 0 && (
-            <button onClick={openModal} className="pt-4 font-thin">
-              View all {numComments} comments
-            </button>
-          )}
-        </div>
-        <div className="comment_post">
-          <form
-            method="POST"
-            onSubmit={handleSubmit(handleComment)}
-            className="flex mb-2 flex-row justify-between"
-          >
-            {isPending ? (
-              <p className="text-center text-xs mx-[auto] my-0">Adding...</p>
-            ) : (
-              <input
-                type="text"
-                className="bg-transparent mt-2 font-thin focus:outline-none"
-                placeholder="Add a comment"
-                {...register("comment")}
-              />
+            </details>
+          </div>
+          <div className="view_comments">
+            <CommentModal
+              isOpen={isModalOpen}
+              onClose={closeModal}
+              comments={comments}
+              post={{
+                image: contentUrl,
+                username: username,
+                description: description,
+                postId: postId,
+              }}
+            />
+            {comments.length > 0 && (
+              <button onClick={openModal} className="pt-4 font-thin">
+                View all {numComments} comments
+              </button>
             )}
-            <button type="submit" className="text-blue-500">
-              post
-            </button>
-          </form>
+          </div>
+          <div className="comment_post">
+            <form
+              method="POST"
+              onSubmit={handleSubmit(handleComment)}
+              className="flex mb-2 flex-row justify-between"
+            >
+              {isPending ? (
+                <p className="text-center text-xs mx-[auto] my-0">Adding...</p>
+              ) : (
+                <input
+                  type="text"
+                  className="bg-transparent mt-2 font-thin focus:outline-none"
+                  placeholder="Add a comment"
+                  {...register("comment")}
+                />
+              )}
+              <button type="submit" className="text-blue-500">
+                post
+              </button>
+            </form>
+          </div>
         </div>
       </div>
 

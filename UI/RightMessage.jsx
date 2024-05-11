@@ -4,6 +4,8 @@ import { useState, useRef, useEffect } from "react";
 import { IoImageOutline } from "react-icons/io5";
 import { useParams } from "react-router-dom";
 import { io } from "socket.io-client";
+import { FaPhone as Phone, FaVideo as Video } from "react-icons/fa";
+import ReactPlayer from "react-player";
 
 import { getUserById } from "../services/getUserByUSerId";
 import { getMessage } from "../services/getMessages";
@@ -23,6 +25,8 @@ export default function RightMessage() {
   const [enteredMessage, setEnteredMessage] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [userMessages, setUserMessages] = useState([]);
+  const [videoStream, setVideoStream] = useState(null);
+  const [videoModel, setVideoModel] = useState(false);
   const [roomId, setRoomId] = useState(null);
   const { messageId } = useParams();
 
@@ -154,6 +158,34 @@ export default function RightMessage() {
     setEnteredMessage("");
   };
 
+  const videoCallClicked = async () => {
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: true,
+      audio: true,
+    });
+    setVideoStream(stream);
+    console.log(videoStream);
+    setVideoModel(true);
+    makeCall();
+  };
+
+  const makeCall = async () => {
+    const peer = new RTCPeerConnection({
+      iceServers: [
+        {
+          urls: [
+            "stun:stun.l.google.com:19302",
+            "stun:global.stun.twilio.com:3478",
+          ],
+        },
+      ],
+    });
+
+    const offer = await peer.createOffer();
+    await peer.setLocalDescription(offer);
+    socket.emit("video-call", { roomId, offer });
+  };
+
   if (messageLoading || isLoading || loggedUSerLoading) {
     return (
       <div className="flex flex-col">
@@ -184,15 +216,27 @@ export default function RightMessage() {
 
   return (
     <div className="flex flex-col">
-      <div className="h-[10vh] border-b-[1px] border-gray-200 px-2 py-1 flex items-center gap-3">
-        <div className=" w-[3rem] h-[3rem] rounded-full">
-          <img
-            className="h-[100%] w-[100%] rounded-full"
-            src={data.user.profilePic}
-            alt={data.user.username}
-          />
+      <div className="h-[10vh] border-b-[1px] border-gray-200 px-4 py-1 flex flex-row justify-between ">
+        <div className="flex items-center gap-3">
+          <div className=" w-[3rem] h-[3rem] rounded-full">
+            <img
+              className="h-[100%] w-[100%] rounded-full"
+              src={data.user.profilePic}
+              alt={data.user.username}
+            />
+          </div>
+          <h2 className="text-white">{data.user.username}</h2>
         </div>
-        <h2 className="text-white">{data.user.username}</h2>
+
+        <div className="flex flex-row gap-3 items-center ">
+          <div className="text-xl cursor-pointer">
+            <Phone />
+          </div>
+
+          <div className="text-xl cursor-pointer" onClick={videoCallClicked}>
+            <Video />
+          </div>
+        </div>
       </div>
       <div className="h-[80vh] px-[2rem] no-scrollbar py-1 overflow-y-auto ">
         <div className="flex flex-col gap-[1rem] justify-end">
@@ -247,6 +291,18 @@ export default function RightMessage() {
       </div>
       <Modal isOpen={modelOpen} onClose={() => setModalOpen(false)}>
         <ShowMessageImagePreview userId={messageId} file={selectedFile} />
+      </Modal>
+
+      <Modal
+        isOpen={videoModel}
+        onClose={() => {
+          setVideoModel(false);
+          setVideoStream(null);
+        }}
+      >
+        <div>
+          <ReactPlayer url={videoStream} playing />
+        </div>
       </Modal>
     </div>
   );

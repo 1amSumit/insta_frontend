@@ -3,16 +3,16 @@ import "react-loading-skeleton/dist/skeleton.css";
 
 const FeedLoading = () => {
   return (
-    <div className="border-b-2 border-slate-200">
+    <div className="border-b-2 border-slate-800">
       <div className="username flex flex-row justify-between mb-2">
         <div className="flex flex-row gap-1 items-center">
-          <Skeleton width={30} height={30} />
-          <Skeleton width={100} />
+          {/* <Skeleton width={30} height={30} />
+          <Skeleton width={100} /> */}
         </div>
         <div>
-          <button>
+          {/* <button>
             <Skeleton width={30} height={30} />
-          </button>
+          </button> */}
         </div>
       </div>
       <div className="content relative py-4 flex justify-center">
@@ -24,7 +24,7 @@ const FeedLoading = () => {
         </div>
       </div>
       <div className="reaction">
-        <div className="flex justify-between flex-row">
+        {/* <div className="flex justify-between flex-row">
           <div className="like flex flex-row gap-4 text-3xl">
             <Skeleton width={30} height={30} />
             <Skeleton width={30} height={30} />
@@ -33,17 +33,16 @@ const FeedLoading = () => {
           <div className="text-3xl">
             <Skeleton width={30} height={30} />
           </div>
-        </div>
+        </div> */}
 
         <div className="showLikes mt-3 flex flex-row gap-1 items-center">
-          <div className="flex itesm-center flex-row ">
-            <Skeleton width={30} height={30} />
-            <Skeleton width={30} height={30} />
+          <div className="flex  flex-col gap-4 ">
+            <Skeleton width={200} />
+            <Skeleton width={200} />
+            {/* <Skeleton width={30} height={30} /> */}
           </div>
           <p className="text-xs flex flex-row gap-1">
-            <span>
-              <Skeleton width={30} />
-            </span>
+            <span>{/* <Skeleton width={200} /> */}</span>
             <span className="font-semibold"></span>
           </p>
         </div>
@@ -51,20 +50,20 @@ const FeedLoading = () => {
           <details>
             <summary>
               <span className="font-salsa">
-                <Skeleton width={100} />
+                {/* <Skeleton width={100} /> */}
               </span>
               <span className="font-semibold"></span>
             </summary>
-            <span className="font-sans font-normal text-sm">
+            {/* <span className="font-sans font-normal text-sm">
               <Skeleton count={3} />
-            </span>
+            </span> */}
           </details>
         </div>
-        <div className="view_comments">
+        {/* <div className="view_comments">
           <button className="pt-4 font-thin">
             <Skeleton width={60} />
           </button>
-        </div>
+        </div> */}
         <div className="comment_post">
           <form method="POST" className="flex mb-2 flex-row justify-between">
             <input
