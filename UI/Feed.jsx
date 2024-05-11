@@ -154,7 +154,7 @@ export default function Feed({
           {isImage ? (
             <img
               src={contentUrl}
-              className=" w-[50%] aspect-[4/5] rounded-md"
+              className=" md:w-[50%] w-full aspect-[4/5] rounded-md"
               alt="feed image"
             />
           ) : (
